@@ -24,8 +24,8 @@ Plugin 'VundleVim/Vundle.vim'
 " Web development toolkit
 Plugin 'mattn/emmet-vim'
 
-" Indentation for mixed php and html file.
-" Plugin 'captbaritone/better-indent-support-for-php-with-html'
+" NERDtree
+Plugin 'scrooloose/nerdtree'
 
 " Sublime minimlist theme
 Plugin 'dikiaap/minimalist'
@@ -45,10 +45,8 @@ set t_Co=256
 syntax on
 colorscheme minimalist
 
-""" Set netrw
-"let g:netrw_banner = 0
-let g:netrw_winsize = 20
-let g:netrw_liststyle = 3
+""" Toggle NERDTree
+map <C-n> :NERDTreeToggle<CR>
 
 
 """ let vim-blade.git recognize the customized directives
