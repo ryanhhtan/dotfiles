@@ -28,10 +28,16 @@ Plugin 'mattn/emmet-vim'
 Plugin 'scrooloose/nerdtree'
 
 " Sublime minimlist theme
-Plugin 'dikiaap/minimalist'
+Plugin 'rafi/awesome-vim-colorschemes'
 
 " Laravel blade syntax highlight
 Plugin 'jwalton512/vim-blade.git'
+
+"polyglot -multiple programming languages support
+Plugin 'sheerun/vim-polyglot'
+
+"javascript-vim
+Plugin 'pangloss/vim-javascript'
 
 
 call vundle#end()                   " required
@@ -41,9 +47,16 @@ filetype plugin indent on           " required
 """ Set color theme
 syntax on
 "color molokai
+"set t_Co=256
+set background=dark
+set term=xterm
 set t_Co=256
+let &t_AB="\e[48;5;%dm"
+let &t_AF="\e[38;5;%dm"
 syntax on
-colorscheme minimalist
+"colorscheme minimalist
+"colorscheme dracula 
+colorscheme molokai
 
 """ Toggle NERDTree
 map <C-n> :NERDTreeToggle<CR>
