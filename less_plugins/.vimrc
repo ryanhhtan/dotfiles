@@ -8,7 +8,8 @@ set autoindent
 set path+=**                        " search files recursively
 set wildmenu                         
 
-set nu
+set number
+set relativenumber
 
 
 """ vundle: install plugins support <8.0
@@ -58,8 +59,6 @@ syntax on
 "colorscheme dracula 
 colorscheme molokai
 
-""" Toggle NERDTree
-map <C-n> :NERDTreeToggle<CR>
 
 
 """ let vim-blade.git recognize the customized directives
@@ -73,4 +72,19 @@ let g:blade_custom_directives_pairs = {
       \ }
 
 """ Use ctags
-command! Tags !ctags -R .
+command! MakeTags !ctags -R .
+
+
+""" Key mapping
+" set mapleader key
+let mapleader=","
+
+" Toggle NERDTree
+map <C-n> :NERDTreeToggle<CR>
+
+" shortcut to edit .vimrc
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
+" apply the .vimrc
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
