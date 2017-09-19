@@ -74,6 +74,8 @@ let g:blade_custom_directives_pairs = {
 """ Use ctags
 command! MakeTags !ctags -R .
 
+""" Take hyphen as part of a word
+set iskeyword+=-
 
 """ Key mapping
 " set mapleader key
@@ -88,3 +90,9 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " apply the .vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
+
+"""General auto-completion 
+nnoremap <leader>" bi"<esc>ea"
+nnoremap <leader>' bi'<esc>ea'
+inoremap {{ {{}}<esc>hi
+inoremap {!! {!!!!}<esc>2hi
