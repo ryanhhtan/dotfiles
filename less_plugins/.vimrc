@@ -11,6 +11,9 @@ set wildmenu
 set number
 set relativenumber
 
+inoremap jk <esc>                   
+inoremap <esc> <nop>
+
 
 """ vundle: install plugins support <8.0
 set nocompatible                    " be iMproved, required
@@ -96,3 +99,5 @@ nnoremap <leader>" bi"<esc>ea"
 nnoremap <leader>' bi'<esc>ea'
 inoremap {{ {{}}<esc>hi
 inoremap {!! {!!!!}<esc>2hi
+inoremap ( ()<esc>i
+
