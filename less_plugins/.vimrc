@@ -99,5 +99,4 @@ nnoremap <leader>" bi"<esc>ea"
 nnoremap <leader>' bi'<esc>ea'
 inoremap {{ {{}}<esc>hi
 inoremap {!! {!!!!}<esc>2hi
-inoremap ( ()<esc>i
 
