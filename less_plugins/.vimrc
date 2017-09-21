@@ -11,8 +11,6 @@ set wildmenu
 set number
 set relativenumber
 
-inoremap jk <esc>                   
-inoremap <esc> <nop>
 
 
 """ vundle: install plugins support <8.0
@@ -99,4 +97,8 @@ nnoremap <leader>" bi"<esc>ea"
 nnoremap <leader>' bi'<esc>ea'
 inoremap {{ {{}}<esc>hi
 inoremap {!! {!!!!}<esc>2hi
+
+"""remap esc with jk. NO ANY CHARACTER SHOULB BE PUT AFTER <ESC>
+inoremap jk <esc>
+inoremap <esc> <nop>
 
