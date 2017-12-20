@@ -11,62 +11,20 @@ set wildmenu
 set number
 set relativenumber
 set ruler
-
-
-
-""" vundle: install plugins support <8.0
-set nocompatible                    " be iMproved, required
-filetype off                        " required
-set rtp+=~/.vim/bundle/Vundle.vim   " set the runtime path to include Vundle and initialize
-call vundle#begin()
-
-"" add more needed plugins here
-" Plugin manager
-Plugin 'VundleVim/Vundle.vim'
-
-" Web development toolkit
-Plugin 'mattn/emmet-vim'
-
-" NERDtree
-Plugin 'scrooloose/nerdtree'
-
-" Sublime minimlist theme
-Plugin 'rafi/awesome-vim-colorschemes'
-
-" Laravel blade syntax highlight
-Plugin 'jwalton512/vim-blade.git'
-
-"polyglot -multiple programming languages support
-Plugin 'sheerun/vim-polyglot'
-
-"javascript-vim
-Plugin 'pangloss/vim-javascript'
-
-"match-tag-always
-Plugin 'Valloric/MatchTagAlways'
-
-"insert incresing number in multiple line 
-Plugin 'vim-scripts/VisIncr'
-
-"yaml format
-Plugin 'shmay/vim-yaml'
-
-call vundle#end()                   " required
 filetype plugin indent on           " required
 
 
 """ Set color theme
 syntax on
-"color molokai
-"set t_Co=256
 set background=dark
-set term=xterm
-set t_Co=256
-let &t_AB="\e[48;5;%dm"
-let &t_AF="\e[38;5;%dm"
 syntax on
-"colorscheme minimalist
-"colorscheme dracula 
+"colorscheme 
+"if !has("gui_running")
+"    set term=xterm
+"    set t_Co=256
+"    let &t_AB="\e[48;5;%dm"
+"    let &t_AF="\e[38;5;%dm"
+"endif
 colorscheme molokai
 
 
