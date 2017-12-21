@@ -10,7 +10,7 @@
 function set_group () {
   package_group=$1
   path="$HOME/.vim/pack/$package_group/start"
-  mkdir -p "$path"
+  [[ ! -d "$path" ]] && mkdir -p "$path"
   cd "$path" || exit
 }
 # Clone or update a git repo in the current directory.
