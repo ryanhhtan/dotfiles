@@ -1,4 +1,5 @@
 """ General settings
+set nocompatible
 set expandtab
 set shiftwidth=4
 set softtabstop=4
@@ -11,8 +12,9 @@ set wildmenu
 set number
 set relativenumber
 set ruler
-filetype plugin indent on           " required
-
+filetype plugin indent on
+set omnifunc=syntaxcomplete#Complete
+packadd! matchit
 
 """ Set color theme
 syntax on
@@ -27,7 +29,7 @@ syntax on
 "endif
 colorscheme molokai
 
-
+let g:clang_cpp_options = '-std=c++11 -stdlib=libc++'
 
 """ let vim-blade.git recognize the customized directives
 " Define some single Blade directives. This variable is used for highlighting only.
@@ -92,11 +94,22 @@ inoremap <BS> <nop>
 augroup filetype_php
     autocmd!
     autocmd FileType php nnoremap <buffer> <localleader>c I// <esc>
+    autocmd FileType php setlocal shiftwidth=2 tabstop=2
+augroup END
+
+augroup filetype_html
+    autocmd!
+    autocmd FileType html setlocal shiftwidth=2 tabstop=2
+augroup END
+augroup filetype_json
+    autocmd!
+    autocmd FileType json setlocal shiftwidth=2 tabstop=2
 augroup END
 
 augroup filetype_javascript
     autocmd!
     autocmd FileType javascript nnoremap <buffer> <localleader>c I// <esc>
+    autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 augroup END
 
 augroup filetype_python

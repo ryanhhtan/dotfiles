@@ -41,11 +41,13 @@ function package () {
 set_group enhancement
 package scrooloose/nerdtree 
 package vim-scripts/VisIncr 
+package mattn/emmet-vim
 wait
 ) &
 (
 set_group languagesupport 
 package sheerun/vim-polyglot
+package justmao945/vim-clang
 wait
 ) &
 (
