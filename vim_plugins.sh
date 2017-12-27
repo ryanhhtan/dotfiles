@@ -42,12 +42,17 @@ set_group enhancement
 package scrooloose/nerdtree 
 package vim-scripts/VisIncr 
 package mattn/emmet-vim
+package vim-scripts/OmniCppComplete
+#package roxma/nvim-yarp
+#package roxma/vim-hug-neovim-rpc
+#package Shougo/deoplete.nvim
 wait
 ) &
 (
 set_group languagesupport 
 package sheerun/vim-polyglot
-package justmao945/vim-clang
+#package justmao945/vim-clang
+package vim-syntastic/syntastic
 wait
 ) &
 (
