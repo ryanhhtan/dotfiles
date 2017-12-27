@@ -42,7 +42,8 @@ set_group enhancement
 package scrooloose/nerdtree 
 package vim-scripts/VisIncr 
 package mattn/emmet-vim
-package vim-scripts/OmniCppComplete
+package Rip-Rip/clang_complete
+#package vim-scripts/OmniCppComplete
 #package roxma/nvim-yarp
 #package roxma/vim-hug-neovim-rpc
 #package Shougo/deoplete.nvim
