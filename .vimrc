@@ -29,7 +29,7 @@ syntax on
 "endif
 colorscheme molokai
 
-let g:clang_cpp_options = '-std=c++11'
+"let g:clang_cpp_options = '-std=c++11'
 
 """ let vim-blade.git recognize the customized directives
 " Define some single Blade directives. This variable is used for highlighting only.
@@ -135,8 +135,9 @@ function! TwiddleCase(str)
 endfunction
 vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 
-au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set completefunc=ClangComplete
-let g:clang_library_path='/usr/lib/llvm-3.8/lib/libclang-3.8.so.1'
+"au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set completefunc=ClangComplete
+"let g:clang_library_path='/mingw64/bin/clang.dll'
+"let g:clang_user_options="-std=c++11"
 
 """ cpp autocomplete
 "au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
