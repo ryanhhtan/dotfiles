@@ -41,8 +41,10 @@ function package () {
 set_group enhancement
 package scrooloose/nerdtree 
 package vim-scripts/VisIncr 
+package Valloric/YouCompleteMe
 package mattn/emmet-vim
-package justmao945/vim-clang
+#package justmao945/vim-clang
+package ternjs/tern_for_vim
 #package Rip-Rip/clang_complete
 #package vim-scripts/OmniCppComplete
 #package roxma/nvim-yarp
@@ -54,6 +56,7 @@ wait
 set_group languagesupport 
 package sheerun/vim-polyglot
 package vim-syntastic/syntastic
+package leafgarland/typescript-vim 
 wait
 ) &
 (
