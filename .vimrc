@@ -111,6 +111,11 @@ augroup filetype_javascript
     autocmd FileType javascript nnoremap <buffer> <localleader>c I// <esc>
     autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 augroup END
+augroup filetype_typescript
+    autocmd!
+    autocmd FileType typescript nnoremap <buffer> <localleader>c I// <esc>
+    autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
+augroup END
 
 augroup filetype_python
     autocmd!
@@ -162,3 +167,5 @@ vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 " automatically open and close the popup menu / preview window
 "au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
 "set completeopt=menuone,menu,longest,preview
+"
+let g:ycm_server_python_interpreter = '/d/dev/Python/Python36/python.exe'
