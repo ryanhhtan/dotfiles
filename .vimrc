@@ -82,8 +82,9 @@ vnoremap <localleader>s y:%s/<C-r>0/<C-r>r/g<Left><Left>
 """General auto-completion 
 nnoremap <leader>" bi"<esc>ea"
 nnoremap <leader>' bi'<esc>ea'
-inoremap {{ {{}}<esc>hi
-inoremap {!! {!!!!}<esc>2hi
+inoremap {{ {{  }}<esc>2hi
+inoremap {% {%  %}<esc>2hi
+inoremap {!! {!!  !!}<esc>3hi
 
 """remap esc with jk. NO ANY CHARACTER SHOULB BE PUT AFTER <ESC>
 inoremap jk <esc>
@@ -94,7 +95,7 @@ inoremap <BS> <nop>
 augroup filetype_php
     autocmd!
     autocmd FileType php nnoremap <buffer> <localleader>c I// <esc>
-    autocmd FileType php setlocal shiftwidth=2 tabstop=2
+    autocmd FileType php setlocal shiftwidth=4 tabstop=4
 augroup END
 
 augroup filetype_html
@@ -109,12 +110,12 @@ augroup END
 augroup filetype_javascript
     autocmd!
     autocmd FileType javascript nnoremap <buffer> <localleader>c I// <esc>
-    autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+    autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
 augroup END
 augroup filetype_typescript
     autocmd!
     autocmd FileType typescript nnoremap <buffer> <localleader>c I// <esc>
-    autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
+    autocmd FileType typescript setlocal shiftwidth=4 tabstop=4
 augroup END
 
 augroup filetype_python
@@ -169,3 +170,12 @@ vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 "set completeopt=menuone,menu,longest,preview
 "
 let g:ycm_server_python_interpreter = '/d/dev/Python/Python36/python.exe'
+let g:ycm_python_binary_path = 'python' 
+let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
+let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+let g:ycm_complete_in_comments = 1 " Completion in comments
+let g:ycm_complete_in_strings = 1 " Completion in string
+let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
+
+au FileType html set filetype=htmldjango
