@@ -1,6 +1,14 @@
+"
 """ Plugin manager
-" Plugins will be downloaded under the specified directory.
- call plug#begin('~/.vim/plugged')
+" Install the plugin manager itself 
+if empty(glob('~/.vim/autoload/plug.vim'))
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Install plugins
+call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
  Plug 'Valloric/YouCompleteMe'
