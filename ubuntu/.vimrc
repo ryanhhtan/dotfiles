@@ -1,3 +1,19 @@
+""" Plugin manager
+" Plugins will be downloaded under the specified directory.
+ call plug#begin('~/.vim/plugged')
+
+" Declare the list of plugins.
+ Plug 'Valloric/YouCompleteMe'
+ Plug 'scrooloose/nerdtree'
+ Plug 'mattn/emmet-vim'
+ Plug 'vim-scripts/VisIncr'
+ Plug 'sheerun/vim-polyglot'
+ Plug 'tomasr/molokai'
+
+" List ends here. Plugins become visible to Vim after this call.
+call plug#end()
+
+
 """ General settings
 set nocompatible
 set expandtab
@@ -13,11 +29,8 @@ set number
 set relativenumber
 set ruler
 filetype plugin indent on
-set omnifunc=syntaxcomplete#Complete
-packadd! matchit
 
 """ Set color theme
-syntax on
 set background=dark
 syntax on
 "colorscheme 
@@ -28,18 +41,6 @@ syntax on
 "    let &t_AF="\e[38;5;%dm"
 "endif
 colorscheme molokai
-
-"let g:clang_cpp_options = '-std=c++11'
-
-""" let vim-blade.git recognize the customized directives
-" Define some single Blade directives. This variable is used for highlighting only.
-let g:blade_custom_directives = ['datetime', 'javascript']
-
-" Define pairs of Blade directives. This variable is used for highlighting and indentation.
-let g:blade_custom_directives_pairs = {
-            \   'markdown': 'endmarkdown',
-            \   'cache': 'endcache',
-            \ }
 
 """ configure file type using alwaysmatchtag
 let g:mta_filetypes = {
@@ -95,27 +96,27 @@ inoremap <BS> <nop>
 augroup filetype_php
     autocmd!
     autocmd FileType php nnoremap <buffer> <localleader>c I// <esc>
-    autocmd FileType php setlocal shiftwidth=4 tabstop=4
+"    autocmd FileType php setlocal shiftwidth=4 tabstop=4
 augroup END
 
 augroup filetype_html
     autocmd!
-    autocmd FileType html setlocal shiftwidth=2 tabstop=2
+"    autocmd FileType html setlocal shiftwidth=2 tabstop=2
 augroup END
 augroup filetype_json
     autocmd!
-    autocmd FileType json setlocal shiftwidth=2 tabstop=2
+"    autocmd FileType json setlocal shiftwidth=2 tabstop=2
 augroup END
 
 augroup filetype_javascript
     autocmd!
     autocmd FileType javascript nnoremap <buffer> <localleader>c I// <esc>
-    autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
+"    autocmd FileType javascript setlocal shiftwidth=4 tabstop=4
 augroup END
 augroup filetype_typescript
     autocmd!
     autocmd FileType typescript nnoremap <buffer> <localleader>c I// <esc>
-    autocmd FileType typescript setlocal shiftwidth=4 tabstop=4
+"    autocmd FileType typescript setlocal shiftwidth=4 tabstop=4
 augroup END
 
 augroup filetype_python
@@ -141,36 +142,10 @@ function! TwiddleCase(str)
 endfunction
 vnoremap ~ y:call setreg('', TwiddleCase(@"), getregtype(''))<CR>gv""Pgv
 
-"au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set completefunc=ClangComplete
-"let g:clang_library_path='/mingw64/bin/clang.dll'
-"let g:clang_user_options="-std=c++11"
-
-""" cpp autocomplete
-"au BufNewFile,BufRead,BufEnter *.cpp,*.hpp set omnifunc=omni#cpp#complete#Main
-
-" configure tags - add additional tags here or comment out not-used ones
-"set tags+=~/.vim/tags/cpp
-"set tags+=~/.vim/tags/gl
-"set tags+=~/.vim/tags/sdl
-"set tags+=~/.vim/tags/qt4
-" build tags of your own project with Ctrl-F12
-"map <C-F12> :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-
-" OmniCppComplete
-"let OmniCpp_NamespaceSearch = 1
-"let OmniCpp_GlobalScopeSearch = 1
-"let OmniCpp_ShowAccess = 1
-"let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
-"let OmniCpp_MayCompleteDot = 1 " autocomplete after .
-"let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
-"let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
-"let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
-" automatically open and close the popup menu / preview window
-"au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-"set completeopt=menuone,menu,longest,preview
-"
+""" Needed for msys2
 "let g:ycm_server_python_interpreter = '/d/dev/Python/Python36/python.exe'
 "let g:ycm_python_binary_path = 'python' 
+
 let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
 let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
 let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
