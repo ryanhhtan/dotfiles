@@ -1,5 +1,5 @@
 # vimsettings
-2. cp vim_plugins.sh into ~/
-3. chmod if needed
-4. run bash vim_plugins.sh
 
+1. copy .vimrc to the ~/ 
+2. Run "vim +PlugInstall +qall"
+3. Run installing for specific plugins(s). e.g: YouCompleteMe. 
