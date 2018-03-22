@@ -12,7 +12,9 @@ call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
  Plug 'Valloric/YouCompleteMe'
+ Plug 'valloric/matchtagalways'
  Plug 'scrooloose/nerdtree'
+ Plug 'jistr/vim-nerdtree-tabs'
  Plug 'mattn/emmet-vim'
  Plug 'vim-scripts/VisIncr'
  Plug 'sheerun/vim-polyglot'
