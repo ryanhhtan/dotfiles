@@ -164,3 +164,5 @@ let g:ycm_complete_in_strings = 1 " Completion in string
 let g:ycm_global_ycm_extra_conf = '~/.ycm_extra_conf.py'
 
 au FileType html set filetype=htmldjango
+
+let g:nerdtree_tabs_open_on_console_startup=1
