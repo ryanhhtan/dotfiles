@@ -25,6 +25,7 @@ call plug#begin('~/.vim/plugged')
  Plug 'vimwiki/vimwiki'
  Plug 'rking/ag.vim'
  Plug 'christoomey/vim-tmux-navigator'
+ Plug 'tpope/vim-commentary'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
