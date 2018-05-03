@@ -12,6 +12,7 @@ call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
  Plug 'scrooloose/nerdtree'
+ Plug 'Xuyuanp/nerdtree-git-plugin'
  Plug 'valloric/matchtagalways'
  Plug 'mattn/emmet-vim'
  Plug 'vim-scripts/VisIncr'
@@ -27,6 +28,7 @@ call plug#begin('~/.vim/plugged')
  Plug 'christoomey/vim-tmux-navigator'
  Plug 'tpope/vim-commentary'
  Plug 'mattn/calendar-vim'
+ Plug 'tpope/vim-fugitive'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -58,6 +60,19 @@ nnoremap <silent> <c-p> :TmuxNavigatePrevious<cr>
 " Vimwiki 
 let g:vimwiki_list = [{'path': '/d/OneDrive/mywiki/',
             \ 'syntax': 'markdown', 'ext': '.md'}]
+" Nedtree 
+
+augroup nerdtree
+"" No duplicated autocmd
+autocmd!
+"" Open Nedtree automatically when starting up
+autocmd vimenter * NERDTree
+"" Open a NERDTree automatically when vim starts up if no files were specified
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"" close vim if the only window left open is a NERDTree 
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+augroup END
 " }}}
 
 " Colors & Theme {{{
@@ -124,13 +139,35 @@ augroup filetype_typescript
     autocmd FileType typescript nnoremap <buffer> <localleader>c I// <esc>
     autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
 augroup END
+augroup filetype_vimwiki
+    autocmd!
+    autocmd FileType vimwiki set spell
+augroup END
+
+" }}} 
+
+" Statusline {{{ 
+set statusline=
+set statusline+=\ %{fugitive#statusline()}
+set statusline+=\ \| 
+set statusline+=\ File:
+set statusline+=\ %f
+set statusline+=\ \| 
+set statusline+=\ Line: 
+set statusline+=%4l    " Current line
+set statusline+=/    " Separator
+set statusline+=%4L   " Total lines
 " }}} 
 
 " Misc {{{
 set number
 set relativenumber
 set ruler
+set spellfile=/d/OneDrive/vim_spell/en.utf-8.add
 filetype plugin indent on
+"" Always show status line, disable with value of 0 
+set laststatus=2
+
 " }}}
 
 set modelines=1
