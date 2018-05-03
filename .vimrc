@@ -26,6 +26,7 @@ call plug#begin('~/.vim/plugged')
  Plug 'rking/ag.vim'
  Plug 'christoomey/vim-tmux-navigator'
  Plug 'tpope/vim-commentary'
+ Plug 'mattn/calendar-vim'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -49,11 +50,11 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
 " Vim Tmux Navigator
 let g:tmux_navigator_no_mappings = 1
-nnoremap <silent> {Left-Mapping} :TmuxNavigateLeft<cr>
-nnoremap <silent> {Down-Mapping} :TmuxNavigateDown<cr>
-nnoremap <silent> {Up-Mapping} :TmuxNavigateUp<cr>
-nnoremap <silent> {Right-Mapping} :TmuxNavigateRight<cr>
-nnoremap <silent> {Previous-Mapping} :TmuxNavigatePrevious<cr>
+nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <c-p> :TmuxNavigatePrevious<cr>
 " Vimwiki 
 let g:vimwiki_list = [{'path': '/d/OneDrive/mywiki/',
             \ 'syntax': 'markdown', 'ext': '.md'}]
