@@ -13,22 +13,24 @@ call plug#begin('~/.vim/plugged')
 " Declare the list of plugins.
  Plug 'scrooloose/nerdtree'
  Plug 'Xuyuanp/nerdtree-git-plugin'
- Plug 'valloric/matchtagalways'
+ Plug 'valloric/matchtagalways'              " Show the matching tag 
  Plug 'mattn/emmet-vim'
- Plug 'vim-scripts/VisIncr'
- Plug 'sheerun/vim-polyglot'
- Plug 'tomasr/molokai'
+ Plug 'vim-scripts/VisIncr'                  " Add numbers incresingly
+ Plug 'sheerun/vim-polyglot'                 " Collection of syntax and indentation
+ Plug 'tomasr/molokai'                       " Color theme  
  Plug 'SirVer/ultisnips'
  Plug 'honza/vim-snippets'
- Plug 'epilande/vim-react-snippets'
- Plug 'vim-syntastic/syntastic'
- Plug 'mtscout6/syntastic-local-eslint.vim'  "Use local estlint instead of global one
- Plug 'vimwiki/vimwiki'
+ Plug 'epilande/vim-react-snippets'           
+ Plug 'vim-syntastic/syntastic'              " Syntaxt checker 
+ Plug 'mtscout6/syntastic-local-eslint.vim'  " Use local estlint instead of global one
+ Plug 'vimwiki/vimwiki'                      " personal wiki management
  Plug 'rking/ag.vim'
  Plug 'christoomey/vim-tmux-navigator'
- Plug 'tpope/vim-commentary'
+ Plug 'tpope/vim-commentary'                 " Comment/uncomment code  
+ Plug 'tpope/vim-surround'                   " Change surrounding, e.g: quotation. 
+ Plug 'tpope/vim-fugitive'                   " Vim git integration
  Plug 'mattn/calendar-vim'
- Plug 'tpope/vim-fugitive'
+ Plug 'jparise/vim-graphql'                  " Hightline and indentation fro UraphQL 
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -42,9 +44,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
 " Syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -117,6 +116,15 @@ nnoremap <leader>' bi'<esc>ea'
 inoremap {{ {{  }}<esc>2hi
 inoremap {% {%  %}<esc>2hi
 inoremap {!! {!!  !!}<esc>3hi
+
+""Auto insert datetime surroundee with '_' 
+nnoremap <leader>dt :-1read !date<cr>i_<esc>$a_
+
+"" Tag a line as sction in vimwiki
+nnoremap <leader>ts 0d$i[<esc>pa](#<esc>pa)<esc>
+
+"" Input code block in vimwiki
+inoremap ``` ```<cr>```<esc>O
 " }}}
 
 " Augroups {{{ 
@@ -124,6 +132,7 @@ augroup filetype_html
     autocmd!
     autocmd FileType html setlocal shiftwidth=2 tabstop=2
 augroup END
+
 augroup filetype_json
     autocmd!
     autocmd FileType json setlocal shiftwidth=2 tabstop=2
@@ -134,29 +143,48 @@ augroup filetype_javascript
     autocmd FileType javascript nnoremap <buffer> <localleader>c I// <esc>
     autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 augroup END
+
 augroup filetype_typescript
     autocmd!
     autocmd FileType typescript nnoremap <buffer> <localleader>c I// <esc>
     autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
 augroup END
+
 augroup filetype_vimwiki
     autocmd!
-    autocmd FileType vimwiki set spell
+    autocmd FileType vimwiki setlocal spell spelllang=en_us
 augroup END
+
+augroup filetype_graphql
+    autocmd!
+    autocmd FileType graphql setlocal shiftwidth=2 tabstop=2
+augroup END
+
+augroup realtive_path_complete
+    autocmd!
+    autocmd InsertEnter * let save_cwd = getcwd() | set autochdir
+    autocmd InsertLeave * set noautochdir | execute 'cd' fnameescape(save_cwd)
+augroup END
+
 
 " }}} 
 
 " Statusline {{{ 
 set statusline=
+set statusline+=\ Branch:
 set statusline+=\ %{fugitive#statusline()}
-set statusline+=\ \| 
+set statusline+=\ \     
 set statusline+=\ File:
 set statusline+=\ %f
-set statusline+=\ \| 
+set statusline+=\ \  
 set statusline+=\ Line: 
-set statusline+=%4l    " Current line
+set statusline+=%l    " Current line
 set statusline+=/    " Separator
-set statusline+=%4L   " Total lines
+set statusline+=%L   " Total lines
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
 " }}} 
 
 " Misc {{{
