@@ -32,11 +32,27 @@ call plug#begin('~/.vim/plugged')
  Plug 'mattn/calendar-vim'
  Plug 'jparise/vim-graphql'                  " Hightline and indentation fro UraphQL 
 
+" Deoplete 
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'wokalski/autocomplete-flow'
+  " For func argument completion
+  Plug 'Shougo/neosnippet'
+  Plug 'Shougo/neosnippet-snippets'
+" vim-javacomplete2
+  Plug 'artur-shaik/vim-javacomplete2'
+
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 " }}}
 
 " Plugin Settings {{{  
+" Deplete
+let g:deoplete#enable_at_startup = 1
+"" Deplete with neosnippet
+let g:neosnippet#enable_completed_snippet = 1
+
 " UltiSnip
 let g:UltiSnipsExpandTrigger="<tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -49,6 +65,9 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_javascript_checkers = ['eslint']
+" Java
+let g:syntastic_java_checkers=['javac']
+let g:syntastic_java_javac_config_file_enabled = 1
 " Vim Tmux Navigator
 let g:tmux_navigator_no_mappings = 1
 nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
@@ -60,7 +79,6 @@ nnoremap <silent> <c-p> :TmuxNavigatePrevious<cr>
 let g:vimwiki_list = [{'path': '/d/OneDrive/mywiki/',
             \ 'syntax': 'markdown', 'ext': '.md'}]
 " Nedtree 
-
 augroup nerdtree
 "" No duplicated autocmd
 autocmd!
