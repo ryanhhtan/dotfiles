@@ -42,6 +42,8 @@ call plug#begin('~/.vim/plugged')
   Plug 'Shougo/neosnippet-snippets'
 " vim-javacomplete2
   Plug 'artur-shaik/vim-javacomplete2'
+" java auto import
+  Plug 'jvenant/vim-java-imports'
 
 " List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -139,7 +141,7 @@ inoremap {!! {!!  !!}<esc>3hi
 nnoremap <leader>dt :-1read !date<cr>i_<esc>$a_
 
 "" Tag a line as sction in vimwiki
-nnoremap <leader>ts 0d$i[<esc>pa](#<esc>pa)<esc>
+nnoremap <leader>ts 0d$i[<esc>pa](#<esc>pa)<esc>F]
 
 "" Input code block in vimwiki
 inoremap ``` ```<cr>```<esc>O
