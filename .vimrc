@@ -1,3 +1,17 @@
+" Custom Functions {{{
+""" Install YouCompleteMe with condition 
+function! BuildYCM(info)
+  " info is a dictionary with 3 fields
+  " - name:   name of the plugin
+  " - status: 'installed', 'updated', or 'unchanged'
+  " - force:  set on PlugInstall! or PlugUpdate!
+  if a:info.status == 'installed' || a:info.force
+    !./install.py
+  else  
+    ./install.py --java-completer --js-completer --clang-completer 
+  endif
+endfunction
+" }}}
 " Plugin Manager - Vim-Plug  {{{  
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Install the plugin manager itself 
@@ -6,6 +20,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
+
 
 " Install plugins
 call plug#begin('~/.vim/plugged')
@@ -21,7 +36,7 @@ call plug#begin('~/.vim/plugged')
  Plug 'SirVer/ultisnips'
  Plug 'honza/vim-snippets'
  Plug 'epilande/vim-react-snippets'           
- Plug 'vim-syntastic/syntastic'              " Syntaxt checker 
+ "Plug 'vim-syntastic/syntastic'              " Syntaxt checker 
  Plug 'mtscout6/syntastic-local-eslint.vim'  " Use local estlint instead of global one
  Plug 'vimwiki/vimwiki'                      " personal wiki management
  Plug 'rking/ag.vim'
@@ -32,46 +47,55 @@ call plug#begin('~/.vim/plugged')
  Plug 'mattn/calendar-vim'
  Plug 'jparise/vim-graphql'                  " Hightline and indentation fro UraphQL 
 
-" Deoplete 
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-  Plug 'Shougo/deoplete.nvim'
-  Plug 'wokalski/autocomplete-flow'
-  " For func argument completion
-  Plug 'Shougo/neosnippet'
-  Plug 'Shougo/neosnippet-snippets'
+" Deoplete - auto completion plugin
+" Plug 'roxma/nvim-yarp'
+" Plug 'roxma/vim-hug-neovim-rpc'
+" Plug 'Shougo/deoplete.nvim'
+" Plug 'wokalski/autocomplete-flow'
+" For func argument completion
+" Plug 'Shougo/neosnippet'
+" Plug 'Shougo/neosnippet-snippets'
 " vim-javacomplete2
-  Plug 'artur-shaik/vim-javacomplete2'
-" java auto import
-  Plug 'jvenant/vim-java-imports'
+ "Plug 'artur-shaik/vim-javacomplete2'
+" TypeScript TSServer
+ "Plug 'Quramy/tsuquyomi'
 
-" List ends here. Plugins become visible to Vim after this call.
+ " YouCompleteMe  
+ Plug 'valloric/youcompleteme', {'do': function('BuildYCM')  }
+
+"Plugin List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 " }}}
-
 " Plugin Settings {{{  
 " Deplete
-let g:deoplete#enable_at_startup = 1
+"let g:deoplete#enable_at_startup = 1
 "" Deplete with neosnippet
-let g:neosnippet#enable_completed_snippet = 1
+"let g:neosnippet#enable_completed_snippet = 1
 
 " UltiSnip
 let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsListSnippets="<c-tab>"
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
 let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
 " Syntastic
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-let g:syntastic_javascript_checkers = ['eslint']
-" Java
-let g:syntastic_java_checkers=['javac']
-let g:syntastic_java_javac_config_file_enabled = 1
-" Vim Tmux Navigator
+" let g:syntastic_always_populate_loc_list = 1
+" let g:syntastic_auto_loc_list = 1
+" let g:syntastic_check_on_open = 1
+" let g:syntastic_check_on_wq = 0
+" let g:syntastic_javascript_checkers = ['eslint']
+"" Java
+"let g:syntastic_java_checkers=['javac']
+" let g:syntastic_java_checkers=[]
+"let g:syntastic_java_javac_config_file_enabled = 1
+"" Vim Tmux Navigator
 let g:tmux_navigator_no_mappings = 1
+"" YouCopleteMe
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+nnoremap <leader>f :YcmCompleter FixIt<cr>
+
 nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
@@ -93,12 +117,10 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
 " }}}
-
 " Colors & Theme {{{
 syntax on
 colorscheme molokai
 " }}}
-
 " Tabs & Spaces {{{ 
 set nocompatible
 set expandtab                      	"convert tab to spaces
@@ -106,17 +128,14 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 " }}}
-
 " Folding {{{
 set foldenable
 set foldmethod=indent
 " }}}
-
 " File searching {{{
 set path+=**         			    " search files recursively
 set wildmenu                        " displays the matched files when fuzzy searching  
 " }}}
-
 " Key mappings {{{ 
 " replace ESC with 'jk'  
 inoremap jk <ESC>
@@ -146,7 +165,6 @@ nnoremap <leader>ts 0d$i[<esc>pa](#<esc>pa)<esc>F]
 "" Input code block in vimwiki
 inoremap ``` ```<cr>```<esc>O
 " }}}
-
 " Augroups {{{ 
 augroup filetype_html
     autocmd!
@@ -188,7 +206,6 @@ augroup END
 
 
 " }}} 
-
 " Statusline {{{ 
 set statusline=
 set statusline+=\ Branch:
@@ -203,10 +220,9 @@ set statusline+=/    " Separator
 set statusline+=%L   " Total lines
 " Syntastic
 set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 " }}} 
-
 " Misc {{{
 set number
 set relativenumber
