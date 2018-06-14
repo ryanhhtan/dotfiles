@@ -32,6 +32,10 @@ call plug#begin('~/.vim/plugged')
  Plug 'mattn/calendar-vim'
  Plug 'jparise/vim-graphql'                  " Hightline and indentation fro UraphQL 
 
+" vim-lsp
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+
 " Deoplete 
   Plug 'roxma/nvim-yarp'
   Plug 'roxma/vim-hug-neovim-rpc'
@@ -141,7 +145,7 @@ inoremap {!! {!!  !!}<esc>3hi
 nnoremap <leader>dt :-1read !date<cr>i_<esc>$a_
 
 "" Tag a line as sction in vimwiki
-nnoremap <leader>ts 0d$i[<esc>pi](#<esc>pi)<esc>F]
+nnoremap <leader>ts 0d$i[<esc>pa](#<esc>pa)<esc>F]
 
 "" Input code block in vimwiki
 inoremap ``` ```<cr>```<esc>O
@@ -206,6 +210,26 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 " }}} 
+"
+" LSP(Language Server Protocol) Settings "{{{" 
+if executable('pyls')
+  " pip install python-language-server
+  au User lsp_setup call lsp#register_server({
+     \ 'name': 'pyls',
+     \ 'cmd': {server_info->['pyls']},
+     \ 'whitelist': ['python'],
+     \ })
+endif
+
+if executable('typescript-language-server')
+  au User lsp_setup call lsp#register_server({
+     \ 'name': 'typescript-language-server',
+     \ 'cmd': {server_info->[&shell, &shellcmdflag, 'typescript-language-server --stdio']},
+     \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'tsconfig.json'))},
+     \ 'whitelist': ['typescript'],
+     \ })
+endif
+" }}}
 
 " Misc {{{
 set number
