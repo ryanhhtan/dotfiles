@@ -141,7 +141,7 @@ inoremap {!! {!!  !!}<esc>3hi
 nnoremap <leader>dt :-1read !date<cr>i_<esc>$a_
 
 "" Tag a line as sction in vimwiki
-nnoremap <leader>ts 0d$i[<esc>pa](#<esc>pa)<esc>F]
+nnoremap <leader>ts 0d$i[<esc>pi](#<esc>pi)<esc>F]
 
 "" Input code block in vimwiki
 inoremap ``` ```<cr>```<esc>O
