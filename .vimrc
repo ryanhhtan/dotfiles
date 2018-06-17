@@ -1,3 +1,4 @@
+set nocompatible
 " Plugin Manager - Vim-Plug  {{{  
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Install the plugin manager itself 
@@ -104,7 +105,6 @@ colorscheme molokai
 " }}}
 
 " Tabs & Spaces {{{ 
-set nocompatible
 set expandtab                      	"convert tab to spaces
 set shiftwidth=4
 set softtabstop=4
