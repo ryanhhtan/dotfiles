@@ -95,6 +95,7 @@ let g:tmux_navigator_no_mappings = 1
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
 nnoremap <leader>f :YcmCompleter FixIt<cr>
+nnoremap <leader>jd :YcmCompleter GoTo<cr>
 
 nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
