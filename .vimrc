@@ -1,9 +1,6 @@
-" Custom Functions {{{
-""" Install YouCompleteMe with condition 
-function! BuildYCM(info)
-  " info is a dictionary with 3 fields
-  " - name:   name of the plugin
-  " - status: 'installed', 'updated', or 'unchanged'
+" Custom Functions {{{ """ 
+" Install YouCompleteMe with condition 
+function! BuildYCM(info) " info is a dictionary with 3 fields " - name:   name of the plugin " - status: 'installed', 'updated', or 'unchanged'
   " - force:  set on PlugInstall! or PlugUpdate!
   if a:info.status == 'installed' || a:info.force
     !./install.py
@@ -46,6 +43,7 @@ call plug#begin('~/.vim/plugged')
  Plug 'tpope/vim-fugitive'                   " Vim git integration
  Plug 'mattn/calendar-vim'
  Plug 'jparise/vim-graphql'                  " Hightline and indentation fro UraphQL 
+ Plug 'Shougo/denite.nvim'                   " File search 
 
 " Deoplete - auto completion plugin
 " Plug 'roxma/nvim-yarp'
@@ -96,14 +94,6 @@ let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
 let g:ycm_autoclose_preview_window_after_completion = 1 
 let $JAVA_TOOL_OPTIONS="-javaagent:/home/vagrant/jars/lombok.jar -Xbootclasspath/a:/home/vagrant/jars/lombok.jar"
-nnoremap <leader>f :YcmCompleter FixIt<cr>
-nnoremap <leader>jd :YcmCompleter GoTo<cr>
-
-nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
-nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
-nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
-nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
-nnoremap <silent> <c-p> :TmuxNavigatePrevious<cr>
 " Vimwiki 
 let g:vimwiki_list = [{'path': '/d/OneDrive/mywiki/',
             \ 'syntax': 'markdown', 'ext': '.md'}]
@@ -168,6 +158,19 @@ nnoremap <leader>ts 0d$i[<esc>pa](#<esc>pa)<esc>F]
 
 "" Input code block in vimwiki
 inoremap ``` ```<cr>```<esc>O
+
+"" YouCompleteMe
+nnoremap <leader>f :YcmCompleter FixIt<cr>
+nnoremap <leader>jd :YcmCompleter GoTo<cr>
+
+"" Tmux
+nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
+nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
+nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
+nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
+nnoremap <silent> <c-p> :TmuxNavigatePrevious<cr>
+nnoremap <c-f> :Denite file/rec <cr>
+nnoremap <c-b> :Denite buffer<cr>
 " }}}
 " Augroups {{{ 
 augroup filetype_html
