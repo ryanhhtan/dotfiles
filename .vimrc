@@ -94,6 +94,8 @@ let g:tmux_navigator_no_mappings = 1
 "" YouCopleteMe
 let g:ycm_key_list_select_completion=[]
 let g:ycm_key_list_previous_completion=[]
+let g:ycm_autoclose_preview_window_after_completion = 1 
+let $JAVA_TOOL_OPTIONS="-javaagent:/home/vagrant/jars/lombok.jar -Xbootclasspath/a:/home/vagrant/jars/lombok.jar"
 nnoremap <leader>f :YcmCompleter FixIt<cr>
 nnoremap <leader>jd :YcmCompleter GoTo<cr>
 
@@ -140,6 +142,7 @@ set wildmenu                        " displays the matched files when fuzzy sear
 " Key mappings {{{ 
 " replace ESC with 'jk'  
 inoremap jk <ESC>
+inoremap JK <ESC>
 inoremap <esc> <nop>
 inoremap <BS> <nop>
 " set leader key to ',' 
