@@ -60,6 +60,8 @@ call plug#begin('~/.vim/plugged')
 
  " YouCompleteMe  
  Plug 'valloric/youcompleteme', {'do': function('BuildYCM')  }
+ " Prettier 
+ Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 
 "Plugin List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -109,6 +111,17 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "" close vim if the only window left open is a NERDTree 
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
+
+" Prettier
+"" auto format without //@format 
+let g:prettier#autoformat = 0
+autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
+"" Single quote over double quote
+let g:prettier#config#single_quote = 'true'
+"" Print spaces between bracket 
+let g:prettier#config#bracket_spacing = 'true'
+
+
 " }}}
 " Colors & Theme {{{
 syntax on
@@ -144,11 +157,16 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 ""Auto completion for braces, blackets and quotation marks 
-nnoremap <leader>" bi"<esc>ea"
-nnoremap <leader>' bi'<esc>ea'
+" nnoremap <leader>" bi"<esc>ea"
+" nnoremap <leader>' bi'<esc>ea'
 inoremap {{ {{  }}<esc>2hi
 inoremap {% {%  %}<esc>2hi
 inoremap {!! {!!  !!}<esc>3hi
+
+"vim-surround
+nmap <leader>qq ysiw" 
+nmap <leader>qs ysiw' 
+nmap <leader>qt ysiw` 
 
 ""Auto insert datetime surroundee with '_' 
 nnoremap <leader>dt :-1read !date<cr>i_<esc>$a_
