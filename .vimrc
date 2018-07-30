@@ -62,6 +62,10 @@ call plug#begin('~/.vim/plugged')
  Plug 'valloric/youcompleteme', {'do': function('BuildYCM')  }
  " Prettier 
  Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
+ " vimproc 
+ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+ " vim-vebugger
+ Plug 'idanarye/vim-vebugger', {'do': 'git checkout develop' }
 
 "Plugin List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -180,6 +184,7 @@ inoremap ``` ```<cr>```<esc>O
 "" YouCompleteMe
 nnoremap <leader>f :YcmCompleter FixIt<cr>
 nnoremap <leader>jd :YcmCompleter GoTo<cr>
+nnoremap <leader>gd :YcmCompleter GetDoc<cr>
 
 "" Tmux
 nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
@@ -187,8 +192,15 @@ nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <c-p> :TmuxNavigatePrevious<cr>
-nnoremap <c-f> :Denite file/rec <cr>
+nnoremap <c-f> :Denite file/rec<cr>
 nnoremap <c-b> :Denite buffer<cr>
+" call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
+call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>', 'noremap')
+" call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
+call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>', 'noremap')
+
+"" vim-vebugger
+let g:vebugger_leader="<Leader>d"
 " }}}
 " Augroups {{{ 
 augroup filetype_html
