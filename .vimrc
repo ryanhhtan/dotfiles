@@ -1,14 +1,15 @@
 " Custom Functions {{{ """ 
 " Install YouCompleteMe with condition 
-function! BuildYCM(info) " info is a dictionary with 3 fields " - name:   name of the plugin " - status: 'installed', 'updated', or 'unchanged'
-  " - force:  set on PlugInstall! or PlugUpdate!
-  if a:info.status == 'installed' || a:info.force
-    !./install.py
-  else  
-    ./install.py --java-completer --js-completer --clang-completer 
-  endif
-endfunction
+" function! BuildYCM(info) " info is a dictionary with 3 fields " - name:   name of the plugin " - status: 'installed', 'updated', or 'unchanged'
+"   " - force:  set on PlugInstall! or PlugUpdate!
+"   if a:info.status == 'installed' || a:info.force
+"     !./install.py
+"   else  
+"     ./install.py --java-completer --js-completer --clang-completer 
+"   endif
+" endfunction
 " }}}
+
 " Plugin Manager - Vim-Plug  {{{  
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Install the plugin manager itself 
@@ -23,58 +24,50 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
- Plug 'scrooloose/nerdtree'
- Plug 'Xuyuanp/nerdtree-git-plugin'
- Plug 'valloric/matchtagalways'              " Show the matching tag 
- Plug 'mattn/emmet-vim'
- Plug 'vim-scripts/VisIncr'                  " Add numbers incresingly
- Plug 'sheerun/vim-polyglot'                 " Collection of syntax and indentation
- Plug 'tomasr/molokai'                       " Color theme  
- Plug 'SirVer/ultisnips'
- Plug 'honza/vim-snippets'
- Plug 'epilande/vim-react-snippets'           
- "Plug 'vim-syntastic/syntastic'              " Syntaxt checker 
- Plug 'mtscout6/syntastic-local-eslint.vim'  " Use local estlint instead of global one
- Plug 'vimwiki/vimwiki'                      " personal wiki management
- Plug 'rking/ag.vim'
- Plug 'christoomey/vim-tmux-navigator'
- Plug 'tpope/vim-commentary'                 " Comment/uncomment code  
- Plug 'tpope/vim-surround'                   " Change surrounding, e.g: quotation. 
- Plug 'tpope/vim-fugitive'                   " Vim git integration
- Plug 'mattn/calendar-vim'
- Plug 'jparise/vim-graphql'                  " Hightline and indentation fro UraphQL 
- Plug 'Shougo/denite.nvim'                   " File search 
-
-" Deoplete - auto completion plugin
-" Plug 'roxma/nvim-yarp'
-" Plug 'roxma/vim-hug-neovim-rpc'
-" Plug 'Shougo/deoplete.nvim'
-" Plug 'wokalski/autocomplete-flow'
-" For func argument completion
-" Plug 'Shougo/neosnippet'
-" Plug 'Shougo/neosnippet-snippets'
-" vim-javacomplete2
- "Plug 'artur-shaik/vim-javacomplete2'
-" TypeScript TSServer
- "Plug 'Quramy/tsuquyomi'
-
- " YouCompleteMe  
- Plug 'valloric/youcompleteme', {'do': function('BuildYCM')  }
- " Prettier 
- Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
- " vimproc 
- Plug 'Shougo/vimproc.vim', {'do' : 'make'}
- " vim-vebugger
- Plug 'idanarye/vim-vebugger', {'do': 'git checkout develop' }
+Plug 'artur-shaik/vim-javacomplete2'        " Code completion tool for java
+Plug 'christoomey/vim-tmux-navigator'       " navigate among diffiern panes in tmux 
+Plugin 'hsanson/vim-android'
+Plug 'epilande/vim-react-snippets'          " Auto generating React snippets 
+Plug 'honza/vim-snippets'
+Plug 'idanarye/vim-vebugger'                " vim-vebugger
+\, {'do': 'git checkout develop' }
+Plug 'jparise/vim-graphql'                  " Hightline and indentation fro UraphQL 
+Plug 'mattn/emmet-vim'                      " Auto generating HTML tags 
+Plug 'mattn/calendar-vim'                   " A plugin to select date with cursor 
+Plug 'mtscout6/syntastic-local-eslint.vim'  " Use local estlint instead of global one
+Plug 'neomake/neomake'                      " Required by VimStudio
+Plug 'prettier/vim-prettier'                " Prettier - a javascript formatter
+\, { 'do': 'yarn install' } 
+Plug 'Shougo/vimproc.vim'                   " vimproc -- required by vim-prettier
+\, {'do' : 'make'}  
+Plug 'Quramy/tsuquyomi'                     " TypeScript language server 
+Plug 'rking/ag.vim'                         " Searching files asynchornously
+Plug 'roxma/nvim-yarp'                      " Required by deplete
+Plug 'roxma/vim-hug-neovim-rpc'             " Required by deplete
+Plug 'sheerun/vim-polyglot'                 " Collection of syntax and indentation
+Plug 'scrooloose/nerdtree'                  " Browse/manage files in tree view 
+Plug 'Shougo/denite.nvim'                   " File search 
+Plug 'Shougo/deoplete.nvim'                 " Auto completion plugin
+Plug 'SirVer/ultisnips'                     " General sinippets management
+Plug 'tpope/vim-commentary'                 " Comment/uncomment code  
+Plug 'tpope/vim-surround'                   " Change surrounding, e.g: quotation. 
+Plug 'tpope/vim-fugitive'                   " Vim git integration
+Plug 'tomasr/molokai'                       " Color theme  
+Plug 'valloric/matchtagalways'              " Show the matching tag 
+Plug 'vim-scripts/VisIncr'                  " Add numbers incresingly
+" Plug 'vim-syntastic/syntastic'              " Syntaxt checker 
+Plug 'vimwiki/vimwiki'                      " personal wiki management
+Plug 'Xuyuanp/nerdtree-git-plugin'          " Alway onpen NERDtree at start up
 
 "Plugin List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 " }}}
+
 " Plugin Settings {{{  
 " Deplete
-"let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_at_startup = 1
 "" Deplete with neosnippet
-"let g:neosnippet#enable_completed_snippet = 1
+" let g:neosnippet#enable_completed_snippet = 1
 
 " UltiSnip
 let g:UltiSnipsExpandTrigger="<tab>"
@@ -90,16 +83,10 @@ map <C-n> :NERDTreeToggle<CR>
 " let g:syntastic_check_on_wq = 0
 " let g:syntastic_javascript_checkers = ['eslint']
 "" Java
-"let g:syntastic_java_checkers=['javac']
-" let g:syntastic_java_checkers=[]
-"let g:syntastic_java_javac_config_file_enabled = 1
+" let g:syntastic_java_checkers=['javac']
+" let g:syntastic_java_javac_config_file_enabled = 1
 "" Vim Tmux Navigator
 let g:tmux_navigator_no_mappings = 1
-"" YouCopleteMe
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
-let g:ycm_autoclose_preview_window_after_completion = 1 
-let $JAVA_TOOL_OPTIONS="-javaagent:/home/vagrant/jars/lombok.jar -Xbootclasspath/a:/home/vagrant/jars/lombok.jar"
 " Vimwiki 
 let g:vimwiki_list = [{'path': '/d/OneDrive/mywiki/',
             \ 'syntax': 'markdown', 'ext': '.md'}]
@@ -125,12 +112,17 @@ let g:prettier#config#single_quote = 'true'
 "" Print spaces between bracket 
 let g:prettier#config#bracket_spacing = 'true'
 
+" Java-complete2
+" let g:JavaComplete_JavaCompiler="/usr/bin/javac"
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
 
 " }}}
+
 " Colors & Theme {{{
 syntax on
 colorscheme molokai
 " }}}
+
 " Tabs & Spaces {{{ 
 set nocompatible
 set expandtab                      	"convert tab to spaces
@@ -138,14 +130,17 @@ set shiftwidth=4
 set softtabstop=4
 set tabstop=4
 " }}}
+
 " Folding {{{
 set foldenable
 set foldmethod=indent
 " }}}
+
 " File searching {{{
 set path+=**         			    " search files recursively
 set wildmenu                        " displays the matched files when fuzzy searching  
 " }}}
+
 " Key mappings {{{ 
 " replace ESC with 'jk'  
 inoremap jk <ESC>
@@ -202,6 +197,7 @@ call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>', 'nor
 "" vim-vebugger
 let g:vebugger_leader="<Leader>d"
 " }}}
+
 " Augroups {{{ 
 augroup filetype_html
     autocmd!
@@ -243,6 +239,7 @@ augroup END
 
 
 " }}} 
+
 " Statusline {{{ 
 set statusline=
 set statusline+=\ Branch:
@@ -260,6 +257,7 @@ set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 " }}} 
+
 " Misc {{{
 set number
 set relativenumber
