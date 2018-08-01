@@ -1,12 +1,9 @@
+" Initial settings {{{
+set nocompatible
+set encoding=utf-8
+" }}}
+"
 " Custom Functions {{{ """ 
-" Install YouCompleteMe with condition 
-" function! BuildYCM(info) " info is a dictionary with 3 fields " - name:   name of the plugin " - status: 'installed', 'updated', or 'unchanged'
-"   " - force:  set on PlugInstall! or PlugUpdate!
-"   if a:info.status == 'installed' || a:info.force
-"     !./install.py
-"   else  
-"     ./install.py --java-completer --js-completer --clang-completer 
-"   endif
 " endfunction
 " }}}
 
@@ -24,22 +21,27 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
-Plug 'artur-shaik/vim-javacomplete2'        " Code completion tool for java
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 Plug 'christoomey/vim-tmux-navigator'       " navigate among diffiern panes in tmux 
-Plugin 'hsanson/vim-android'
 Plug 'epilande/vim-react-snippets'          " Auto generating React snippets 
 Plug 'honza/vim-snippets'
 Plug 'idanarye/vim-vebugger'                " vim-vebugger
 \, {'do': 'git checkout develop' }
 Plug 'jparise/vim-graphql'                  " Hightline and indentation fro UraphQL 
+Plug 'junegunn/fzf'                         " Multi-entry selection, for LanguagClient neovim
+" Plug 'leafgarland/typescript-vim'           " TypeScript syntax hightlight
 Plug 'mattn/emmet-vim'                      " Auto generating HTML tags 
 Plug 'mattn/calendar-vim'                   " A plugin to select date with cursor 
-Plug 'mtscout6/syntastic-local-eslint.vim'  " Use local estlint instead of global one
+" Plug 'mtscout6/syntastic-local-eslint.vim'  " Use local estlint instead of global one
 Plug 'neomake/neomake'                      " Required by VimStudio
 Plug 'prettier/vim-prettier'                " Prettier - a javascript formatter
-\, { 'do': 'yarn install' } 
+    \, { 'do': 'yarn install' } 
+" Plug 'peitalin/vim-jsx-typescript'          " syntax for jsx in typescript
 Plug 'Shougo/vimproc.vim'                   " vimproc -- required by vim-prettier
-\, {'do' : 'make'}  
+    \, {'do' : 'make'}  
 Plug 'Quramy/tsuquyomi'                     " TypeScript language server 
 Plug 'rking/ag.vim'                         " Searching files asynchornously
 Plug 'roxma/nvim-yarp'                      " Required by deplete
@@ -47,7 +49,10 @@ Plug 'roxma/vim-hug-neovim-rpc'             " Required by deplete
 Plug 'sheerun/vim-polyglot'                 " Collection of syntax and indentation
 Plug 'scrooloose/nerdtree'                  " Browse/manage files in tree view 
 Plug 'Shougo/denite.nvim'                   " File search 
-Plug 'Shougo/deoplete.nvim'                 " Auto completion plugin
+Plug 'Shougo/deoplete.nvim',                 " Auto completion plugin
+    \{
+    \ 'do': 'UpdateRemotePlugins'
+    \}
 Plug 'SirVer/ultisnips'                     " General sinippets management
 Plug 'tpope/vim-commentary'                 " Comment/uncomment code  
 Plug 'tpope/vim-surround'                   " Change surrounding, e.g: quotation. 
@@ -112,9 +117,16 @@ let g:prettier#config#single_quote = 'true'
 "" Print spaces between bracket 
 let g:prettier#config#bracket_spacing = 'true'
 
-" Java-complete2
-" let g:JavaComplete_JavaCompiler="/usr/bin/javac"
-autocmd FileType java setlocal omnifunc=javacomplete#Complete
+" LanguageClient-neovim
+set hidden
+let g:LanguageClient_serverCommands = {
+    \ 'java': ['jdtls'],
+    \ 'javascript.jsx': ['javascript-typescript-stdio --jsx']
+    \ }
+set signcolumn=yes
+
+" Vim-jsx-typescript
+autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=javascript.jsx
 
 " }}}
 
@@ -176,10 +188,11 @@ nnoremap <leader>ts 0d$i[<esc>pa](#<esc>pa)<esc>F]
 "" Input code block in vimwiki
 inoremap ``` ```<cr>```<esc>O
 
-"" YouCompleteMe
-nnoremap <leader>f :YcmCompleter FixIt<cr>
-nnoremap <leader>jd :YcmCompleter GoTo<cr>
-nnoremap <leader>gd :YcmCompleter GetDoc<cr>
+" LanguageClient
+nnoremap <leader>f :call LanguageClient_textDocument_codeAction()<cr>
+nnoremap <silent> <c-d> :call LanguageClient_textDocument_definition({'gotoCmd': 'vsplit'})<cr>
+nnoremap <silent> <c-m> :call LanguageClient_contextMenu()<cr>
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 
 "" Tmux
 nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
@@ -211,13 +224,11 @@ augroup END
 
 augroup filetype_javascript
     autocmd!
-    autocmd FileType javascript nnoremap <buffer> <localleader>c I// <esc>
     autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 augroup END
 
 augroup filetype_typescript
     autocmd!
-    autocmd FileType typescript nnoremap <buffer> <localleader>c I// <esc>
     autocmd FileType typescript setlocal shiftwidth=2 tabstop=2
 augroup END
 
