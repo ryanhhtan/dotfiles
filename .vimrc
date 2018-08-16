@@ -219,10 +219,10 @@ nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <c-p> :TmuxNavigatePrevious<cr>
 nnoremap <c-f> :Denite file/rec buffer<cr>
 
-call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
-            \ [ '.git/', '.ropeproject/', '__pycache__/',
-            \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/',
-            \   '.*.swp'])
+" call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
+"             \ [ '.git/', '.ropeproject/', '__pycache__/',
+"             \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/',
+"             \   '.*.swp'])
 " nnoremap <c-b> :Denite buffer<cr>
 " call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
 call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>', 'noremap')
