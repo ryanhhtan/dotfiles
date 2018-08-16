@@ -36,6 +36,7 @@ Plug 'junegunn/fzf'                         " Multi-entry selection, for Languag
 Plug 'mattn/emmet-vim'                      " Auto generating HTML tags 
 Plug 'mattn/calendar-vim'                   " A plugin to select date with cursor 
 " Plug 'mtscout6/syntastic-local-eslint.vim'  " Use local estlint instead of global one
+Plug 'mileszs/ack.vim'                      " Manage searching tools for vim
 Plug 'neomake/neomake'                      " Required by VimStudio
 Plug 'prettier/vim-prettier'                " Prettier - a javascript formatter
     \, { 'do': 'yarn install' } 
@@ -58,6 +59,7 @@ Plug 'tpope/vim-commentary'                 " Comment/uncomment code
 Plug 'tpope/vim-surround'                   " Change surrounding, e.g: quotation. 
 Plug 'tpope/vim-fugitive'                   " Vim git integration
 Plug 'tomasr/molokai'                       " Color theme  
+" Plug 'herrbischoff/cobalt2.vim'             " Another Color theme 
 Plug 'valloric/matchtagalways'              " Show the matching tag 
 Plug 'vim-scripts/VisIncr'                  " Add numbers incresingly
 " Plug 'vim-syntastic/syntastic'              " Syntaxt checker 
@@ -75,10 +77,9 @@ let g:deoplete#enable_at_startup = 1
 " let g:neosnippet#enable_completed_snippet = 1
 
 " UltiSnip
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsListSnippets="<c-tab>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+let g:UltiSnipsEditSplit="vertical"
+let g:UltiSnipsSnippetsDir="/d/OneDrive/mysnips/"
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "/d/OneDrive/mysnips/"]
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
 " Syntastic
@@ -90,6 +91,7 @@ map <C-n> :NERDTreeToggle<CR>
 "" Java
 " let g:syntastic_java_checkers=['javac']
 " let g:syntastic_java_javac_config_file_enabled = 1
+
 "" Vim Tmux Navigator
 let g:tmux_navigator_no_mappings = 1
 " Vimwiki 
@@ -119,20 +121,38 @@ let g:prettier#config#bracket_spacing = 'true'
 
 " LanguageClient-neovim
 set hidden
+
+let g:LanguageClient_rootMarkers = {
+    \ 'javascript.jsx': ['package.json'],
+    \ 'rust': ['Cargo.toml'],
+    \ }
 let g:LanguageClient_serverCommands = {
     \ 'java': ['jdtls'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio --jsx']
+    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ 'typescript': ['javascript-typescript-stdio']
     \ }
 set signcolumn=yes
 
 " Vim-jsx-typescript
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=javascript.jsx
 
+" Ack
+if executable('ag')
+    let g:ackprg = 'ag --vimgrep'
+endif
+
+" Silver search ag with Ack
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" Denite
+call denite#custom#var('file/rec', 'command',
+     \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
 " }}}
 
 " Colors & Theme {{{
 syntax on
 colorscheme molokai
+" colorscheme cobalt2
 " }}}
 
 " Tabs & Spaces {{{ 
@@ -179,9 +199,6 @@ nmap <leader>qq ysiw"
 nmap <leader>qs ysiw' 
 nmap <leader>qt ysiw` 
 
-""Auto insert datetime surroundee with '_' 
-nnoremap <leader>dt :-1read !date<cr>i_<esc>$a_
-
 "" Tag a line as sction in vimwiki
 nnoremap <leader>ts 0d$i[<esc>pa](#<esc>pa)<esc>F]
 
@@ -194,21 +211,33 @@ nnoremap <silent> <c-d> :call LanguageClient_textDocument_definition({'gotoCmd':
 nnoremap <silent> <c-m> :call LanguageClient_contextMenu()<cr>
 nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
 
-"" Tmux
+" Tmux
 nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
 nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <c-p> :TmuxNavigatePrevious<cr>
-nnoremap <c-f> :Denite file/rec<cr>
-nnoremap <c-b> :Denite buffer<cr>
+nnoremap <c-f> :Denite file/rec buffer<cr>
+
+call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
+            \ [ '.git/', '.ropeproject/', '__pycache__/',
+            \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/',
+            \   '.*.swp'])
+" nnoremap <c-b> :Denite buffer<cr>
 " call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
 call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>', 'noremap')
 " call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
 call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>', 'noremap')
 
-"" vim-vebugger
+" vim-vebugger
 let g:vebugger_leader="<Leader>d"
+
+" UltiSnip
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsListSnippets="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
 " }}}
 
 " Augroups {{{ 
@@ -263,6 +292,9 @@ set statusline+=\ Line:
 set statusline+=%l    " Current line
 set statusline+=/    " Separator
 set statusline+=%L   " Total lines
+set statusline+=\ \  
+set statusline+=\ Col: 
+set statusline+=%c   " Total lines
 " Syntastic
 set statusline+=%#warningmsg#
 " set statusline+=%{SyntasticStatuslineFlag()}
