@@ -146,7 +146,7 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 
 " Denite
 call denite#custom#var('file/rec', 'command',
-     \ ['ag', '--follow', '--nocolor', '--nogroup', '-g', ''])
+     \ ['ag', '--follow', '--nocolor', '--nogroup', '--ignore=*.class', '-g', ''])
 " }}}
 
 " Colors & Theme {{{
@@ -217,7 +217,9 @@ nnoremap <silent> <c-j> :TmuxNavigateDown<cr>
 nnoremap <silent> <c-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <c-p> :TmuxNavigatePrevious<cr>
-nnoremap <c-f> :Denite file/rec buffer<cr>
+
+" Denite
+nnoremap <c-f> :Denite file/rec<cr>
 
 " call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
 "             \ [ '.git/', '.ropeproject/', '__pycache__/',
