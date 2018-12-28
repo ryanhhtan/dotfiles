@@ -28,8 +28,8 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'christoomey/vim-tmux-navigator'       " navigate among diffiern panes in tmux 
 Plug 'epilande/vim-react-snippets'          " Auto generating React snippets 
 Plug 'honza/vim-snippets'
-Plug 'idanarye/vim-vebugger'                " vim-vebugger
-\, {'do': 'git checkout develop' }
+Plug 'idanarye/vim-vebugger', {             
+    \ 'branch': 'develop' }
 Plug 'jparise/vim-graphql'                  " Hightline and indentation fro UraphQL 
 Plug 'junegunn/fzf'                         " Multi-entry selection, for LanguagClient neovim
 " Plug 'leafgarland/typescript-vim'           " TypeScript syntax hightlight
@@ -148,6 +148,12 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 call denite#custom#var('file/rec', 'command',
      \ ['ag', '--follow', '--nocolor', '--nogroup', '--ignore=*.class', '-g', ''])
 " }}}
+
+" neomake
+" call neomake#configure#automake('nrwi', 500)
+
+" Vebugger
+let g:vebugger_use_tags=1
 
 " Colors & Theme {{{
 syntax on
