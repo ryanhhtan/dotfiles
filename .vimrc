@@ -28,7 +28,6 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'christoomey/vim-tmux-navigator'       " navigate among diffiern panes in tmux 
 Plug 'epilande/vim-react-snippets'          " Auto generating React snippets 
 Plug 'honza/vim-snippets'
-
 Plug 'idanarye/vim-vebugger', {
    \ 'branch': 'develop' ,
    \ }
@@ -156,6 +155,12 @@ call denite#custom#var('file/rec', 'command',
 " vim-illuminate
 hi link illuminatedWord Visual
 " }}}
+
+" neomake
+" call neomake#configure#automake('nrwi', 500)
+
+" Vebugger
+let g:vebugger_use_tags=1
 
 " Colors & Theme {{{
 syntax on
