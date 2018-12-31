@@ -28,9 +28,11 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'christoomey/vim-tmux-navigator'       " navigate among diffiern panes in tmux 
 Plug 'epilande/vim-react-snippets'          " Auto generating React snippets 
 Plug 'honza/vim-snippets'
-Plug 'idanarye/vim-vebugger'                " vim-vebugger
-\, {'do': 'git checkout develop' }
-Plug 'jparise/vim-graphql'                  " Hightline and indentation fro UraphQL 
+
+Plug 'idanarye/vim-vebugger', {
+   \ 'branch': 'develop' ,
+   \ }
+" Plug 'jparise/vim-graphql'                  " Hightline and indentation fro UraphQL 
 Plug 'junegunn/fzf'                         " Multi-entry selection, for LanguagClient neovim
 " Plug 'leafgarland/typescript-vim'           " TypeScript syntax hightlight
 Plug 'mattn/emmet-vim'                      " Auto generating HTML tags 
@@ -47,6 +49,7 @@ Plug 'Quramy/tsuquyomi'                     " TypeScript language server
 Plug 'rking/ag.vim'                         " Searching files asynchornously
 Plug 'roxma/nvim-yarp'                      " Required by deplete
 Plug 'roxma/vim-hug-neovim-rpc'             " Required by deplete
+Plug 'RRethy/vim-illuminate'
 Plug 'sheerun/vim-polyglot'                 " Collection of syntax and indentation
 Plug 'scrooloose/nerdtree'                  " Browse/manage files in tree view 
 Plug 'Shougo/denite.nvim'                   " File search 
@@ -65,6 +68,7 @@ Plug 'vim-scripts/VisIncr'                  " Add numbers incresingly
 " Plug 'vim-syntastic/syntastic'              " Syntaxt checker 
 Plug 'vimwiki/vimwiki'                      " personal wiki management
 Plug 'Xuyuanp/nerdtree-git-plugin'          " Alway onpen NERDtree at start up
+" Plug 'felixfbecker/php-language-server', {'do': 'composer install && composer run-script parse-stubs'}
 
 "Plugin List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -120,7 +124,7 @@ let g:prettier#config#single_quote = 'true'
 let g:prettier#config#bracket_spacing = 'true'
 
 " LanguageClient-neovim
-set hidden
+" set hidden
 
 let g:LanguageClient_rootMarkers = {
     \ 'javascript.jsx': ['package.json'],
@@ -129,7 +133,8 @@ let g:LanguageClient_rootMarkers = {
 let g:LanguageClient_serverCommands = {
     \ 'java': ['jdtls'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
-    \ 'typescript': ['javascript-typescript-stdio']
+    \ 'typescript': ['javascript-typescript-stdio'],
+    \ 'php': ['php', 'vendor/felixfbecker/language-server/bin/php-language-server.php']
     \ }
 set signcolumn=yes
 
@@ -147,6 +152,9 @@ let g:ackprg = 'ag --nogroup --nocolor --column'
 " Denite
 call denite#custom#var('file/rec', 'command',
      \ ['ag', '--follow', '--nocolor', '--nogroup', '--ignore=*.class', '-g', ''])
+
+" vim-illuminate
+hi link illuminatedWord Visual
 " }}}
 
 " Colors & Theme {{{
