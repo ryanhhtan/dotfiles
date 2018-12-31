@@ -41,9 +41,11 @@ Plug 'mileszs/ack.vim'                      " Manage searching tools for vim
 Plug 'neomake/neomake'                      " Required by VimStudio
 Plug 'prettier/vim-prettier'                " Prettier - a javascript formatter
     \, { 'do': 'yarn install' } 
-" Plug 'peitalin/vim-jsx-typescript'          " syntax for jsx in typescript
-Plug 'Shougo/vimproc.vim'                   " vimproc -- required by vim-prettier
-    \, {'do' : 'make'}  
+" Plug 'peitalin/vim-jsx-typescript'        " syntax for jsx in typescript
+"" vimproc -- required by vim-prettier
+Plug 'Shougo/vimproc.vim', {                
+    \ 'do' : 'make'
+    \ }  
 Plug 'Quramy/tsuquyomi'                     " TypeScript language server 
 Plug 'rking/ag.vim'                         " Searching files asynchornously
 Plug 'roxma/nvim-yarp'                      " Required by deplete
