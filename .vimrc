@@ -3,7 +3,7 @@ set nocompatible
 set encoding=utf-8
 " }}}
 "
-" Custom Functions {{{ """ 
+" Custom Functions {{{  
 " endfunction
 " }}}
 
@@ -31,6 +31,7 @@ Plug 'honza/vim-snippets'
 Plug 'idanarye/vim-vebugger', {
    \ 'branch': 'develop' ,
    \ }
+"Plug 'https://gitlab.com/Dica-Developer/vim-jdb'
 " Plug 'jparise/vim-graphql'                  " Hightline and indentation fro UraphQL 
 Plug 'junegunn/fzf'                         " Multi-entry selection, for LanguagClient neovim
 " Plug 'leafgarland/typescript-vim'           " TypeScript syntax hightlight
@@ -156,13 +157,13 @@ call denite#custom#var('file/rec', 'command',
 
 " vim-illuminate
 hi link illuminatedWord Visual
-" }}}
 
 " neomake
 " call neomake#configure#automake('nrwi', 500)
 
 " Vebugger
 let g:vebugger_use_tags=1
+" }}}
 
 " Colors & Theme {{{
 syntax on
@@ -248,6 +249,7 @@ call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>', 'nor
 
 " vim-vebugger
 let g:vebugger_leader="<Leader>d"
+nnoremap <Leader>da :call vebugger#jdb#attach('5005', {'srcpath': 'src/main/java'})
 
 " UltiSnip
 let g:UltiSnipsExpandTrigger="<tab>"
