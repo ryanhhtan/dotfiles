@@ -136,7 +136,7 @@ let g:LanguageClient_serverCommands = {
     \ 'java': ['jdtls'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'typescript': ['javascript-typescript-stdio'],
-    \ 'php': ['php', 'vendor/felixfbecker/language-server/bin/php-language-server.php']
+    \ 'php': ['tcp://127.0.0.1:2088']
     \ }
 set signcolumn=yes
 
