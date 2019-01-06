@@ -16,60 +16,117 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-
 " Install plugins
 call plug#begin('~/.vim/plugged')
 
 " Declare the list of plugins.
+""" Language client 
 Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
-Plug 'christoomey/vim-tmux-navigator'       " navigate among diffiern panes in tmux 
-Plug 'epilande/vim-react-snippets'          " Auto generating React snippets 
+""" Tmux pane-navigation 
+Plug 'christoomey/vim-tmux-navigator'       
+
+""" Auto generating React snippets 
+Plug 'epilande/vim-react-snippets'          
+
+""" Code snippets for multiple languages.
 Plug 'honza/vim-snippets'
+
+""" Debugger frontend
 Plug 'idanarye/vim-vebugger', {
    \ 'branch': 'develop' ,
    \ }
-"Plug 'https://gitlab.com/Dica-Developer/vim-jdb'
-" Plug 'jparise/vim-graphql'                  " Hightline and indentation fro UraphQL 
-Plug 'junegunn/fzf'                         " Multi-entry selection, for LanguagClient neovim
-" Plug 'leafgarland/typescript-vim'           " TypeScript syntax hightlight
-Plug 'mattn/emmet-vim'                      " Auto generating HTML tags 
-Plug 'mattn/calendar-vim'                   " A plugin to select date with cursor 
-" Plug 'mtscout6/syntastic-local-eslint.vim'  " Use local estlint instead of global one
-Plug 'mileszs/ack.vim'                      " Manage searching tools for vim
-Plug 'neomake/neomake'                      " Required by VimStudio
-Plug 'prettier/vim-prettier'                " Prettier - a javascript formatter
-    \, { 'do': 'yarn install' } 
-" Plug 'peitalin/vim-jsx-typescript'        " syntax for jsx in typescript
-"" vimproc -- required by vim-prettier
+
+"""" Hightline and indentation fro UraphQL 
+"" Plug 'jparise/vim-graphql'
+
+""" Fuzzy file finder and Multi-entry selection, for LanguagClient neovim
+Plug 'junegunn/fzf'                         
+" Auto generating HTML/XML tags 
+Plug 'mattn/emmet-vim'
+
+""" A plugin to select date with cursor 
+Plug 'mattn/calendar-vim'
+
+""" Manage searching tools for vim
+Plug 'mileszs/ack.vim'
+
+""" Required by VimStudio
+Plug 'neomake/neomake'
+
+""" Prettier - a javascript formatter
+Plug 'prettier/vim-prettier', {
+    \  'do': 'yarn install' 
+    \ } 
+
+""" vimproc -- required by vim-prettier
 Plug 'Shougo/vimproc.vim', {                
     \ 'do' : 'make'
     \ }  
-Plug 'Quramy/tsuquyomi'                     " TypeScript language server 
-Plug 'rking/ag.vim'                         " Searching files asynchornously
-Plug 'roxma/nvim-yarp'                      " Required by deplete
-Plug 'roxma/vim-hug-neovim-rpc'             " Required by deplete
+
+""" TypeScript language server 
+Plug 'Quramy/tsuquyomi'
+
+""" Searching files asynchornously
+Plug 'rking/ag.vim'                         
+
+""" Required by deplete
+Plug 'roxma/nvim-yarp'
+
+""" Required by deplete
+Plug 'roxma/vim-hug-neovim-rpc'
+
+""" Php language server
+Plug 'roxma/LanguageServer-php-neovim',  {
+   \ 'do': 'composer install && composer run-script parse-stubs' 
+   \ }
+
+""" Hightline the same word under the cursor
 Plug 'RRethy/vim-illuminate'
-Plug 'sheerun/vim-polyglot'                 " Collection of syntax and indentation
-Plug 'scrooloose/nerdtree'                  " Browse/manage files in tree view 
-Plug 'Shougo/denite.nvim'                   " File search 
-Plug 'Shougo/deoplete.nvim',                 " Auto completion plugin
-    \{
+
+""" Collection of syntax and indentation
+Plug 'sheerun/vim-polyglot'
+
+""" Browse/manage files in tree view 
+Plug 'scrooloose/nerdtree'
+
+""" File search 
+Plug 'Shougo/denite.nvim'
+
+""" Auto completion plugin
+Plug 'Shougo/deoplete.nvim', {
     \ 'do': 'UpdateRemotePlugins'
-    \}
-Plug 'SirVer/ultisnips'                     " General sinippets management
-Plug 'tpope/vim-commentary'                 " Comment/uncomment code  
-Plug 'tpope/vim-surround'                   " Change surrounding, e.g: quotation. 
-Plug 'tpope/vim-fugitive'                   " Vim git integration
-Plug 'tomasr/molokai'                       " Color theme  
-" Plug 'herrbischoff/cobalt2.vim'             " Another Color theme 
-Plug 'valloric/matchtagalways'              " Show the matching tag 
-Plug 'vim-scripts/VisIncr'                  " Add numbers incresingly
-" Plug 'vim-syntastic/syntastic'              " Syntaxt checker 
-Plug 'vimwiki/vimwiki'                      " personal wiki management
-Plug 'Xuyuanp/nerdtree-git-plugin'          " Alway onpen NERDtree at start up
+    \ }
+
+""" General sinippets management
+Plug 'SirVer/ultisnips'
+
+""" Comment/uncomment code  
+Plug 'tpope/vim-commentary'
+
+""" Change surrounding, e.g: quotation. 
+Plug 'tpope/vim-surround'
+
+""" Vim git integration
+Plug 'tpope/vim-fugitive'
+
+""" Color theme  
+Plug 'tomasr/molokai'
+
+""" Show the matching tag 
+Plug 'valloric/matchtagalways'
+
+""" Add numbers incresingly
+Plug 'vim-scripts/VisIncr'
+
+""" personal wiki management
+Plug 'vimwiki/vimwiki'
+
+""" Alway onpen NERDtree at start up
+Plug 'Xuyuanp/nerdtree-git-plugin'
+
 " Plug 'felixfbecker/php-language-server', {'do': 'composer install && composer run-script parse-stubs'}
 
 "Plugin List ends here. Plugins become visible to Vim after this call.
@@ -77,33 +134,23 @@ call plug#end()
 " }}}
 
 " Plugin Settings {{{  
-" Deplete
+"
+"" Deplete
 let g:deoplete#enable_at_startup = 1
-"" Deplete with neosnippet
-" let g:neosnippet#enable_completed_snippet = 1
 
-" UltiSnip
+"" UltiSnip
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetsDir="/d/OneDrive/mysnips/"
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "/d/OneDrive/mysnips/"]
-" Nerdtree
-map <C-n> :NERDTreeToggle<CR>
-" Syntastic
-" let g:syntastic_always_populate_loc_list = 1
-" let g:syntastic_auto_loc_list = 1
-" let g:syntastic_check_on_open = 1
-" let g:syntastic_check_on_wq = 0
-" let g:syntastic_javascript_checkers = ['eslint']
-"" Java
-" let g:syntastic_java_checkers=['javac']
-" let g:syntastic_java_javac_config_file_enabled = 1
 
 "" Vim Tmux Navigator
 let g:tmux_navigator_no_mappings = 1
-" Vimwiki 
+
+"" Vimwiki 
 let g:vimwiki_list = [{'path': '/d/OneDrive/mywiki/',
             \ 'syntax': 'markdown', 'ext': '.md'}]
-" Nedtree 
+"" Nedtree 
+map <C-n> :NERDTreeToggle<CR>
 augroup nerdtree
 "" No duplicated autocmd
 autocmd!
@@ -116,52 +163,55 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 augroup END
 
-" Prettier
-"" auto format without //@format 
+"" Prettier
+""" auto format without //@format 
 let g:prettier#autoformat = 0
 autocmd BufWritePre *.js,*.jsx,*.mjs,*.ts,*.tsx,*.css,*.less,*.scss,*.json,*.graphql,*.md,*.vue PrettierAsync
-"" Single quote over double quote
+""" Single quote over double quote
 let g:prettier#config#single_quote = 'true'
-"" Print spaces between bracket 
+""" Print spaces between bracket 
 let g:prettier#config#bracket_spacing = 'true'
 
-" LanguageClient-neovim
-" set hidden
-
+"" LanguageClient-neo
+""" General
+"""" Help LC identify root of the project 
 let g:LanguageClient_rootMarkers = {
     \ 'javascript.jsx': ['package.json'],
     \ 'rust': ['Cargo.toml'],
+    \ 'java': ['pom.xml', 'build.gradle'],
     \ }
+"""" Starting CMD for languages
 let g:LanguageClient_serverCommands = {
     \ 'java': ['jdtls'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'typescript': ['javascript-typescript-stdio'],
-    \ 'php': ['tcp://127.0.0.1:2088']
     \ }
+"""" Alway show the sign column to avoid blinking
 set signcolumn=yes
+"""" Never show hover infomation in preview window
+let g:LanguageClient_hoverPreview = 'never'
+"""" Use LanguageClient formater
+set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
 
-" Vim-jsx-typescript
+"" Vim-jsx-typescript
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=javascript.jsx
 
-" Ack
+"" Ack
 if executable('ag')
     let g:ackprg = 'ag --vimgrep'
 endif
 
-" Silver search ag with Ack
+"" Silver search ag with Ack
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-" Denite
+"" Denite
 call denite#custom#var('file/rec', 'command',
      \ ['ag', '--follow', '--nocolor', '--nogroup', '--ignore=*.class', '-g', ''])
 
-" vim-illuminate
+"" vim-illuminate
 hi link illuminatedWord Visual
 
-" neomake
-" call neomake#configure#automake('nrwi', 500)
-
-" Vebugger
+"" Vebugger
 let g:vebugger_use_tags=1
 " }}}
 
@@ -223,9 +273,10 @@ inoremap ``` ```<cr>```<esc>O
 
 " LanguageClient
 nnoremap <leader>f :call LanguageClient_textDocument_codeAction()<cr>
-nnoremap <silent> <c-d> :call LanguageClient_textDocument_definition({'gotoCmd': 'vsplit'})<cr>
-nnoremap <silent> <c-m> :call LanguageClient_contextMenu()<cr>
-nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+" nnoremap <silent> <c-d> :call LanguageClient_textDocument_definition({'gotoCmd': 'vsplit'})<cr>
+nnoremap <leader>d :call LanguageClient_textDocument_definition()<cr>
+nnoremap <leader>m :call LanguageClient_contextMenu()<cr>
+nnoremap <leader>h :call LanguageClient#textDocument_hover()<CR>
 
 " Tmux
 nnoremap <silent> <c-h> :TmuxNavigateLeft<cr>
@@ -237,14 +288,7 @@ nnoremap <silent> <c-p> :TmuxNavigatePrevious<cr>
 " Denite
 nnoremap <c-f> :Denite file/rec<cr>
 
-" call denite#custom#filter('matcher/ignore_globs', 'ignore_globs',
-"             \ [ '.git/', '.ropeproject/', '__pycache__/',
-"             \   'venv/', 'images/', '*.min.*', 'img/', 'fonts/',
-"             \   '.*.swp'])
-" nnoremap <c-b> :Denite buffer<cr>
-" call denite#custom#map('insert', '<C-j>', '<denite:move_to_next_line>', 'noremap')
 call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>', 'noremap')
-" call denite#custom#map('insert', '<C-k>', '<denite:move_to_previous_line>', 'noremap')
 call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>', 'noremap')
 
 " vim-vebugger
