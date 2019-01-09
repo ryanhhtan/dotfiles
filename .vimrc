@@ -1,6 +1,7 @@
 " Initial settings {{{
 set nocompatible
 set encoding=utf-8
+set wildignore=vendor/**,node_modules/**
 " }}}
 "
 " Custom Functions {{{  
@@ -43,7 +44,11 @@ Plug 'idanarye/vim-vebugger', {
 "" Plug 'jparise/vim-graphql'
 
 """ Fuzzy file finder and Multi-entry selection, for LanguagClient neovim
-Plug 'junegunn/fzf'                         
+Plug 'junegunn/fzf', {
+   \ 'dir': '~/.fzf', 
+   \ 'do': './install --all'
+   \ }
+Plug 'junegunn/fzf.vim'
 " Auto generating HTML/XML tags 
 Plug 'mattn/emmet-vim'
 
@@ -151,17 +156,17 @@ let g:vimwiki_list = [{'path': '/d/OneDrive/mywiki/',
             \ 'syntax': 'markdown', 'ext': '.md'}]
 "" Nedtree 
 map <C-n> :NERDTreeToggle<CR>
-augroup nerdtree
-"" No duplicated autocmd
-autocmd!
-"" Open Nedtree automatically when starting up
-autocmd vimenter * NERDTree
-"" Open a NERDTree automatically when vim starts up if no files were specified
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-"" close vim if the only window left open is a NERDTree 
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-augroup END
+" augroup nerdtree
+" "" No duplicated autocmd
+" autocmd!
+" "" Open Nedtree automatically when starting up
+" autocmd vimenter * NERDTree
+" "" Open a NERDTree automatically when vim starts up if no files were specified
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" "" close vim if the only window left open is a NERDTree 
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" augroup END
 
 "" Prettier
 """ auto format without //@format 
@@ -191,7 +196,7 @@ set signcolumn=yes
 """" Never show hover infomation in preview window
 let g:LanguageClient_hoverPreview = 'never'
 """" Use LanguageClient formater
-set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
+" set formatexpr=LanguageClient#textDocument_rangeFormatting_sync()
 
 "" Vim-jsx-typescript
 autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=javascript.jsx
@@ -286,7 +291,8 @@ nnoremap <silent> <c-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <c-p> :TmuxNavigatePrevious<cr>
 
 " Denite
-nnoremap <c-f> :Denite file/rec<cr>
+" nnoremap <c-f> :Denite file/rec<cr>
+nnoremap <c-f> :FZF<cr>
 
 call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>', 'noremap')
 call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>', 'noremap')
