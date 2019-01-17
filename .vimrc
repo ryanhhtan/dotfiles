@@ -29,6 +29,9 @@ Plug 'autozimu/LanguageClient-neovim', {
 """ Tmux pane-navigation 
 Plug 'christoomey/vim-tmux-navigator'       
 
+""" Table mode
+Plug 'dhruvasagar/vim-table-mode'
+
 """ Auto generating React snippets 
 Plug 'epilande/vim-react-snippets'          
 
