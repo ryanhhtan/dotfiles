@@ -158,7 +158,7 @@ let g:tmux_navigator_no_mappings = 1
 let g:vimwiki_list = [{'path': '/d/OneDrive/mywiki/',
             \ 'syntax': 'markdown', 'ext': '.md'}]
 "" Nedtree 
-map <C-n> :NERDTreeToggle<CR>
+map <c-d> :NERDTreeToggle<CR>
 " augroup nerdtree
 " "" No duplicated autocmd
 " autocmd!
