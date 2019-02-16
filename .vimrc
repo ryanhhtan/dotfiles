@@ -126,6 +126,9 @@ Plug 'tomasr/molokai'
 """ Show the matching tag 
 Plug 'valloric/matchtagalways'
 
+""" Kotlin
+Plug 'udalov/kotlin-vim'
+
 """ Add numbers incresingly
 Plug 'vim-scripts/VisIncr'
 
@@ -187,10 +190,12 @@ let g:LanguageClient_rootMarkers = {
     \ 'javascript.jsx': ['package.json'],
     \ 'rust': ['Cargo.toml'],
     \ 'java': ['pom.xml', 'build.gradle'],
+    \ 'kotlin': ['pom.xml', 'build.gradle'],
     \ }
 """" Starting CMD for languages
 let g:LanguageClient_serverCommands = {
     \ 'java': ['jdtls'],
+    \ 'kotlin': ['kls'],
     \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'typescript': ['javascript-typescript-stdio'],
     \ }
