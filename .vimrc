@@ -233,6 +233,7 @@ syntax on
 colorscheme molokai
 " colorscheme cobalt2
 " }}}
+set hlsearch
 
 " Tabs & Spaces {{{ 
 set nocompatible
