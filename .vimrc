@@ -80,16 +80,14 @@ Plug 'Quramy/tsuquyomi'
 """ Searching files asynchornously
 Plug 'rking/ag.vim'                         
 
-""" Required by deplete
+""" Required by deoplete
 Plug 'roxma/nvim-yarp'
 
-""" Required by deplete
+""" Required by deoplete
 Plug 'roxma/vim-hug-neovim-rpc'
 
 """ Php language server
-Plug 'roxma/LanguageServer-php-neovim',  {
-   \ 'do': 'composer install && composer run-script parse-stubs' 
-   \ }
+Plug 'roxma/LanguageServer-php-neovim'
 
 """ Hightline the same word under the cursor
 Plug 'RRethy/vim-illuminate'
