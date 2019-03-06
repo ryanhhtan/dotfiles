@@ -102,9 +102,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Shougo/denite.nvim'
 
 """ Auto completion plugin
-Plug 'Shougo/deoplete.nvim', {
-    \ 'do': 'UpdateRemotePlugins'
-    \ }
+Plug 'Shougo/deoplete.nvim'
 
 """ General sinippets management
 Plug 'SirVer/ultisnips'
