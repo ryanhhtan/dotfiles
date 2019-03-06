@@ -80,6 +80,9 @@ Plug 'Quramy/tsuquyomi'
 """ Searching files asynchornously
 Plug 'rking/ag.vim'                         
 
+""" Auto completion plugin
+Plug 'Shougo/deoplete.nvim'
+
 """ Required by deoplete
 Plug 'roxma/nvim-yarp'
 
@@ -101,8 +104,6 @@ Plug 'scrooloose/nerdtree'
 """ File search 
 Plug 'Shougo/denite.nvim'
 
-""" Auto completion plugin
-Plug 'Shougo/deoplete.nvim'
 
 """ General sinippets management
 Plug 'SirVer/ultisnips'
@@ -227,9 +228,9 @@ let g:vebugger_use_tags=1
 " Colors & Theme {{{
 syntax on
 colorscheme molokai
+set hlsearch
 " colorscheme cobalt2
 " }}}
-set hlsearch
 
 " Tabs & Spaces {{{ 
 set nocompatible
