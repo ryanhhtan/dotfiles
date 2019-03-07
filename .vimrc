@@ -151,6 +151,7 @@ if executable('java')
     au User lsp_setup call lsp#register_server({
     \ 'name': 'jdtls',
     \ 'cmd': {server_info->['jdtls']},
+    \ 'whitelist': ['java'], 
     \ })
 endif
 
@@ -163,7 +164,6 @@ let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 
 
 " }}}
-
 
 " Colors & Theme {{{
 syntax on
