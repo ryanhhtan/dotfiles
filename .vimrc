@@ -56,10 +56,13 @@ Plug 'mattn/calendar-vim'
 """ Manage searching tools for vim
 Plug 'mileszs/ack.vim'
 
-Plug 'prabirshrestha/asyncomplete.vim'
+""" Vim-lsp
 Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+""" Asyncomplete
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/asyncomplete-lsp.vim' "vim-lsp source
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim' " ultisnips source
 
 """ Searching files asynchornously
 Plug 'rking/ag.vim'                         
@@ -147,21 +150,36 @@ hi link illuminatedWord Visual
 let g:vebugger_use_tags=1
 
 "" Vim-lsp 
+let g:lsp_signs_enabled = 1         " enable signs
+let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
+let g:lsp_signs_error = {'text': 'X'}
 if executable('java')
     au User lsp_setup call lsp#register_server({
     \ 'name': 'jdtls',
     \ 'cmd': {server_info->['jdtls']},
     \ 'whitelist': ['java'], 
     \ })
+    autocmd FileType java nnoremap <buffer><silent> <c-]>  :LspDefinition<cr>
+    autocmd FileType java nnoremap <buffer><silent> K :LspHover<cr>
+    autocmd FileType java nnoremap <leader>f :LspCodeAction<cr>
 endif
 
-" for vim-lsp log
+""" for vim-lsp log
 let g:lsp_log_verbose = 1
 let g:lsp_log_file = expand('~/vim-lsp.log')
-" for asyncomplete.vim log
+
+"" asyncomplete
+""" for asyncomplete.vim log
+let g:asyncomplete_auto_popup = 1
 let g:asyncomplete_log_file = expand('~/asyncomplete.log')
-
-
+if has('python3')
+    let g:UltiSnipsExpandTrigger="<c-e>"
+    call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
+        \ 'name': 'ultisnips',
+        \ 'whitelist': ['*'],
+        \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
+        \ }))
+endif
 
 " }}}
 
