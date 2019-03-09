@@ -168,7 +168,8 @@ if executable('kls')
     au User lsp_setup call lsp#register_server({
     \ 'name': 'kls',
     \ 'cmd': {server_info->['kls']},
-    \ 'whitelist': ['kt', 'kotlin'], 
+    \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'pom.xml'))},
+    \ 'whitelist': ['kotlin'], 
     \ })
     autocmd FileType kotlin nnoremap <buffer><silent> <c-]>  :LspDefinition<cr>
     autocmd FileType kotlin nnoremap <buffer><silent> K :LspHover<cr>
@@ -177,12 +178,12 @@ endif
 
 """ for vim-lsp log
 let g:lsp_log_verbose = 1
-let g:lsp_log_file = expand('~/vim-lsp.log')
+" let g:lsp_log_file = expand('~/vim-lsp.log')
 
 "" asyncomplete
 """ for asyncomplete.vim log
 let g:asyncomplete_auto_popup = 1
-let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+" let g:asyncomplete_log_file = expand('~/asyncomplete.log')
 if has('python3')
     let g:UltiSnipsExpandTrigger="<c-e>"
     call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
