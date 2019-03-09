@@ -153,7 +153,7 @@ let g:vebugger_use_tags=1
 let g:lsp_signs_enabled = 1         " enable signs
 let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
 let g:lsp_signs_error = {'text': 'X'}
-if executable('java')
+if executable('jdtls')
     au User lsp_setup call lsp#register_server({
     \ 'name': 'jdtls',
     \ 'cmd': {server_info->['jdtls']},
@@ -162,6 +162,17 @@ if executable('java')
     autocmd FileType java nnoremap <buffer><silent> <c-]>  :LspDefinition<cr>
     autocmd FileType java nnoremap <buffer><silent> K :LspHover<cr>
     autocmd FileType java nnoremap <leader>f :LspCodeAction<cr>
+endif
+
+if executable('kls')
+    au User lsp_setup call lsp#register_server({
+    \ 'name': 'kls',
+    \ 'cmd': {server_info->['kls']},
+    \ 'whitelist': ['kt', 'kotlin'], 
+    \ })
+    autocmd FileType kotlin nnoremap <buffer><silent> <c-]>  :LspDefinition<cr>
+    autocmd FileType kotlin nnoremap <buffer><silent> K :LspHover<cr>
+    autocmd FileType kotlin nnoremap <leader>f :LspCodeAction<cr>
 endif
 
 """ for vim-lsp log
