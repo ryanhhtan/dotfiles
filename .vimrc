@@ -47,6 +47,7 @@ Plug 'junegunn/fzf', {
    \ 'do': './install --all'
    \ }
 Plug 'junegunn/fzf.vim'
+
 " Auto generating HTML/XML tags 
 Plug 'mattn/emmet-vim'
 
@@ -75,10 +76,6 @@ Plug 'sheerun/vim-polyglot'
 
 """ Browse/manage files in tree view 
 Plug 'scrooloose/nerdtree'
-
-""" File search 
-Plug 'Shougo/denite.nvim'
-
 
 """ General sinippets management
 Plug 'SirVer/ultisnips'
@@ -139,10 +136,6 @@ endif
 "" Silver search ag with Ack
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-"" Denite
-call denite#custom#var('file/rec', 'command',
-     \ ['ag', '--follow', '--nocolor', '--nogroup', '--ignore=*.class', '-g', ''])
-
 "" vim-illuminate
 hi link illuminatedWord Visual
 
@@ -176,14 +169,27 @@ if executable('kls')
     autocmd FileType kotlin nnoremap <leader>f :LspCodeAction<cr>
 endif
 
+if executable('javascript-typescript-stdio')
+    au User lsp_setup call lsp#register_server({
+                \ 'name': 'javascript-typescript-stdio',
+                \ 'cmd': {server_info->['javascript-typescript-stdio']},
+                \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
+                \ 'whitelist': ['javascript', 'javascript.jsx'],
+                \ })
+endif
+""
 """ for vim-lsp log
-let g:lsp_log_verbose = 1
+" let g:lsp_log_verbose = 1
 " let g:lsp_log_file = expand('~/vim-lsp.log')
 
 "" asyncomplete
-""" for asyncomplete.vim log
-let g:asyncomplete_auto_popup = 1
+""" logs
 " let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+""" auto popup completion
+let g:asyncomplete_auto_popup = 1
+""" force refresh
+imap <c-x><space> <Plug>(asyncomplete_force_refresh)
+""" ultisnip support
 if has('python3')
     let g:UltiSnipsExpandTrigger="<c-e>"
     call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
@@ -192,6 +198,12 @@ if has('python3')
         \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
         \ }))
 endif
+
+""fzf completion
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+imap <c-x><c-l> <plug>(fzf-complete-line)
 
 " }}}
 
@@ -262,9 +274,6 @@ nnoremap <silent> <c-p> :TmuxNavigatePrevious<cr>
 " Denite
 " nnoremap <c-f> :Denite file/rec<cr>
 nnoremap <c-f> :FZF<cr>
-
-call denite#custom#map('insert', '<C-n>', '<denite:move_to_next_line>', 'noremap')
-call denite#custom#map('insert', '<C-p>', '<denite:move_to_previous_line>', 'noremap')
 
 " vim-vebugger
 let g:vebugger_leader="<Leader>d"
