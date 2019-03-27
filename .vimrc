@@ -62,9 +62,10 @@ Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
 """ Asyncomplete
 Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim' "vim-lsp source
-Plug 'prabirshrestha/asyncomplete-ultisnips.vim' " ultisnips source
-
+Plug 'prabirshrestha/asyncomplete-lsp.vim'           " vim-lsp source
+Plug 'prabirshrestha/asyncomplete-ultisnips.vim'     " ultisnips source
+Plug 'prabirshrestha/asyncomplete-file.vim'          " file source 
+Plug 'prabirshrestha/asyncomplete-buffer.vim'        " buffer source
 """ Searching files asynchornously
 Plug 'rking/ag.vim'                         
 
@@ -161,7 +162,6 @@ if executable('kls')
     au User lsp_setup call lsp#register_server({
     \ 'name': 'kls',
     \ 'cmd': {server_info->['kls']},
-    \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'pom.xml'))},
     \ 'whitelist': ['kotlin'], 
     \ })
     autocmd FileType kotlin nnoremap <buffer><silent> <c-]>  :LspDefinition<cr>
@@ -179,8 +179,8 @@ if executable('javascript-typescript-stdio')
 endif
 ""
 """ for vim-lsp log
-" let g:lsp_log_verbose = 1
-" let g:lsp_log_file = expand('~/vim-lsp.log')
+let g:lsp_log_verbose = 1
+let g:lsp_log_file = expand('~/vim-lsp.log')
 
 "" asyncomplete
 """ logs
@@ -189,7 +189,7 @@ endif
 let g:asyncomplete_auto_popup = 1
 """ force refresh
 imap <c-x><space> <Plug>(asyncomplete_force_refresh)
-""" ultisnip support
+""" asyncomplete with ultisnip source 
 if has('python3')
     let g:UltiSnipsExpandTrigger="<c-e>"
     call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
@@ -198,7 +198,20 @@ if has('python3')
         \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
         \ }))
 endif
-
+""" asyncomplete with file source 
+au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+    \ 'name': 'file',
+    \ 'whitelist': ['*'],
+    \ 'priority': 10,
+    \ 'completor': function('asyncomplete#sources#file#completor')
+    \ }))
+""" asyncomplete with buffer source 
+call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+    \ 'name': 'buffer',
+    \ 'whitelist': ['*'],
+    \ 'blacklist': ['go'],
+    \ 'completor': function('asyncomplete#sources#buffer#completor'),
+    \ }))
 ""fzf completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
