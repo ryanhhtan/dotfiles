@@ -230,9 +230,9 @@ set hlsearch
 " Tabs & Spaces {{{ 
 set nocompatible
 set expandtab                      	"convert tab to spaces
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
+set shiftwidth=2
+set softtabstop=2
+set tabstop=2
 " }}}
 
 " Folding {{{
@@ -301,6 +301,10 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 " }}}
 
 " Augroups {{{ 
+augroup java_spaces
+    autocmd!
+    autocmd filetype java setlocal shiftwidth=4 softtabstop=4 tabstop=4
+augroup END
 
 " }}} 
 
