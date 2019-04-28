@@ -2,6 +2,9 @@
 set nocompatible
 set encoding=utf-8
 set wildignore=vendor/**,node_modules/**
+" set leader key to ',' 
+let mapleader="," 
+let maplocalleader="\\"
 " }}}
 "
 " Custom Functions {{{  
@@ -48,6 +51,8 @@ Plug 'junegunn/fzf', {
    \ }
 Plug 'junegunn/fzf.vim'
 
+Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+
 " Auto generating HTML/XML tags 
 Plug 'mattn/emmet-vim'
 
@@ -57,15 +62,6 @@ Plug 'mattn/calendar-vim'
 """ Manage searching tools for vim
 Plug 'mileszs/ack.vim'
 
-""" Vim-lsp
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-""" Asyncomplete
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'           " vim-lsp source
-Plug 'prabirshrestha/asyncomplete-ultisnips.vim'     " ultisnips source
-Plug 'prabirshrestha/asyncomplete-file.vim'          " file source 
-Plug 'prabirshrestha/asyncomplete-buffer.vim'        " buffer source
 """ Searching files asynchornously
 Plug 'rking/ag.vim'                         
 
@@ -96,19 +92,18 @@ Plug 'tomasr/molokai'
 """ Show the matching tag 
 Plug 'valloric/matchtagalways'
 
-""" Kotlin
-Plug 'udalov/kotlin-vim'
-
 """ Add numbers incresingly
 Plug 'vim-scripts/VisIncr'
 
 """ personal wiki management
 Plug 'vimwiki/vimwiki'
 
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
 """ Alway onpen NERDtree at start up
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
-" Plug 'felixfbecker/php-language-server', {'do': 'composer install && composer run-script parse-stubs'}
 
 "Plugin List ends here. Plugins become visible to Vim after this call.
 call plug#end()
@@ -143,80 +138,19 @@ hi link illuminatedWord Visual
 "" Vebugger
 let g:vebugger_use_tags=1
 
-"" Vim-lsp 
-let g:lsp_signs_enabled = 1         " enable signs
-let g:lsp_diagnostics_echo_cursor = 1 " enable echo under cursor when in normal mode
-let g:lsp_signs_error = {'text': 'X'}
-if executable('jdtls')
-    au User lsp_setup call lsp#register_server({
-    \ 'name': 'jdtls',
-    \ 'cmd': {server_info->['jdtls']},
-    \ 'whitelist': ['java'], 
-    \ })
-    autocmd FileType java nnoremap <buffer><silent> <c-]>  :LspDefinition<cr>
-    autocmd FileType java nnoremap <buffer><silent> K :LspHover<cr>
-    autocmd FileType java nnoremap <leader>f :LspCodeAction<cr>
-endif
-
-if executable('kls')
-    au User lsp_setup call lsp#register_server({
-    \ 'name': 'kls',
-    \ 'cmd': {server_info->['kls']},
-    \ 'whitelist': ['kotlin'], 
-    \ })
-    autocmd FileType kotlin nnoremap <buffer><silent> <c-]>  :LspDefinition<cr>
-    autocmd FileType kotlin nnoremap <buffer><silent> K :LspHover<cr>
-    autocmd FileType kotlin nnoremap <leader>f :LspCodeAction<cr>
-endif
-
-if executable('javascript-typescript-stdio')
-    au User lsp_setup call lsp#register_server({
-                \ 'name': 'javascript-typescript-stdio',
-                \ 'cmd': {server_info->['javascript-typescript-stdio']},
-                \ 'root_uri':{server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'package.json'))},
-                \ 'whitelist': ['javascript', 'javascript.jsx'],
-                \ })
-endif
-""
-""" for vim-lsp log
-let g:lsp_log_verbose = 1
-let g:lsp_log_file = expand('~/vim-lsp.log')
-
-"" asyncomplete
-""" logs
-" let g:asyncomplete_log_file = expand('~/asyncomplete.log')
-""" auto popup completion
-let g:asyncomplete_auto_popup = 1
-""" force refresh
-imap <c-x><space> <Plug>(asyncomplete_force_refresh)
-""" asyncomplete with ultisnip source 
-if has('python3')
-    let g:UltiSnipsExpandTrigger="<c-e>"
-    call asyncomplete#register_source(asyncomplete#sources#ultisnips#get_source_options({
-        \ 'name': 'ultisnips',
-        \ 'whitelist': ['*'],
-        \ 'completor': function('asyncomplete#sources#ultisnips#completor'),
-        \ }))
-endif
-""" asyncomplete with file source 
-au User asyncomplete_setup call asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-    \ 'name': 'file',
-    \ 'whitelist': ['*'],
-    \ 'priority': 10,
-    \ 'completor': function('asyncomplete#sources#file#completor')
-    \ }))
-""" asyncomplete with buffer source 
-call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-    \ 'name': 'buffer',
-    \ 'whitelist': ['*'],
-    \ 'blacklist': ['go'],
-    \ 'completor': function('asyncomplete#sources#buffer#completor'),
-    \ }))
 ""fzf completion
 imap <c-x><c-k> <plug>(fzf-complete-word)
 imap <c-x><c-f> <plug>(fzf-complete-path)
 imap <c-x><c-j> <plug>(fzf-complete-file-ag)
 imap <c-x><c-l> <plug>(fzf-complete-line)
+
+"" coc-nvim
+""" Extensions
+let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-css']
+""" key mappings
+nmap <leader>f <Plug>(coc-codeaction)
+nmap <c-]> <Plug>(coc-definition)
+" nmap <leader>f <Plug>(coc-rename)
 
 " }}}
 
@@ -251,9 +185,6 @@ inoremap jk <ESC>
 inoremap JK <ESC>
 inoremap <esc> <nop>
 inoremap <BS> <nop>
-" set leader key to ',' 
-let mapleader="," 
-let maplocalleader="\\"
 " shortcut to edit .vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 " apply the .vimrc
@@ -306,27 +237,6 @@ augroup java_spaces
     autocmd filetype java setlocal shiftwidth=4 softtabstop=4 tabstop=4
 augroup END
 
-" }}} 
-
-" Statusline {{{ 
-set statusline=
-set statusline+=\ Branch:
-set statusline+=\ %{fugitive#statusline()}
-set statusline+=\ \     
-set statusline+=\ File:
-set statusline+=\ %f
-set statusline+=\ \  
-set statusline+=\ Line: 
-set statusline+=%l    " Current line
-set statusline+=/    " Separator
-set statusline+=%L   " Total lines
-set statusline+=\ \  
-set statusline+=\ Col: 
-set statusline+=%c   " Total lines
-" Syntastic
-set statusline+=%#warningmsg#
-" set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
 " }}} 
 
 " Misc {{{
