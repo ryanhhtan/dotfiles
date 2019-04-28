@@ -1,4 +1,5 @@
 {
   "java.jdt.ls.vmargs": "-javaagent:/home/vagrant/jars/lombok.jar -Xbootclasspath/p:/home/vagrant/jars/lombok.jar",
-  "snippets.ultisnips.directories": ["/d/OneDrive/mysnips"]
+  "snippets.ultisnips.directories": ["/d/OneDrive/mysnips"],
+  "python.jediEnabled": false
 }
