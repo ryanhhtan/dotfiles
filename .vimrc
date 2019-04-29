@@ -2,9 +2,14 @@
 set nocompatible
 set encoding=utf-8
 set wildignore=vendor/**,node_modules/**
+set signcolumn=yes
 " set leader key to ',' 
 let mapleader="," 
 let maplocalleader="\\"
+" set cursor styles in different mode
+let &t_SI = "\<esc>[5 q"  " blinking I-beam in insert mode
+let &t_SR = "\<esc>[3 q"  " blinking underline in replace mode
+let &t_EI = "\<esc>[ q"  " default cursor (usually blinking block) otherwise
 " }}}
 "
 " Custom Functions {{{  
