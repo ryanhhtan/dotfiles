@@ -13,6 +13,10 @@ let &t_EI = "\<esc>[ q"  " default cursor (usually blinking block) otherwise
 " }}}
 "
 " Custom Functions {{{  
+function RollbackCreateTable()
+  normal! yypi--rollback \e\e /TABLEf f dt; \e\e
+endfunction 
+
 " endfunction
 " }}}
 
@@ -189,7 +193,6 @@ set wildmenu                        " displays the matched files when fuzzy sear
 " replace ESC with 'jk'  
 inoremap jk <ESC>
 inoremap JK <ESC>
-inoremap <esc> <nop>
 inoremap <BS> <nop>
 " shortcut to edit .vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
