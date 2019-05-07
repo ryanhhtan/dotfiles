@@ -12,12 +12,39 @@ let &t_SR = "\<esc>[3 q"  " blinking underline in replace mode
 let &t_EI = "\<esc>[ q"  " default cursor (usually blinking block) otherwise
 " }}}
 "
-" Custom Functions {{{  
-function RollbackCreateTable()
-  normal! yypi--rollback \e\e /TABLEf f dt; \e\e
+" Custom Functions {{{
+function RollbackStatement(statement)
+  let tokens = split(a:statement, ' ')
+  let rollback = ['--rollback']
+  if tokens[0] ==? 'CREATE'
+    let rollback = rollback + ['DROP'] + tokens[1:2]
+    return join(rollback) . ';'
+  endif
+  if tokens[0] ==? 'ALTER'
+    let rollback = rollback + tokens[0:2] + ['DROP'] + tokens[4:5]
+    return join(rollback) . ';'
+  endif
 endfunction 
 
-" endfunction
+function SqlRollbackScript()
+  execute "normal! gg"
+  while 1
+    let b:current = line('.')
+    if b:current == line('$') 
+      break
+    endif
+    let b:currentLine = getline(b:current)
+    let b:nexttLine = getline(b:current + 1)
+    if strlen(b:currentLine) == 0 || b:currentLine[0:1] == '--' || b:nexttLine[0:9] == '--rollback' 
+      execute "normal! j"
+      continue
+    endif
+    call append(b:current, RollbackStatement(b:currentLine))
+    execute "normal! j"
+  endw
+endfunction 
+
+" end custom functions
 " }}}
 
 " Plugin Manager - Vim-Plug  {{{  
