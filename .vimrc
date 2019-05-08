@@ -209,7 +209,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 "" coc-nvim
 """ Extensions
-let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin']
+let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin', 'coc-phpls']
 """ key mappings
 nmap <leader>f <Plug>(coc-codeaction)
 nmap <c-]> <Plug>(coc-definition)
