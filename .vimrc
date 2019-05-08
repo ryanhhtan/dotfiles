@@ -26,7 +26,30 @@ function RollbackStatement(statement)
   endif
 endfunction 
 
+function RollbackMysqlStatement(statement)
+  let tokens = split(a:statement, ' ')
+  let rollback = ['--rollback']
+  if tokens[0] ==? 'CREATE'
+    if tokens[1] ==? 'TABLE'
+      let rollback = rollback + ['DROP'] + tokens[1:2]
+      return join(rollback) . ';'
+    endif
+    if tokens[1] ==? 'INDEX'
+      let rollback = rollback + ['ALTER', 'TABLE', substitute(tokens[4], '\v\(.+', '', 'g')] + ['DROP', 'INDEX', tokens[2] ] 
+      return join(rollback) . ';'
+    endif
+  endif
+  if tokens[0] ==? 'ALTER'
+    if tokens[6] ==? 'FOREIGN'
+      let rollback = rollback + tokens[0:2] + ['DROP'] + tokens[6:7] + [tokens[5]]
+      return join(rollback) . ';'
+    endif
+  endif
+endfunction
+
 function SqlRollbackScript()
+  let dbtype = split(expand('%:t:r'), '\v\.')[-1]
+  echom dbtype
   execute "normal! gg"
   while 1
     let b:current = line('.')
@@ -39,7 +62,11 @@ function SqlRollbackScript()
       execute "normal! j"
       continue
     endif
-    call append(b:current, RollbackStatement(b:currentLine))
+    if dbtype == 'mysql'
+      call append(b:current, RollbackMysqlStatement(b:currentLine))
+    else 
+      call append(b:current, RollbackStatement(b:currentLine))
+    endif
     execute "normal! j"
   endw
 endfunction 
