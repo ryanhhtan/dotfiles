@@ -150,7 +150,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 
 """ Color theme  
-Plug 'tomasr/molokai'
+Plug 'rafi/awesome-vim-colorschemes' 
 
 """ Show the matching tag 
 Plug 'valloric/matchtagalways'
@@ -219,7 +219,8 @@ nmap <c-]> <Plug>(coc-definition)
 
 " Colors & Theme {{{
 syntax on
-colorscheme molokai
+colorscheme dracula
+" colorscheme space-vim-dark
 set hlsearch
 set cmdheight=2
 " colorscheme cobalt2
