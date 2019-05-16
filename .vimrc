@@ -71,6 +71,14 @@ function SqlRollbackScript()
   endw
 endfunction 
 
+function ReplaceUnderCursor() 
+  let s:wordUnderCourser = expand("<cword>")
+  call inputsave()
+  let s:replceText = input('Replace all occurences of "'. s:wordUnderCourser .'" with: ')
+  call inputrestore()
+  execute "%s/" . s:wordUnderCourser . "/" . s:replceText . "/g"
+endfunction
+
 " end custom functions
 " }}}
 
@@ -212,6 +220,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin', 'coc-phpls']
 """ key mappings
 nmap <leader>f <Plug>(coc-codeaction)
+nmap <leader>rn <Plug>(coc-rename)
 nmap <c-]> <Plug>(coc-definition)
 " nmap <leader>f <Plug>(coc-rename)
 
@@ -260,6 +269,9 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 inoremap {{ {{  }}<esc>2hi
 inoremap {% {%  %}<esc>2hi
 inoremap {!! {!!  !!}<esc>3hi
+
+""Replace the word under cursor
+nnoremap <leader>rr :call ReplaceUnderCursor()<cr>
 
 "vim-surround
 nmap <leader>qq ysiw" 
