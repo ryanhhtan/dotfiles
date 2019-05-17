@@ -232,7 +232,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 "" coc-nvim
 """ Extensions
-let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin', 'coc-phpls', 'coc-highlight']
+let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin', 'coc-phpls', 'coc-highlight', 'coc-lists']
 """ change default hight color scheme
 hi CocHighlightText guibg=#666666 ctermbg=Grey
 
