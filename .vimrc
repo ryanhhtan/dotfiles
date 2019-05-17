@@ -3,6 +3,9 @@ set nocompatible
 set encoding=utf-8
 set wildignore=vendor/**,node_modules/**
 set signcolumn=yes
+syntax on
+set hlsearch
+set cmdheight=2
 " set leader key to ',' 
 let mapleader="," 
 let maplocalleader="\\"
@@ -10,6 +13,14 @@ let maplocalleader="\\"
 let &t_SI = "\<esc>[5 q"  " blinking I-beam in insert mode
 let &t_SR = "\<esc>[3 q"  " blinking underline in replace mode
 let &t_EI = "\<esc>[ q"  " default cursor (usually blinking block) otherwise
+" use true color if possible
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+""colorschemes 
+
 " }}}
 "
 " Custom Functions {{{
@@ -137,7 +148,7 @@ Plug 'mileszs/ack.vim'
 Plug 'rking/ag.vim'                         
 
 """ Hightline the same word under the cursor
-Plug 'RRethy/vim-illuminate'
+" Plug 'RRethy/vim-illuminate'
 
 """ Collection of syntax and indentation
 Plug 'sheerun/vim-polyglot'
@@ -181,6 +192,10 @@ call plug#end()
 " }}}
 
 " Plugin Settings {{{  
+"" Color scheme option
+"" this setting must go before changing highlight colors
+colorscheme dracula
+
 "" UltiSnip
 let g:UltiSnipsEditSplit="vertical"
 let g:UltiSnipsSnippetsDir="/d/OneDrive/mysnips/"
@@ -204,7 +219,7 @@ endif
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 "" vim-illuminate
-hi link illuminatedWord Visual
+" hi link illuminatedWord Visual
 
 "" Vebugger
 let g:vebugger_use_tags=1
@@ -217,22 +232,18 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 "" coc-nvim
 """ Extensions
-let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin', 'coc-phpls']
+let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin', 'coc-phpls', 'coc-highlight']
+""" change default hight color scheme
+hi CocHighlightText guibg=#666666 ctermbg=Grey
+
+""" highlight current symbol 
+set updatetime=1000
+autocmd CursorHold * silent call CocAction('highlight')
+
 """ key mappings
 nmap <leader>f <Plug>(coc-codeaction)
 nmap <leader>rn <Plug>(coc-rename)
 nmap <c-]> <Plug>(coc-definition)
-" nmap <leader>f <Plug>(coc-rename)
-
-" }}}
-
-" Colors & Theme {{{
-syntax on
-colorscheme dracula
-" colorscheme space-vim-dark
-set hlsearch
-set cmdheight=2
-" colorscheme cobalt2
 " }}}
 
 " Tabs & Spaces {{{ 
