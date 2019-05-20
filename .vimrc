@@ -19,75 +19,39 @@ if exists('+termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
   set termguicolors
 endif
-""colorschemes 
-
+" file explorer settings
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
 " }}}
 "
 " Custom Functions {{{
-function RollbackStatement(statement)
-  let tokens = split(a:statement, ' ')
-  let rollback = ['--rollback']
-  if tokens[0] ==? 'CREATE'
-    let rollback = rollback + ['DROP'] + tokens[1:2]
-    return join(rollback) . ';'
-  endif
-  if tokens[0] ==? 'ALTER'
-    let rollback = rollback + tokens[0:2] + ['DROP'] + tokens[4:5]
-    return join(rollback) . ';'
-  endif
-endfunction 
 
-function RollbackMysqlStatement(statement)
-  let tokens = split(a:statement, ' ')
-  let rollback = ['--rollback']
-  if tokens[0] ==? 'CREATE'
-    if tokens[1] ==? 'TABLE'
-      let rollback = rollback + ['DROP'] + tokens[1:2]
-      return join(rollback) . ';'
-    endif
-    if tokens[1] ==? 'INDEX'
-      let rollback = rollback + ['ALTER', 'TABLE', substitute(tokens[4], '\v\(.+', '', 'g')] + ['DROP', 'INDEX', tokens[2] ] 
-      return join(rollback) . ';'
-    endif
-  endif
-  if tokens[0] ==? 'ALTER'
-    if tokens[6] ==? 'FOREIGN'
-      let rollback = rollback + tokens[0:2] + ['DROP'] + tokens[6:7] + [tokens[5]]
-      return join(rollback) . ';'
-    endif
-  endif
-endfunction
-
-function SqlRollbackScript()
-  let dbtype = split(expand('%:t:r'), '\v\.')[-1]
-  echom dbtype
-  execute "normal! gg"
-  while 1
-    let b:current = line('.')
-    if b:current == line('$') 
-      break
-    endif
-    let b:currentLine = getline(b:current)
-    let b:nexttLine = getline(b:current + 1)
-    if strlen(b:currentLine) == 0 || b:currentLine[0:1] == '--' || b:nexttLine[0:9] == '--rollback' 
-      execute "normal! j"
-      continue
-    endif
-    if dbtype == 'mysql'
-      call append(b:current, RollbackMysqlStatement(b:currentLine))
-    else 
-      call append(b:current, RollbackStatement(b:currentLine))
-    endif
-    execute "normal! j"
-  endw
-endfunction 
-
-function ReplaceUnderCursor() 
+function! ReplaceUnderCursor() 
   let s:wordUnderCourser = expand("<cword>")
   call inputsave()
   let s:replceText = input('Replace all occurences of "'. s:wordUnderCourser .'" with: ')
   call inputrestore()
   execute "%s/" . s:wordUnderCourser . "/" . s:replceText . "/g"
+endfunction
+
+function! ToggleExplore() 
+  if exists("t:exploreBufferNumber")
+    let exploreWindowNumber = bufwinnr(t:exploreBufferNumber)
+    let currentWindowNumber = winnr()
+
+    if exploreWindowNumber != -1
+      while exploreWindowNumber != currentWindowNumber
+        exec "wincmd w"
+        let currentWindowNumber = winnr()
+      endwhile
+      close
+    endif
+    unlet t:exploreBufferNumber
+  else
+    Vexplore
+    let t:exploreBufferNumber = bufnr("%")
+  endif
 endfunction
 
 " end custom functions
@@ -147,14 +111,11 @@ Plug 'mileszs/ack.vim'
 """ Searching files asynchornously
 Plug 'rking/ag.vim'                         
 
-""" Hightline the same word under the cursor
-" Plug 'RRethy/vim-illuminate'
+""" My own helper plugin
+Plug 'ryanhhtan/vim-helpers'
 
 """ Collection of syntax and indentation
 Plug 'sheerun/vim-polyglot'
-
-""" Browse/manage files in tree view 
-Plug 'scrooloose/nerdtree'
 
 """ General sinippets management
 Plug 'SirVer/ultisnips'
@@ -183,10 +144,6 @@ Plug 'vimwiki/vimwiki'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
-""" Alway onpen NERDtree at start up
-Plug 'Xuyuanp/nerdtree-git-plugin'
-
-
 "Plugin List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 " }}}
@@ -207,8 +164,6 @@ let g:tmux_navigator_no_mappings = 1
 "" Vimwiki 
 let g:vimwiki_list = [{'path': '/d/OneDrive/mywiki/',
             \ 'syntax': 'markdown', 'ext': '.md'}]
-"" Nedtree 
-map <c-d> :NERDTreeToggle<CR>
 
 "" Ack
 if executable('ag')
@@ -233,6 +188,14 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 "" coc-nvim
 """ Extensions
 let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin', 'coc-phpls', 'coc-highlight', 'coc-lists']
+
+""" if hidden is not set, TextEdit might fail.
+set hidden
+
+"""" Some servers have issues with backup files, see #649
+set nobackup
+set nowritebackup
+
 """ change default hight color scheme
 hi CocHighlightText guibg=#666666 ctermbg=Grey
 
@@ -240,10 +203,60 @@ hi CocHighlightText guibg=#666666 ctermbg=Grey
 set updatetime=1000
 autocmd CursorHold * silent call CocAction('highlight')
 
+""" don't give |ins-completion-menu| messages.
+set shortmess+=c
+
+""" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+""" Use `[c` and `]c` to navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+"""" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+""" Use K to show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
 """ key mappings
 nmap <leader>f <Plug>(coc-codeaction)
 nmap <leader>rn <Plug>(coc-rename)
-nmap <c-]> <Plug>(coc-definition)
+""" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+""" Fix autofix problem of current line
+nmap <leader>qf  <Plug>(coc-fix-current)
+""" Use `:Format` to format current buffer
+command! -nargs=0 Format :call CocAction('format')
+""" Using CocList
+"""" Show all diagnostics
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+"""" Manage extensions
+nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+"""" Show commands
+nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+"""" Find symbol of current document
+nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+"""" Search workspace symbols
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+"""" Do default action for next item.
+nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+"""" Do default action for previous item.
+nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+"""" Resume latest coc list
+nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
 " }}}
 
 " Tabs & Spaces {{{ 
@@ -284,6 +297,9 @@ inoremap {!! {!!  !!}<esc>3hi
 ""Replace the word under cursor
 nnoremap <leader>rr :call ReplaceUnderCursor()<cr>
 
+"" Force redraw
+nnoremap <leader>rd :redraw!<cr>
+
 "vim-surround
 nmap <leader>qq ysiw" 
 nmap <leader>qs ysiw' 
@@ -316,6 +332,8 @@ let g:UltiSnipsListSnippets="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
+" Toggle file explorer
+nnoremap <silent> <c-d> :call ToggleExplore()<cr>  
 " }}}
 
 " Augroups {{{ 
