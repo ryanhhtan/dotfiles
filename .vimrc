@@ -21,8 +21,8 @@ if exists('+termguicolors')
 endif
 " file explorer settings
 let g:netrw_banner = 0
-let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
+let g:netrw_list_hide=".*.swp"
 " }}}
 "
 " Custom Functions {{{
@@ -208,6 +208,11 @@ set shortmess+=c
 
 """ Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
+
+""" 
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 """ Use `[c` and `]c` to navigate diagnostics
 nmap <silent> [c <Plug>(coc-diagnostic-prev)
