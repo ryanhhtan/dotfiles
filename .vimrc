@@ -35,25 +35,6 @@ function! ReplaceUnderCursor()
   execute "%s/" . s:wordUnderCourser . "/" . s:replceText . "/g"
 endfunction
 
-function! ToggleExplore() 
-  if exists("t:exploreBufferNumber")
-    let exploreWindowNumber = bufwinnr(t:exploreBufferNumber)
-    let currentWindowNumber = winnr()
-
-    if exploreWindowNumber != -1
-      while exploreWindowNumber != currentWindowNumber
-        exec "wincmd w"
-        let currentWindowNumber = winnr()
-      endwhile
-      close
-    endif
-    unlet t:exploreBufferNumber
-  else
-    Vexplore
-    let t:exploreBufferNumber = bufnr("%")
-  endif
-endfunction
-
 " end custom functions
 " }}}
 
@@ -337,8 +318,8 @@ let g:UltiSnipsListSnippets="<c-l>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
-" Toggle file explorer
-nnoremap <silent> <c-d> :call ToggleExplore()<cr>  
+" Open file explorer
+nnoremap <silent> <c-d> :Vex<cr>  
 " }}}
 
 " Augroups {{{ 
