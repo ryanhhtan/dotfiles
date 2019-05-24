@@ -191,9 +191,9 @@ set shortmess+=c
 inoremap <silent><expr> <c-space> coc#refresh()
 
 """ 
-" Use <CR>> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Use <CR> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <expr> <CR>> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 """ Use `[e` and `]e` to navigate diagnostics
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
@@ -227,15 +227,15 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 command! -nargs=0 Format :call CocAction('format')
 """ Using CocList
 """" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<CR>>
+nnoremap <silent> <space>a  :<C-u>CocList diagnostics<CR>
 """" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<CR>>
+nnoremap <silent> <space>e  :<C-u>CocList extensions<CR>
 """" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<CR>>
+nnoremap <silent> <space>c  :<C-u>CocList commands<CR>
 """" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<CR>>
+nnoremap <silent> <space>o  :<C-u>CocList outline<CR>
 """" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<CR>>
+nnoremap <silent> <space>s  :<C-u>CocList -I symbols<CR>
 """" Do default action for next item.
 nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 """" Do default action for previous item.
@@ -244,11 +244,11 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 " Fugitive key mappings
-nnoremap <leader>gs :Gstatus<CR>>
-nnoremap <leader>gw :Gwrite<CR>>
-nnoremap <leader>gc :Gcommit -s -S<CR>>
-nnoremap <leader>gd :Gdiff<CR>>
-nnoremap <leader>gp :Gpush<CR>>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gw :Gwrite<CR>
+nnoremap <leader>gc :Gcommit -s -S<CR>
+nnoremap <leader>gd :Gdiff<CR>
+nnoremap <leader>gp :Gpush<CR>
 " }}}
 
 " Tabs & Spaces {{{ 
@@ -275,9 +275,9 @@ inoremap jk <ESC>
 inoremap JK <ESC>
 inoremap <BS> <nop>
 " shortcut to edit .vimrc
-nnoremap <leader>ev :vsplit $MYVIMRC<CR>>
+nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 " apply the .vimrc
-nnoremap <leader>sv :source $MYVIMRC<CR>>
+nnoremap <leader>sv :source $MYVIMRC<CR>
 
 ""Auto completion for braces, blackets and quotation marks 
 " nnoremap <leader>" bi"<esc>ea"
@@ -287,10 +287,10 @@ inoremap {% {%  %}<esc>2hi
 inoremap {!! {!!  !!}<esc>3hi
 
 ""Replace the word under cursor
-nnoremap <leader>rr :call ReplaceUnderCursor()<CR>>
+nnoremap <leader>rr :call ReplaceUnderCursor()<CR>
 
 "" Force redraw
-nnoremap <leader>rd :redraw!<CR>>
+nnoremap <leader>rd :redraw!<CR>
 
 "vim-surround
 nmap <leader>qq ysiw" 
@@ -301,18 +301,18 @@ nmap <leader>qt ysiw`
 nnoremap <leader>ts 0d$i[<esc>pa](#<esc>pa)<esc>F]
 
 "" Input code block in vimwiki
-inoremap ``` ```<CR>>```<esc>O
+inoremap ``` ```<CR>```<esc>O
 
 " Tmux
-nnoremap <silent> <c-h> :TmuxNavigateLeft<CR>>
-nnoremap <silent> <c-j> :TmuxNavigateDown<CR>>
-nnoremap <silent> <c-k> :TmuxNavigateUp<CR>>
-nnoremap <silent> <c-l> :TmuxNavigateRight<CR>>
-nnoremap <silent> <c-p> :TmuxNavigatePrevious<CR>>
+nnoremap <silent> <c-h> :TmuxNavigateLeft<CR>
+nnoremap <silent> <c-j> :TmuxNavigateDown<CR>
+nnoremap <silent> <c-k> :TmuxNavigateUp<CR>
+nnoremap <silent> <c-l> :TmuxNavigateRight<CR>
+nnoremap <silent> <c-p> :TmuxNavigatePrevious<CR>
 
 " Denite
-" nnoremap <c-f> :Denite file/rec<CR>>
-nnoremap <c-f> :FZF<CR>>
+" nnoremap <c-f> :Denite file/rec<CR>
+nnoremap <c-f> :FZF<CR>
 
 " vim-vebugger
 let g:vebugger_leader="<Leader>d"
@@ -325,7 +325,7 @@ let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 " Open file explorer
-nnoremap <silent> <c-d> :Vex<CR>>  
+nnoremap <silent> <c-d> :Vex<CR>  
 " }}}
 
 " Augroups {{{ 
