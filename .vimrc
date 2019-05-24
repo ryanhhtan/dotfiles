@@ -1,30 +1,30 @@
   " Initial settings {{{
-  set nocompatible
-  set encoding=utf-8
-  set wildignore=vendor/**,node_modules/**
-  set signcolumn=yes
-  syntax on
-  set hlsearch
-  set cmdheight=2
-  " set leader key to ',' 
-  let mapleader="," 
-  let maplocalleader="\\"
-  " set cursor styles in different mode
-  let &t_SI = "\<esc>[5 q"  " blinking I-beam in insert mode
-  let &t_SR = "\<esc>[3 q"  " blinking underline in replace mode
-  let &t_EI = "\<esc>[ q"  " default cursor (usually blinking block) otherwise
-  " use true color if possible
-  if exists('+termguicolors')
-    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-    set termguicolors
-  endif
-  " file explorer settings
-  let g:netrw_banner = 0
-  let g:netrw_browse_split = 4
-  let g:netrw_list_hide=".*.swp"
-  " }}}
-  "
+set nocompatible
+set encoding=utf-8
+set wildignore=vendor/**,node_modules/**
+set signcolumn=yes
+syntax on
+set hlsearch
+set cmdheight=2
+" set leader key to ',' 
+let mapleader="," 
+let maplocalleader="\\"
+" set cursor styles in different mode
+let &t_SI = "\<esc>[5 q"  " blinking I-beam in insert mode
+let &t_SR = "\<esc>[3 q"  " blinking underline in replace mode
+let &t_EI = "\<esc>[ q"  " default cursor (usually blinking block) otherwise
+" use true color if possible
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
+" file explorer settings
+let g:netrw_banner = 0
+let g:netrw_browse_split = 4
+let g:netrw_list_hide=".*.swp"
+" }}}
+  
 " Custom Functions {{{
 
 function! ReplaceUnderCursor() 
@@ -42,9 +42,9 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Install the plugin manager itself 
 if empty(glob('~/.vim/autoload/plug.vim'))
-    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 " Install plugins
