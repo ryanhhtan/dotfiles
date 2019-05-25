@@ -78,9 +78,10 @@ Plug 'junegunn/fzf', {
    \ }
 Plug 'junegunn/fzf.vim'
 
-Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+""" Intellisense engine: Conquer of Completion 
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
 
-" Auto generating HTML/XML tags 
+""" Auto generating HTML/XML tags 
 Plug 'mattn/emmet-vim'
 
 """ A plugin to select date with cursor 
