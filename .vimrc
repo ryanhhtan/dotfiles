@@ -27,14 +27,6 @@ let g:netrw_list_hide=".*.swp"
   
 " Custom Functions {{{
 
-function! ReplaceUnderCursor() 
-  let s:wordUnderCourser = expand("<cword>")
-  call inputsave()
-  let s:replceText = input('Replace all occurences of "'. s:wordUnderCourser .'" with: ')
-  call inputrestore()
-  execute "%s/" . s:wordUnderCourser . "/" . s:replceText . "/g"
-endfunction
-
 " end custom functions
 " }}}
 
@@ -183,7 +175,7 @@ hi CocHighlightText guibg=#666666 ctermbg=Grey
 
 """ highlight current symbol 
 set updatetime=1000
-autocmd CursorHold * silent call CocAction('highlight')
+autocmd CursorHold * silent call CocActionAsync('highlight')
 
 """ don't give |ins-completion-menu| messages.
 set shortmess+=c
@@ -213,7 +205,7 @@ function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   else
-    call CocAction('doHover')
+    call CocActionAsync('doHover')
   endif
 endfunction
 
@@ -225,7 +217,7 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 """ Fix autofix problem of current line
 nmap <leader>qf  <Plug>(coc-fix-current)
 """ Use `:Format` to format current buffer
-command! -nargs=0 Format :call CocAction('format')
+command! -nargs=0 Format :call CocActionAsync('format')
 """ Using CocList
 """" Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<CR>
@@ -287,7 +279,7 @@ inoremap {% {%  %}<esc>2hi
 inoremap {!! {!!  !!}<esc>3hi
 
 ""Replace the word under cursor
-nnoremap <leader>rr :call ReplaceUnderCursor()<CR>
+nnoremap <leader>rr :%s/\<<C-R><C-W>\>//g<LEFT><LEFT>
 
 "" Force redraw
 nnoremap <leader>rd :redraw!<CR>
