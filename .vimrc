@@ -279,6 +279,8 @@ inoremap {{ {{  }}<LEFT><LEFT><LEFT>
 inoremap ( ()<LEFT>
 inoremap [ [  ]<LEFT><LEFT>
 inoremap [[ [[  ]]<LEFT><LEFT><LEFT>
+nnoremap <leader>q" F=ebi"<ESC>$bea"<LEFT>
+nnoremap <leader>q' F=ebi'<ESC>$bea'<LEFT>
 
 ""Replace the word under cursor
 nnoremap <leader>rr :%s/\<<C-R><C-W>\>//g<LEFT><LEFT>
