@@ -274,9 +274,11 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 ""Auto completion for braces, blackets and quotation marks 
 " nnoremap <leader>" bi"<esc>ea"
 " nnoremap <leader>' bi'<esc>ea'
-inoremap {{ {{  }}<esc>2hi
-inoremap {% {%  %}<esc>2hi
-inoremap {!! {!!  !!}<esc>3hi
+inoremap { {  }<LEFT><LEFT>
+inoremap {{ {{  }}<LEFT><LEFT><LEFT>
+inoremap ( ()<LEFT>
+inoremap [ [  ]<LEFT><LEFT>
+inoremap [[ [[  ]]<LEFT><LEFT><LEFT>
 
 ""Replace the word under cursor
 nnoremap <leader>rr :%s/\<<C-R><C-W>\>//g<LEFT><LEFT>
