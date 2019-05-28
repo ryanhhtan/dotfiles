@@ -21,6 +21,7 @@ if exists('+termguicolors')
 endif
 " file explorer settings
 let g:netrw_banner = 0
+let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_list_hide=".*.swp"
 " }}}
@@ -71,7 +72,7 @@ Plug 'junegunn/fzf', {
 Plug 'junegunn/fzf.vim'
 
 """ Intellisense engine: Conquer of Completion 
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': './install.sh'}
+Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
 
 """ Auto generating HTML/XML tags 
 Plug 'mattn/emmet-vim'
