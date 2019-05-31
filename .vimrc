@@ -326,10 +326,10 @@ nnoremap <silent> <c-d> :Vex<CR>
 " }}}
 
 " Augroups {{{ 
-augroup java_spaces
-    autocmd!
-    autocmd filetype java setlocal shiftwidth=4 softtabstop=4 tabstop=4
-augroup END
+" augroup java_spaces
+"     autocmd!
+"     autocmd filetype java setlocal shiftwidth=2 softtabstop=2 tabstop=2
+" augroup END
 
 " }}} 
 "
