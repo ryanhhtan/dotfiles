@@ -13,6 +13,7 @@ let maplocalleader="\\"
 let &t_SI = "\<esc>[5 q"  " blinking I-beam in insert mode
 let &t_SR = "\<esc>[3 q"  " blinking underline in replace mode
 let &t_EI = "\<esc>[ q"  " default cursor (usually blinking block) otherwise
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 " use true color if possible
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
@@ -275,10 +276,8 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 ""Auto completion for braces, blackets and quotation marks 
 " nnoremap <leader>" bi"<esc>ea"
 " nnoremap <leader>' bi'<esc>ea'
-inoremap { {  }<LEFT><LEFT>
+inoremap ${ ${  }<LEFT><LEFT>
 inoremap {{ {{  }}<LEFT><LEFT><LEFT>
-inoremap ( ()<LEFT>
-inoremap [ [  ]<LEFT><LEFT>
 inoremap [[ [[  ]]<LEFT><LEFT><LEFT>
 nnoremap <leader>q" F=ebi"<ESC>$bea"<LEFT>
 nnoremap <leader>q' F=ebi'<ESC>$bea'<LEFT>
