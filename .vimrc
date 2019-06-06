@@ -15,10 +15,10 @@ let &t_SR = "\<esc>[3 q"  " blinking underline in replace mode
 let &t_EI = "\<esc>[ q"  " default cursor (usually blinking block) otherwise
 let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 " use true color if possible
-if exists('+termguicolors')
-  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
-  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+if has('termguicolors')
   set termguicolors
+  " keep background in vim and tmux consistent
+  set t_ut=
 endif
 " file explorer settings
 let g:netrw_banner = 0
@@ -50,6 +50,9 @@ Plug 'christoomey/vim-tmux-navigator'
 
 """ Table mode
 Plug 'dhruvasagar/vim-table-mode'
+
+" Dracula
+Plug 'dracula/vim', { 'as': 'dracula' }
 
 """ Auto generating React snippets 
 Plug 'epilande/vim-react-snippets'          
@@ -109,7 +112,8 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 
 """ Color theme  
-Plug 'rafi/awesome-vim-colorschemes' 
+" Plug 'rafi/awesome-vim-colorschemes' 
+
 
 """ Show the matching tag 
 Plug 'valloric/matchtagalways'
@@ -131,6 +135,7 @@ call plug#end()
 "" Color scheme option
 "" this setting must go before changing highlight colors
 colorscheme dracula
+hi! link Pmenu DraculaCyan
 
 "" UltiSnip
 let g:UltiSnipsEditSplit="vertical"
