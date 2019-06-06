@@ -93,6 +93,9 @@ Plug 'ryanhhtan/vim-helpers'
 """ Collection of syntax and indentation
 Plug 'sheerun/vim-polyglot'
 
+""" asynchronous execution library for Vim, required by vebugger 
+Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+
 """ General sinippets management
 Plug 'SirVer/ultisnips'
 
