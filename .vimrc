@@ -25,6 +25,7 @@ let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_list_hide=".*.swp"
+autocmd FileType netrw setlocal bufhidden=delete
 " }}}
   
 " Custom Functions {{{
