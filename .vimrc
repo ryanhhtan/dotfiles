@@ -95,7 +95,7 @@ Plug 'rking/ag.vim'
 Plug 'ryanhhtan/vim-helpers'
 
 """ Collection of syntax and indentation
-Plug 'sheerun/vim-polyglot'
+" Plug 'sheerun/vim-polyglot'
 
 """ asynchronous execution library for Vim, required by vebugger 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -157,9 +157,6 @@ endif
 
 "" Silver search ag with Ack
 let g:ackprg = 'ag --nogroup --nocolor --column'
-
-"" vim-illuminate
-" hi link illuminatedWord Visual
 
 "" Vebugger
 let g:vebugger_use_tags=1
