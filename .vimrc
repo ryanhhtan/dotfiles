@@ -91,6 +91,9 @@ Plug 'mileszs/ack.vim'
 """ Searching files asynchornously
 Plug 'rking/ag.vim'                         
 
+""" Vim Tmux clipboard
+Plug 'roxma/vim-tmux-clipboard'
+
 """ My own helper plugin
 Plug 'ryanhhtan/vim-helpers'
 
@@ -102,6 +105,9 @@ Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 """ General sinippets management
 Plug 'SirVer/ultisnips'
+
+""" Tmux focus event detecting plugin, required by vim-tmux-clipboard
+Plug 'tmux-plugins/vim-tmux-focus-events'
 
 """ Comment/uncomment code  
 Plug 'tpope/vim-commentary'
