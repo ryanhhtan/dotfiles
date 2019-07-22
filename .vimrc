@@ -77,7 +77,7 @@ Plug 'junegunn/fzf', {
 Plug 'junegunn/fzf.vim'
 
 """ Intellisense engine: Conquer of Completion 
-Plug 'neoclide/coc.nvim', {'do': './install.sh nightly'}
+Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
 """ Auto generating HTML/XML tags 
 Plug 'mattn/emmet-vim'
