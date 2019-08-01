@@ -22,9 +22,9 @@ if has('termguicolors')
 endif
 " file explorer settings
 let g:netrw_banner = 0
-let g:netrw_liststyle = 3
+" let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
-let g:netrw_list_hide=".*.swp"
+let g:netrw_list_hide='\(^\|\s\s\)\zs\.\S\+'
 let g:netrw_keepdir= 0
 autocmd FileType netrw setlocal bufhidden=delete
 " }}}
@@ -55,12 +55,6 @@ Plug 'dhruvasagar/vim-table-mode'
 
 " Dracula
 Plug 'dracula/vim', { 'as': 'dracula' }
-
-""" Auto generating React snippets 
-Plug 'epilande/vim-react-snippets'          
-
-""" Code snippets for multiple languages.
-Plug 'honza/vim-snippets'
 
 """ Debugger frontend
 Plug 'idanarye/vim-vebugger', {
@@ -104,9 +98,6 @@ Plug 'ryanhhtan/vim-helpers'
 """ asynchronous execution library for Vim, required by vebugger 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
-""" General sinippets management
-Plug 'SirVer/ultisnips'
-
 """ Tmux focus event detecting plugin, required by vim-tmux-clipboard
 Plug 'tmux-plugins/vim-tmux-focus-events'
 
@@ -119,9 +110,8 @@ Plug 'tpope/vim-surround'
 """ Vim git integration
 Plug 'tpope/vim-fugitive'
 
-""" Color theme  
-" Plug 'rafi/awesome-vim-colorschemes' 
-
+""" add-on for netrw
+Plug 'tpope/vim-vinegar'
 
 """ Show the matching tag 
 Plug 'valloric/matchtagalways'
@@ -132,6 +122,7 @@ Plug 'vim-scripts/VisIncr'
 """ personal wiki management
 Plug 'vimwiki/vimwiki'
 
+""" status line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
@@ -144,11 +135,6 @@ call plug#end()
 "" this setting must go before changing highlight colors
 colorscheme dracula
 hi! link Pmenu DraculaCyan
-
-"" UltiSnip
-let g:UltiSnipsEditSplit="vertical"
-let g:UltiSnipsSnippetsDir="/d/OneDrive/mysnips/"
-let g:UltiSnipsSnippetDirectories=["UltiSnips", "/d/OneDrive/mysnips/"]
 
 "" Vim Tmux Navigator
 let g:tmux_navigator_no_mappings = 1
@@ -250,6 +236,19 @@ nnoremap <silent> <space>j  :<C-u>CocNext<CR>
 nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 """" Resume latest coc list
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+""" coc-snippets
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
 
 " Fugitive key mappings
 nnoremap <leader>gs :Gstatus<CR>
@@ -312,6 +311,9 @@ nnoremap <leader>ts 0d$i[<esc>pa](#<esc>pa)<esc>F]
 "" Input code block in vimwiki
 inoremap ``` ```<CR>```<esc>O
 
+"" Auto completion of frequently used formats
+inoremap "" ""<ESC>i
+
 " Tmux
 nnoremap <silent> <c-h> :TmuxNavigateLeft<CR>
 nnoremap <silent> <c-j> :TmuxNavigateDown<CR>
@@ -328,10 +330,10 @@ let g:vebugger_leader="<Leader>d"
 nnoremap <Leader>da :call vebugger#jdb#attach('5005', {'srcpath': 'src/main/java'})
 
 " UltiSnip
-let g:UltiSnipsExpandTrigger="<tab>"
-let g:UltiSnipsListSnippets="<c-l>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+" let g:UltiSnipsExpandTrigger="<tab>" -- coc trigger instead
+" let g:UltiSnipsListSnippets="<c-l>"
+" let g:UltiSnipsJumpForwardTrigger="<TAB>"
+" let g:UltiSnipsJumpBackwardTrigger="<s-Tab>"
 
 " Open file explorer
 nnoremap <silent> <c-d> :Vex<CR>  

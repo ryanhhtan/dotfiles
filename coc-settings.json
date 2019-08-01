@@ -1,6 +1,6 @@
 {
   "java.jdt.ls.vmargs": "-javaagent:/home/vagrant/jars/lombok.jar -Xbootclasspath/p:/home/vagrant/jars/lombok.jar",
-  "snippets.ultisnips.directories": ["/d/OneDrive/mysnips"],
+  "snippets.userSnippetsDirectory": "/d/OneDrive/mysnips",
   "python.jediEnabled": false,
   "coc.preferences.colorSupport": true,
   "highlight.colors.enable": true,
