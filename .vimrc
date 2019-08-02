@@ -256,6 +256,22 @@ nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gc :Gcommit -s -S<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gp :Gpush<CR>
+
+" vim table mode
+
+function! s:isAtStartOfLine(mapping)
+  let text_before_cursor = getline('.')[0 : col('.')-1]
+  let mapping_pattern = '\V' . escape(a:mapping, '\')
+  let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
+  return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
+endfunction
+
+inoreabbrev <expr> <bar><bar>
+          \ <SID>isAtStartOfLine('\|\|') ?
+          \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
+inoreabbrev <expr> __
+          \ <SID>isAtStartOfLine('__') ?
+          \ '<c-o>:silent! TableModeDisable<cr>' : '__'
 " }}}
 
 " Tabs & Spaces {{{ 
@@ -279,7 +295,9 @@ set wildmenu                        " displays the matched files when fuzzy sear
 " replace ESC with 'jk'  
 inoremap jk <ESC>
 inoremap JK <ESC>
+" disable backspace
 inoremap <BS> <nop>
+imap <C-U> <ESC>viwUA
 " shortcut to edit .vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<CR>
 " apply the .vimrc
@@ -309,7 +327,7 @@ nmap <leader>qt ysiw`
 nnoremap <leader>ts 0d$i[<esc>pa](#<esc>pa)<esc>F]
 
 "" Input code block in vimwiki
-inoremap ``` ```<CR>```<esc>O
+inoremap ``` ```<CR>```<ESC>O
 
 "" Auto completion of frequently used formats
 inoremap "" ""<ESC>i
