@@ -6,5 +6,8 @@
   "highlight.colors.enable": true,
   "java.format.settings.url": "https://raw.githubusercontent.com/google/styleguide/gh-pages/eclipse-java-google-style.xml",
   "java.format.settings.profile": "GoogleStyle",
-  "java.maven.downloadSources": true
+  "java.maven.downloadSources": true,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  }
 }

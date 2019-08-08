@@ -25,7 +25,7 @@ let g:netrw_banner = 0
 " let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_list_hide='\(^\|\s\s\)\zs\.\S\+'
-let g:netrw_keepdir= 0
+" let g:netrw_keepdir= 0
 autocmd FileType netrw setlocal bufhidden=delete
 " }}}
   
@@ -61,30 +61,11 @@ Plug 'idanarye/vim-vebugger', {
    \ 'branch': 'develop' ,
    \ }
 
-"""" Hightline and indentation fro UraphQL 
-"" Plug 'jparise/vim-graphql'
-
-""" Fuzzy file finder and Multi-entry selection, for LanguagClient neovim
-Plug 'junegunn/fzf', {
-   \ 'dir': '~/.fzf', 
-   \ 'do': './install --all'
-   \ }
-Plug 'junegunn/fzf.vim'
-
 """ Intellisense engine: Conquer of Completion 
 Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
 
-""" Auto generating HTML/XML tags 
-Plug 'mattn/emmet-vim'
-
 """ A plugin to select date with cursor 
 Plug 'mattn/calendar-vim'
-
-""" Manage searching tools for vim
-Plug 'mileszs/ack.vim'
-
-""" Searching files asynchornously
-Plug 'rking/ag.vim'                         
 
 """ Vim Tmux clipboard
 Plug 'roxma/vim-tmux-clipboard'
@@ -93,7 +74,7 @@ Plug 'roxma/vim-tmux-clipboard'
 Plug 'ryanhhtan/vim-helpers'
 
 """ Collection of syntax and indentation
-" Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot'
 
 """ asynchronous execution library for Vim, required by vebugger 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -112,9 +93,6 @@ Plug 'tpope/vim-fugitive'
 
 """ add-on for netrw
 Plug 'tpope/vim-vinegar'
-
-""" Show the matching tag 
-Plug 'valloric/matchtagalways'
 
 """ Add numbers incresingly
 Plug 'vim-scripts/VisIncr'
@@ -162,7 +140,7 @@ imap <c-x><c-l> <plug>(fzf-complete-line)
 
 "" coc-nvim
 """ Extensions
-let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin', 'coc-phpls', 'coc-highlight', 'coc-lists']
+let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-xml', 'coc-emmet', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin', 'coc-phpls', 'coc-highlight', 'coc-lists']
 
 """ if hidden is not set, TextEdit might fail.
 set hidden
@@ -222,6 +200,8 @@ command! -nargs=0 Format :call CocActionAsync('format')
 """ Using CocList
 """" Show all diagnostics
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<CR>
+"""" Show files under current working directory and sub-directories
+nnoremap <silent> <space>f  :<C-u>CocList files<CR>
 """" Manage extensions
 nnoremap <silent> <space>e  :<C-u>CocList extensions<CR>
 """" Show commands
@@ -338,10 +318,6 @@ nnoremap <silent> <c-j> :TmuxNavigateDown<CR>
 nnoremap <silent> <c-k> :TmuxNavigateUp<CR>
 nnoremap <silent> <c-l> :TmuxNavigateRight<CR>
 nnoremap <silent> <c-p> :TmuxNavigatePrevious<CR>
-
-" Denite
-" nnoremap <c-f> :Denite file/rec<CR>
-nnoremap <c-f> :FZF<CR>
 
 " vim-vebugger
 let g:vebugger_leader="<Leader>d"
