@@ -223,6 +223,8 @@ command! -nargs=0 Format :call CocActionAsync('format')
 nnoremap <silent> <space>a  :<C-u>CocList diagnostics<CR>
 """" Show files under current working directory and sub-directories
 nnoremap <silent> <space>f  :<C-u>CocList files<CR>
+"""" Show most recent used buffers
+nnoremap <silent> <space>m  :<C-u>CocList mru<CR>
 """" Manage extensions
 nnoremap <silent> <space>e  :<C-u>CocList extensions<CR>
 """" Show commands
