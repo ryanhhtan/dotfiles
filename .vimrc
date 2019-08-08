@@ -30,9 +30,33 @@ autocmd FileType netrw setlocal bufhidden=delete
 " }}}
   
 " Custom Functions {{{
+" execute shell command and show output in a file
+" Ref https://stackoverflow.com/questions/10493452/vim-open-a-temporary-buffer-displaying-executables-output
+function! s:ExecuteInShell(command) " {{{
+    let command = join(map(split(a:command), 'expand(v:val)'))
+    let winnr = bufwinnr('^' . command . '$')
+    silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
+    setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap nonumber
+    echo 'Execute ' . command . '...'
+    silent! execute 'silent %!'. command
+    silent! redraw
+    silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+    silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>:AnsiEsc<CR>'
+    silent! execute 'nnoremap <silent> <buffer> q :q<CR>'
+    silent! execute 'AnsiEsc'
+    echo 'Shell command ' . command . ' executed.'
+endfunction " }}}
+command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
+nnoremap <leader>! :Shell
 
 " end custom functions
 " }}}
+
+" Custom commands {{{
+command! -nargs=1 Silent
+\   execute 'silent !' . <q-args>
+\ | execute 'redraw!'
+"}}}
 
 " Plugin Manager - Vim-Plug  {{{  
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -53,7 +77,7 @@ Plug 'christoomey/vim-tmux-navigator'
 """ Table mode
 Plug 'dhruvasagar/vim-table-mode'
 
-" Dracula
+" Color schemes
 Plug 'dracula/vim', { 'as': 'dracula' }
 
 """ Debugger frontend
@@ -74,7 +98,8 @@ Plug 'roxma/vim-tmux-clipboard'
 Plug 'ryanhhtan/vim-helpers'
 
 """ Collection of syntax and indentation
-Plug 'sheerun/vim-polyglot'
+"Plug 'sheerun/vim-polyglot'
+Plug 'MaxMEllon/vim-jsx-pretty'
 
 """ asynchronous execution library for Vim, required by vebugger 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
@@ -109,10 +134,6 @@ call plug#end()
 " }}}
 
 " Plugin Settings {{{  
-"" Color scheme option
-"" this setting must go before changing highlight colors
-colorscheme dracula
-hi! link Pmenu DraculaCyan
 
 "" Vim Tmux Navigator
 let g:tmux_navigator_no_mappings = 1
@@ -252,6 +273,11 @@ inoreabbrev <expr> <bar><bar>
 inoreabbrev <expr> __
           \ <SID>isAtStartOfLine('__') ?
           \ '<c-o>:silent! TableModeDisable<cr>' : '__'
+"
+"" Color scheme option
+"" this setting must go before changing highlight colors
+colorscheme dracula
+hi! link Pmenu DraculaCyan
 " }}}
 
 " Tabs & Spaces {{{ 
@@ -331,6 +357,9 @@ nnoremap <Leader>da :call vebugger#jdb#attach('5005', {'srcpath': 'src/main/java
 
 " Open file explorer
 nnoremap <silent> <c-d> :Vex<CR>  
+
+nnoremap <Leader>tf :!tmux send-keys -t 1 './mvnw clean test -Dtest=%:t\#<cword> -Dspring.profiles.active=local,test' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+nnoremap <Leader>tc :!tmux send-keys -t 1 './mvnw clean test -Dtest=%:t -Dspring.profiles.active=local,test' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
 " }}}
 
 " Augroups {{{ 
@@ -338,7 +367,6 @@ nnoremap <silent> <c-d> :Vex<CR>
 "     autocmd!
 "     autocmd filetype java setlocal shiftwidth=2 softtabstop=2 tabstop=2
 " augroup END
-
 " }}} 
 "
 " Misc {{{
