@@ -225,6 +225,8 @@ nnoremap <silent> <space>a  :<C-u>CocList diagnostics<CR>
 nnoremap <silent> <space>f  :<C-u>CocList files<CR>
 """" Show most recent used buffers
 nnoremap <silent> <space>m  :<C-u>CocList mru<CR>
+"""" Show most recent used buffers
+nnoremap <space>g  :<C-u>CocList grep 
 """" Manage extensions
 nnoremap <silent> <space>e  :<C-u>CocList extensions<CR>
 """" Show commands
@@ -316,6 +318,7 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 " nnoremap <leader>' bi'<esc>ea'
 inoremap ${ ${  }<LEFT><LEFT>
 inoremap {{ {{  }}<LEFT><LEFT><LEFT>
+inoremap {{{ {{{  }}}<LEFT><LEFT><LEFT><LEFT>
 inoremap [[ [[  ]]<LEFT><LEFT><LEFT>
 nnoremap <leader>q" F=ebi"<ESC>$bea"<LEFT>
 nnoremap <leader>q' F=ebi'<ESC>$bea'<LEFT>
