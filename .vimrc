@@ -86,7 +86,7 @@ Plug 'idanarye/vim-vebugger', {
    \ }
 
 """ Intellisense engine: Conquer of Completion 
-Plug 'neoclide/coc.nvim', {'tag': '*', 'branch': 'release'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 """ A plugin to select date with cursor 
 Plug 'mattn/calendar-vim'
