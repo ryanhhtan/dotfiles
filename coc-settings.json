@@ -1,5 +1,5 @@
 {
-  "java.jdt.ls.vmargs": "-javaagent:/home/vagrant/jars/lombok.jar -Xbootclasspath/p:/home/vagrant/jars/lombok.jar",
+  "java.jdt.ls.vmargs": "-javaagent:/home/vagrant/.m2/repository/org/projectlombok/lombok/1.18.6/lombok-1.18.6.jar -Xbootclasspath/p:/home/vagrant/.m2/repository/org/projectlombok/lombok/1.18.6/lombok-1.18.6.jar",
   "snippets.userSnippetsDirectory": "/d/OneDrive/mysnips",
   "python.jediEnabled": false,
   "coc.preferences.colorSupport": true,
