@@ -316,7 +316,7 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 ""Auto completion for braces, blackets and quotation marks 
 " nnoremap <leader>" bi"<esc>ea"
 " nnoremap <leader>' bi'<esc>ea'
-inoremap ${ ${  }<LEFT><LEFT>
+inoremap { {}<LEFT>
 inoremap {{ {{  }}<LEFT><LEFT><LEFT>
 inoremap {{{ {{{  }}}<LEFT><LEFT><LEFT><LEFT>
 inoremap [[ [[  ]]<LEFT><LEFT><LEFT>
