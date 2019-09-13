@@ -317,6 +317,8 @@ nnoremap <leader>sv :source $MYVIMRC<CR>
 " nnoremap <leader>" bi"<esc>ea"
 " nnoremap <leader>' bi'<esc>ea'
 inoremap {} {}<LEFT>
+inoremap () ()<LEFT>
+inoremap [] []<LEFT>
 inoremap {{ {{  }}<LEFT><LEFT><LEFT>
 inoremap {{{ {{{  }}}<LEFT><LEFT><LEFT><LEFT>
 inoremap [[ [[  ]]<LEFT><LEFT><LEFT>
