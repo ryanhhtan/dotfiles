@@ -341,6 +341,7 @@ nnoremap <leader>ts 0d$i[<esc>pa](#<esc>pa)<esc>F]
 
 "" Input code block in vimwiki
 inoremap ``` ```<CR>```<ESC>O
+inoremap `` ``<LEFT>
 
 "" Auto completion of frequently used formats
 inoremap "" ""<ESC>i
