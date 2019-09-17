@@ -58,7 +58,7 @@ command! -nargs=1 Silent
 \ | execute 'redraw!'
 "" remember the initial direcotry
 autocmd VimEnter * silent! let g:initial_dir=execute("pwd") 
-autocmd BufLeave * silent! if &filetype == 'netrw' | cd g:initial_dir | endif
+autocmd BufLeave * silent! if &filetype == 'netrw' | cd `=g:initial_dir` | endif
 "}}}
 
 " Plugin Manager - Vim-Plug  {{{  
