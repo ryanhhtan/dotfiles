@@ -1,7 +1,7 @@
   " Initial settings {{{
 set nocompatible
 set encoding=utf-8
-set wildignore=vendor/**,node_modules/**
+" set wildignore=vendor/**,node_modules/**
 set signcolumn=yes
 syntax on
 set hlsearch
@@ -23,10 +23,10 @@ endif
 " file explorer settings
 let g:netrw_banner = 0
 " let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_list_hide='\(^\|\s\s\)\zs\.\S\+'
+" let g:netrw_browse_split = 4
 let g:netrw_keepdir= 0
 autocmd FileType netrw setlocal bufhidden=delete
+autocmd VimEnter * let g:netrw_list_hide = netrw_gitignore#Hide()
 " }}}
   
 " Custom Functions {{{
