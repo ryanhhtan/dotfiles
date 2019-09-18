@@ -369,8 +369,8 @@ nnoremap <Leader>da :call vebugger#jdb#attach('5005', {'srcpath': 'src/main/java
 " Open file explorer
 nnoremap <silent> <c-d> :Vex<CR>  
 
-nnoremap <Leader>tf :!tmux send-keys -t 1 './mvnw clean test -Dtest=%:t\#<cword> -Dspring.profiles.active=local,test' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
-nnoremap <Leader>tc :!tmux send-keys -t 1 './mvnw clean test -Dtest=%:t -Dspring.profiles.active=local,test' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+nnoremap <Leader>tf :Silent tmux send-keys -t 1 './mvnw clean test -Dtest=%:t\#<cword> -Dspring.profiles.active=local,test' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT> | redraw!
+nnoremap <Leader>tc :Silent tmux send-keys -t 1 './mvnw clean test -Dtest=%:t -Dspring.profiles.active=local,test' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT> | redraw!
 " }}}
 
 " Augroups {{{ 
