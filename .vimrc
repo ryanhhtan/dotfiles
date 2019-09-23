@@ -101,8 +101,8 @@ Plug 'roxma/vim-tmux-clipboard'
 Plug 'ryanhhtan/vim-helpers'
 
 """ Collection of syntax and indentation
-"Plug 'sheerun/vim-polyglot'
-Plug 'MaxMEllon/vim-jsx-pretty'
+Plug 'sheerun/vim-polyglot'
+" Plug 'MaxMEllon/vim-jsx-pretty'
 
 """ asynchronous execution library for Vim, required by vebugger 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
