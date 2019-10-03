@@ -340,7 +340,7 @@ nmap <leader>qs ysiw'
 nmap <leader>qt ysiw` 
 
 "" Tag a line as sction in vimwiki
-nnoremap <leader>ts 0d$i[<esc>pa](#<esc>pa)<esc>F]
+autocmd FileType vimwiki nnoremap <leader>ts 0d$i[<esc>pa](#<esc>pa)<esc>F]
 
 "" Input code block in vimwiki
 inoremap ``` ```<CR>```<ESC>O
