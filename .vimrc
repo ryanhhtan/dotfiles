@@ -144,14 +144,7 @@ let g:tmux_navigator_no_mappings = 1
 "" Vimwiki 
 let g:vimwiki_list = [{'path': '/d/OneDrive/mywiki/',
             \ 'syntax': 'markdown', 'ext': '.md'}]
-
-"" Ack
-if executable('ag')
-    let g:ackprg = 'ag --vimgrep'
-endif
-
-"" Silver search ag with Ack
-let g:ackprg = 'ag --nogroup --nocolor --column'
+let g:vimwiki_table_mappings = 0
 
 "" Vebugger
 let g:vebugger_use_tags=1
@@ -189,7 +182,7 @@ inoremap <silent><expr> <c-space> coc#refresh()
 """ 
 " Use <CR> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+inoremap <expr> <space> pumvisible() ? "\<C-y>" : " "
 
 """ Use `[e` and `]e` to navigate diagnostics
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
@@ -266,7 +259,6 @@ nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gp :Gpush<CR>
 
 " vim table mode
-
 function! s:isAtStartOfLine(mapping)
   let text_before_cursor = getline('.')[0 : col('.')-1]
   let mapping_pattern = '\V' . escape(a:mapping, '\')
