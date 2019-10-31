@@ -180,9 +180,9 @@ set shortmess+=c
 inoremap <silent><expr> <c-space> coc#refresh()
 
 """ 
-" Use <CR> to confirm completion, `<C-g>u` means break undo chain at current position.
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
-inoremap <expr> <space> pumvisible() ? "\<C-y>" : " "
+inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
 
 """ Use `[e` and `]e` to navigate diagnostics
 nmap <silent> [e <Plug>(coc-diagnostic-prev)
