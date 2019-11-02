@@ -351,6 +351,7 @@ nnoremap <silent> <c-p> :TmuxNavigatePrevious<CR>
 " vim-vebugger
 let g:vebugger_leader="<Leader>d"
 nnoremap <Leader>da :call vebugger#jdb#attach('5005', {'srcpath': 'src/main/java'})
+nnoremap <Leader>ds :Silent tmux send-keys -t 1 './mvnw clean spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005" -Dspring-boot.run.profiles=local' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
 
 " UltiSnip
 " let g:UltiSnipsExpandTrigger="<tab>" -- coc trigger instead
