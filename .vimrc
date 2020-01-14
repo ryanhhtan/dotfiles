@@ -32,19 +32,19 @@ autocmd VimEnter * let g:netrw_list_hide = netrw_gitignore#Hide()
 " Custom Functions {{{
 " execute shell command and show output in a file
 " Ref https://stackoverflow.com/questions/10493452/vim-open-a-temporary-buffer-displaying-executables-output
-function! s:ExecuteInShell(command) " {{{
-    let command = join(map(split(a:command), 'expand(v:val)'))
-    let winnr = bufwinnr('^' . command . '$')
-    silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
-    setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap nonumber
-    echo 'Execute ' . command . '...'
-    silent! execute 'silent %!'. command
-    silent! redraw
-    silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
-    silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>:AnsiEsc<CR>'
-    silent! execute 'nnoremap <silent> <buffer> q :q<CR>'
-    silent! execute 'AnsiEsc'
-    echo 'Shell command ' . command . ' executed.'
+function! s:ExecuteInShell(command) " {{{ 
+  let command = join(map(split(a:command), 'expand(v:val)'))
+  let winnr = bufwinnr('^' . command . '$')
+  silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
+  setlocal buftype=nowrite bufhidden=wipe nobuflisted noswapfile nowrap nonumber
+  echo 'Execute ' . command . '...'
+  silent! execute 'silent %!'. command
+  silent! redraw
+  silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
+  silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>:AnsiEsc<CR>'
+  silent! execute 'nnoremap <silent> <buffer> q :q<CR>'
+  silent! execute 'AnsiEsc'
+  echo 'Shell command ' . command . ' executed.'
 endfunction " }}}
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
 nnoremap <leader>! :Shell
@@ -100,10 +100,6 @@ Plug 'roxma/vim-tmux-clipboard'
 """ My own helper plugin
 Plug 'ryanhhtan/vim-helpers'
 
-""" Collection of syntax and indentation
-Plug 'sheerun/vim-polyglot'
-" Plug 'MaxMEllon/vim-jsx-pretty'
-
 """ asynchronous execution library for Vim, required by vebugger 
 Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
@@ -132,11 +128,16 @@ Plug 'vimwiki/vimwiki'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 
+""" Collection of syntax and indentation
+Plug 'sheerun/vim-polyglot'
+
 "Plugin List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 " }}}
 
 " Plugin Settings {{{  
+"" Polyglot
+let g:polyglot_disabled = ['markdown']
 
 "" Vim Tmux Navigator
 let g:tmux_navigator_no_mappings = 1
@@ -366,6 +367,8 @@ nnoremap <Leader>tf :Silent tmux send-keys -t 1 './mvnw clean test -Dtest=%:t\#<
 nnoremap <Leader>tc :Silent tmux send-keys -t 1 './mvnw clean test -Dtest=%:t -Dspring.profiles.active=local,test' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
 nnoremap <Leader>ta :Silent tmux send-keys -t 1 './mvnw clean test -Dspring.profiles.active=local,test' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
 nnoremap <Leader>tg :Silent tmux send-keys -t 1 './mvnw clean test -Dspring.profiles.active=local,test -Dgroups=ControllerTests' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+nnoremap <Leader>tje :Silent tmux send-keys -t 2 'rest-client %' Enter
+nnoremap <Leader>tji :Shell source tests/env/local; rest-client %<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
 " }}}
 
 " Augroups {{{ 
