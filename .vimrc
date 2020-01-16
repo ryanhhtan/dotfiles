@@ -3,7 +3,6 @@ set nocompatible
 set encoding=utf-8
 " set wildignore=vendor/**,node_modules/**
 set signcolumn=yes
-syntax on
 set hlsearch
 set cmdheight=2
 " set leader key to ',' 
@@ -378,12 +377,13 @@ nnoremap <Leader>tji :Shell source tests/env/local; rest-client %<left><left><le
 " augroup END
 " }}} 
 "
-" Misc {{{
+" Settings after loading {{{
 set number
 set relativenumber
 set ruler
 set spellfile=/d/OneDrive/vim_spell/en.utf-8.add
 filetype plugin indent on
+syntax on
 "" Always show status line, disable with value of 0 
 set laststatus=2
 
@@ -391,3 +391,4 @@ set laststatus=2
 
 set modelines=1
 " vim:foldmethod=marker:foldlevel=0 
+"
