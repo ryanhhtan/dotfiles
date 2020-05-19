@@ -13,7 +13,6 @@ let maplocalleader="\\"
 let &t_SI = "\<esc>[5 q"  " blinking I-beam in insert mode
 let &t_SR = "\<esc>[3 q"  " blinking underline in replace mode
 let &t_EI = "\<esc>[ q"  " default cursor (usually blinking block) otherwise
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
 " use true color if possible
 if has('termguicolors')
   set termguicolors
@@ -24,7 +23,7 @@ endif
 let g:netrw_banner = 0
 " let g:netrw_liststyle = 3
 " let g:netrw_browse_split = 4
-let g:netrw_keepdir= 0
+" let g:netrw_keepdir= 0
 autocmd FileType netrw setlocal bufhidden=delete
 autocmd VimEnter * let g:netrw_list_hide = netrw_gitignore#Hide()
 " }}}
@@ -149,12 +148,6 @@ let g:vimwiki_table_mappings = 0
 
 "" Vebugger
 let g:vebugger_use_tags=1
-
-""fzf completion
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-imap <c-x><c-l> <plug>(fzf-complete-line)
 
 "" coc-nvim
 """ Extensions
