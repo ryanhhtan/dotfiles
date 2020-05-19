@@ -363,10 +363,10 @@ nnoremap <Leader>ds :Silent tmux send-keys -t 1 './mvnw clean spring-boot:run -D
 " Open file explorer
 nnoremap <silent> <c-d> :Vex<CR>  
 
-nnoremap <Leader>tf :Silent tmux send-keys -t 1 './mvnw clean test -Dtest=%:t\#<cword> -Dspring.profiles.active=local,test' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
-nnoremap <Leader>tc :Silent tmux send-keys -t 1 './mvnw clean test -Dtest=%:t -Dspring.profiles.active=local,test' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
-nnoremap <Leader>ta :Silent tmux send-keys -t 1 './mvnw clean test -Dspring.profiles.active=local,test' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
-nnoremap <Leader>tg :Silent tmux send-keys -t 1 './mvnw clean test -Dspring.profiles.active=local,test -Dgroups=ControllerTests' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+nnoremap <Leader>tf :Silent tmux send-keys -t 1 './mvnw clean test -Dtest=%:t\#<cword> -Dspring.profiles.active=local,ryantest' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+nnoremap <Leader>tc :Silent tmux send-keys -t 1 './mvnw clean test -Dtest=%:t -Dspring.profiles.active=local,ryantest' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+nnoremap <Leader>ta :Silent tmux send-keys -t 1 './mvnw clean test -Dspring.profiles.active=local,ryantest' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+nnoremap <Leader>tg :Silent tmux send-keys -t 1 './mvnw clean test -Dspring.profiles.active=local,ryantest -Dgroups=ControllerTests' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
 nnoremap <Leader>tje :Silent tmux send-keys -t 2 'rest-client %' Enter
 nnoremap <Leader>tji :Shell source tests/env/local; rest-client %<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
 " }}}
