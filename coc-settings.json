@@ -9,5 +9,11 @@
   "java.maven.downloadSources": true,
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
-  }
+  },
+    "languageserver": {
+        "kotlin": {
+            "command": "/home/vagrant/code/kotlin-language-server/server/build/install/server/bin/kotlin-language-server",
+            "filetypes": ["kotlin"]
+        }
+    }
 }
