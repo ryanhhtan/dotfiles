@@ -1,6 +1,7 @@
 {
   "snippets.userSnippetsDirectory": "/d/OneDrive/mysnips",
-  "java.jdt.ls.vmargs": "-javaagent:/home/vagrant/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar -Xbootclasspath/a:/home/vagrant/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar",
+  "java.jdt.ls.vmargs": "-javaagent:/home/vagrant/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar",
+  "java.home": "/home/vagrant/.sdkman/candidates/java/11.0.7-open",
   "python.jediEnabled": false,
   "coc.preferences.colorSupport": true,
   "highlight.colors.enable": true,

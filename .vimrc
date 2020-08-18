@@ -58,6 +58,7 @@ command! -nargs=1 Silent
 "" remember the initial direcotry
 autocmd VimEnter * silent! let g:initial_dir=execute("pwd") 
 autocmd BufLeave * silent! if &filetype == 'netrw' | cd `=g:initial_dir` | endif
+autocmd BufRead,BufNewFile *.md setlocal textwidth=80
 "}}}
 
 " Plugin Manager - Vim-Plug  {{{  
@@ -83,7 +84,7 @@ Plug 'dhruvasagar/vim-table-mode'
 Plug 'dracula/vim', { 'as': 'dracula' }
 
 """ Debugger frontend
-Plug 'idanarye/vim-vebugger', {
+"Plug 'idanarye/vim-vebugger', {
    \ 'branch': 'develop' ,
    \ }
 
@@ -100,7 +101,7 @@ Plug 'roxma/vim-tmux-clipboard'
 Plug 'ryanhhtan/vim-helpers'
 
 """ asynchronous execution library for Vim, required by vebugger 
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+"Plug 'Shougo/vimproc.vim', {'do' : 'make'}
 
 """ Tmux focus event detecting plugin, required by vim-tmux-clipboard
 Plug 'tmux-plugins/vim-tmux-focus-events'
@@ -130,6 +131,8 @@ Plug 'vim-airline/vim-airline-themes'
 """ Collection of syntax and indentation
 Plug 'sheerun/vim-polyglot'
 
+""" vimspector
+Plug 'puremourning/vimspector'
 "Plugin List ends here. Plugins become visible to Vim after this call.
 call plug#end()
 " }}}
@@ -147,11 +150,11 @@ let g:vimwiki_list = [{'path': '/d/OneDrive/mywiki/',
 let g:vimwiki_table_mappings = 0
 
 "" Vebugger
-let g:vebugger_use_tags=1
+"let g:vebugger_use_tags=1
 
 "" coc-nvim
 """ Extensions
-let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-xml', 'coc-emmet', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin', 'coc-phpls', 'coc-highlight', 'coc-lists', 'coc-deno']
+let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-xml', 'coc-emmet', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin', 'coc-phpls', 'coc-highlight', 'coc-lists', 'coc-deno', 'coc-java-debug']
 
 """ if hidden is not set, TextEdit might fail.
 set hidden
@@ -343,9 +346,18 @@ nnoremap <silent> <c-l> :TmuxNavigateRight<CR>
 nnoremap <silent> <c-p> :TmuxNavigatePrevious<CR>
 
 " vim-vebugger
-let g:vebugger_leader="<Leader>d"
-nnoremap <Leader>da :call vebugger#jdb#attach('5005', {'srcpath': 'src/main/java'})
-nnoremap <Leader>ds :Silent tmux send-keys -t 1 './mvnw clean spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005" -Dspring-boot.run.profiles=local' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+"let g:vebugger_leader="<Leader>d"
+"nnoremap <Leader>da :call vebugger#jdb#attach('5005', {'srcpath': 'src/main/java'})
+" coc-java
+nnoremap <Leader>dr :Silent tmux send-keys -t 1 './mvnw clean spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005" -Dspring-boot.run.profiles=local' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+nmap <leader>ds :CocCommand java.debug.vimspector.start<CR>
+nmap <leader>db <Plug>VimspectorToggleConditionalBreakpoint
+nmap <leader>di <Plug>VimspectorStepInto
+nmap <leader>do <Plug>VimspectorStepOut
+nmap <leader>dv <Plug>VimspectorStepOver
+nmap <leader>dc <Plug>VimspectorContinue
+nmap <leader>dt <Plug>VimspectorStop
+nmap <leader>de :VimspectorReset<CR>
 
 " UltiSnip
 " let g:UltiSnipsExpandTrigger="<tab>" -- coc trigger instead
