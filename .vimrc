@@ -75,9 +75,9 @@ endfunction
 
 "" run spring boot
 function! RunSpringbootApplication(mode)
-  let profile = input('spring.profiles.active=', 'local,dev')
+  let profile = input('spring-boot.run.profiles=', 'local,dev')
   if profile == '' | echom 'operation canceled' | return | endif
-  let command = './mvnw clean spring-boot:run -Dspring.profiles.active=' . profile
+  let command = './mvnw clean spring-boot:run -Dspring-boot.run.profiles=' . profile
   if a:mode == 'debug'
     let command = command . ' -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005" '
   endif
