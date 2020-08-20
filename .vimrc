@@ -40,7 +40,7 @@ function! s:ExecuteInShell(command)
   silent! execute 'silent %!'. command
   silent! redraw
   silent! execute 'au BufUnload <buffer> execute bufwinnr(' . bufnr('#') . ') . ''wincmd w'''
-  silent! execute 'nnoremap <silent> <buffer> <LocalLeader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>:AnsiEsc<CR>'
+  silent! execute 'nnoremap <silent> <buffer> <Localleader>r :call <SID>ExecuteInShell(''' . command . ''')<CR>:AnsiEsc<CR>'
   silent! execute 'nnoremap <silent> <buffer> q :q<CR>'
   silent! execute 'AnsiEsc'
   echo 'Shell command ' . command . ' executed.'
@@ -50,7 +50,6 @@ nnoremap <leader>! :Shell
 
 "" tmux execute
 function! TmuxExecute(command) 
-  echom a:command
   silent! execute ':!tmux send-keys -t 1 ' . "'" . a:command  . "' Enter"
   redraw!
 endfunction
@@ -62,6 +61,20 @@ function! ExecuteMavenTest(test)
   let trimStackTrace = input('trimStackTrace: ', 'true')
   let command = './mvnw clean test -Dtest=' . test . ' -Dspring.profiles.active=' . profile . ' -DtrimpStackTrace=' . trimStackTrace
   " echom command
+  call TmuxExecute(command)
+endfunction
+
+"" httpie test
+function! ExecuteHttpieTestFromBuffer()
+  let env = input('env: ', 'tests/env/local')
+  let command = ':Shell source '. getcwd(). '/' . env . '; rest-client ' . expand("%")
+  execute command
+endfunction
+
+"" run spring boot
+function! RunSpringbootApplication()
+  let profile = input('spring.profiles.active=', 'local,dev')
+  let command = './mvnw clean spring-boot:run -Dspring.profiles.active=' . profile
   call TmuxExecute(command)
 endfunction
 " end custom functions
@@ -362,10 +375,10 @@ nnoremap <silent> <c-l> :TmuxNavigateRight<CR>
 nnoremap <silent> <c-p> :TmuxNavigatePrevious<CR>
 
 " vim-vebugger
-"let g:vebugger_leader="<Leader>d"
-"nnoremap <Leader>da :call vebugger#jdb#attach('5005', {'srcpath': 'src/main/java'})
+"let g:vebugger_leader="<leader>d"
+"nnoremap <leader>da :call vebugger#jdb#attach('5005', {'srcpath': 'src/main/java'})
 " coc-java
-nnoremap <Leader>dr :Silent tmux send-keys -t 1 './mvnw clean spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005" -Dspring-boot.run.profiles=local' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+nnoremap <leader>dr :Silent tmux send-keys -t 1 './mvnw clean spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005" -Dspring-boot.run.profiles=local' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
 nmap <leader>ds :CocCommand java.debug.vimspector.start<CR>
 nmap <leader>db <Plug>VimspectorToggleConditionalBreakpoint
 nmap <leader>di <Plug>VimspectorStepInto
@@ -379,10 +392,11 @@ nmap <leader>de :VimspectorReset<CR>
 nnoremap <silent> <c-d> :Vex<CR>  
 
 " run test with tmux pane  
-nnoremap <Leader>tje :Silent tmux send-keys -t 2 'rest-client %' Enter
-nnoremap <Leader>tji :Shell source tests/env/local; rest-client %<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
-nnoremap <Leader>tf :call ExecuteMavenTest('method')<CR>
-nnoremap <Leader>tc :call ExecuteMavenTest('class')<CR>
+nnoremap <leader>tje :Silent tmux send-keys -t 2 'rest-client %' Enter
+nnoremap <leader>tji :call ExecuteHttpieTestFromBuffer()<CR> 
+nnoremap <leader>tf :call ExecuteMavenTest('method')<CR>
+nnoremap <leader>tc :call ExecuteMavenTest('class')<CR>
+nnoremap <leader>sr :call RunSpringbootApplication()<CR>
 "" End of key mappings
 " }}}
 
