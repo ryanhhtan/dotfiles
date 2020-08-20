@@ -51,7 +51,7 @@ nnoremap <leader>! :Shell
 "" tmux execute
 function! TmuxExecute(command) 
   echom a:command
-  silent! execute a:command
+  silent! execute ':!tmux send-keys -t 1 ' . "'" . a:command  . "' Enter"
   redraw!
 endfunction
 
@@ -62,8 +62,7 @@ function! ExecuteMavenTest(test)
   let trimStackTrace = input('trimStackTrace: ', 'true')
   let command = './mvnw clean test -Dtest=' . test . ' -Dspring.profiles.active=' . profile . ' -DtrimpStackTrace=' . trimStackTrace
   " echom command
-  let tmuxcommand = ':!tmux send-keys -t 1 ' . "'" . command . "' Enter" 
-  call TmuxExecute(tmuxcommand)
+  call TmuxExecute(command)
 endfunction
 " end custom functions
 " }}}
