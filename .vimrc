@@ -56,9 +56,11 @@ endfunction
 
 "" maven test function
 function! ExecuteMavenTest(test) 
-  let test = a:test == 'method' ? expand('%:t') . '\#' . expand('<cword>') : expand('%:t')
   let profile = input('spring.profiles.active: ', 'local,test')
+  if profile == '' | echom 'test canceled' | return | endif
   let trimStackTrace = input('trimStackTrace: ', 'true')
+  if trimStackTrace == '' | echom 'test canceled' | return | endif
+  let test = a:test == 'method' ? expand('%:t') . '\#' . expand('<cword>') : expand('%:t')
   let command = './mvnw clean test -Dtest=' . test . ' -Dspring.profiles.active=' . profile . ' -DtrimpStackTrace=' . trimStackTrace
   " echom command
   call TmuxExecute(command)
@@ -72,9 +74,13 @@ function! ExecuteHttpieTestFromBuffer()
 endfunction
 
 "" run spring boot
-function! RunSpringbootApplication()
+function! RunSpringbootApplication(mode)
   let profile = input('spring.profiles.active=', 'local,dev')
+  if profile == '' | echom 'operation canceled' | return | endif
   let command = './mvnw clean spring-boot:run -Dspring.profiles.active=' . profile
+  if a:mode == 'debug'
+    let command = command . ' -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005" '
+  endif
   call TmuxExecute(command)
 endfunction
 " end custom functions
@@ -280,7 +286,7 @@ let g:coc_snippet_prev = '<S-TAB>'
 " Fugitive key mappings
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gw :Gwrite<CR>
-nnoremap <leader>gc :Gcommit -s -S<CR>
+nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gp :Gpush<CR>
 
@@ -378,7 +384,7 @@ nnoremap <silent> <c-p> :TmuxNavigatePrevious<CR>
 "let g:vebugger_leader="<leader>d"
 "nnoremap <leader>da :call vebugger#jdb#attach('5005', {'srcpath': 'src/main/java'})
 " coc-java
-nnoremap <leader>dr :Silent tmux send-keys -t 1 './mvnw clean spring-boot:run -Dspring-boot.run.jvmArguments="-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005" -Dspring-boot.run.profiles=local' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+nnoremap <leader>dr :call RunSpringbootApplication('debug')<CR>
 nmap <leader>ds :CocCommand java.debug.vimspector.start<CR>
 nmap <leader>db <Plug>VimspectorToggleConditionalBreakpoint
 nmap <leader>di <Plug>VimspectorStepInto
@@ -396,7 +402,7 @@ nnoremap <leader>tje :Silent tmux send-keys -t 2 'rest-client %' Enter
 nnoremap <leader>tji :call ExecuteHttpieTestFromBuffer()<CR> 
 nnoremap <leader>tf :call ExecuteMavenTest('method')<CR>
 nnoremap <leader>tc :call ExecuteMavenTest('class')<CR>
-nnoremap <leader>sr :call RunSpringbootApplication()<CR>
+nnoremap <leader>sr :call RunSpringbootApplication('normal')<CR>
 "" End of key mappings
 " }}}
 
