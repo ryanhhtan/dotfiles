@@ -29,9 +29,9 @@ autocmd VimEnter * let g:netrw_list_hide = netrw_gitignore#Hide()
 " }}}
   
 " Custom Functions {{{
-" execute shell command and show output in a file
-" Ref https://stackoverflow.com/questions/10493452/vim-open-a-temporary-buffer-displaying-executables-output
-function! s:ExecuteInShell(command) " {{{ 
+"" execute shell command and show output in a file
+"" Ref https://stackoverflow.com/questions/10493452/vim-open-a-temporary-buffer-displaying-executables-output
+function! s:ExecuteInShell(command)
   let command = join(map(split(a:command), 'expand(v:val)'))
   let winnr = bufwinnr('^' . command . '$')
   silent! execute  winnr < 0 ? 'botright vnew ' . fnameescape(command) : winnr . 'wincmd w'
@@ -44,10 +44,27 @@ function! s:ExecuteInShell(command) " {{{
   silent! execute 'nnoremap <silent> <buffer> q :q<CR>'
   silent! execute 'AnsiEsc'
   echo 'Shell command ' . command . ' executed.'
-endfunction " }}}
+endfunction
 command! -complete=shellcmd -nargs=+ Shell call s:ExecuteInShell(<q-args>)
 nnoremap <leader>! :Shell
 
+"" tmux execute
+function! TmuxExecute(command) 
+  echom a:command
+  silent! execute a:command
+  redraw!
+endfunction
+
+"" maven test function
+function! ExecuteMavenTest(test) 
+  let test = a:test == 'method' ? expand('%:t') . '\#' . expand('<cword>') : expand('%:t')
+  let profile = input('spring.profiles.active: ', 'local,test')
+  let trimStackTrace = input('trimStackTrace: ', 'true')
+  let command = './mvnw clean test -Dtest=' . test . ' -Dspring.profiles.active=' . profile . ' -DtrimpStackTrace=' . trimStackTrace
+  " echom command
+  let tmuxcommand = ':!tmux send-keys -t 1 ' . "'" . command . "' Enter" 
+  call TmuxExecute(tmuxcommand)
+endfunction
 " end custom functions
 " }}}
 
@@ -359,30 +376,17 @@ nmap <leader>dc <Plug>VimspectorContinue
 nmap <leader>dt <Plug>VimspectorStop
 nmap <leader>de :VimspectorReset<CR>
 
-" UltiSnip
-" let g:UltiSnipsExpandTrigger="<tab>" -- coc trigger instead
-" let g:UltiSnipsListSnippets="<c-l>"
-" let g:UltiSnipsJumpForwardTrigger="<TAB>"
-" let g:UltiSnipsJumpBackwardTrigger="<s-Tab>"
-
 " Open file explorer
 nnoremap <silent> <c-d> :Vex<CR>  
 
-nnoremap <Leader>tf :Silent tmux send-keys -t 1 './mvnw clean test -Dtest=%:t\#<cword> -Dspring.profiles.active=local,test' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
-nnoremap <Leader>tc :Silent tmux send-keys -t 1 './mvnw clean test -Dtest=%:t -Dspring.profiles.active=local,test' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
-nnoremap <Leader>ta :Silent tmux send-keys -t 1 './mvnw clean test -Dspring.profiles.active=local,test' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
-nnoremap <Leader>tg :Silent tmux send-keys -t 1 './mvnw clean test -Dspring.profiles.active=local,test -Dgroups=ControllerTests' Enter<LEFT><LEFT><LEFT><LEFT><LEFT><LEFT><LEFT>
+" run test with tmux pane  
 nnoremap <Leader>tje :Silent tmux send-keys -t 2 'rest-client %' Enter
 nnoremap <Leader>tji :Shell source tests/env/local; rest-client %<left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
+nnoremap <Leader>tf :call ExecuteMavenTest('method')<CR>
+nnoremap <Leader>tc :call ExecuteMavenTest('class')<CR>
+"" End of key mappings
 " }}}
 
-" Augroups {{{ 
-" augroup java_spaces
-"     autocmd!
-"     autocmd filetype java setlocal shiftwidth=2 softtabstop=2 tabstop=2
-" augroup END
-" }}} 
-"
 " Settings after loading {{{
 set number
 set relativenumber
