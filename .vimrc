@@ -283,25 +283,20 @@ inoremap <silent><expr> <TAB>
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
       \ <SID>check_back_space() ? "\<TAB>" :
       \ coc#refresh()
-
 function! s:check_back_space() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
-
 let g:coc_snippet_next = '<TAB>'
 let g:coc_snippet_prev = '<S-TAB>'
-
 """ project-wide search and replace with coc-search
 nnoremap <leader>sa :CocSearch <C-R>=expand("<cword>")<CR><CR>
-
 " Fugitive key mappings
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gd :Gdiff<CR>
 nnoremap <leader>gp :Gpush<CR>
-
 " vim table mode
 function! s:isAtStartOfLine(mapping)
   let text_before_cursor = getline('.')[0 : col('.')-1]
@@ -309,7 +304,7 @@ function! s:isAtStartOfLine(mapping)
   let comment_pattern = '\V' . escape(substitute(&l:commentstring, '%s.*$', '', ''), '\')
   return (text_before_cursor =~? '^' . ('\v(' . comment_pattern . '\v)?') . '\s*\v' . mapping_pattern . '\v$')
 endfunction
-
+" vim-table
 inoreabbrev <expr> <bar><bar>
           \ <SID>isAtStartOfLine('\|\|') ?
           \ '<c-o>:TableModeEnable<cr><bar><space><bar><left><left>' : '<bar><bar>'
@@ -321,8 +316,7 @@ inoreabbrev <expr> __
 "" this setting must go before changing highlight colors
 colorscheme dracula
 hi! link Pmenu DraculaCyan
-
-" end of plugin configuration
+" end of plugins configuration
 " }}}
 
 " Tabs & Spaces {{{ 
