@@ -83,7 +83,16 @@ function! RunSpringbootApplication(mode)
   endif
   call TmuxExecute(command)
 endfunction
-" end custom functions
+
+"" replace current word
+function! ReplaceCurrentWord()
+  let current = expand("<cword>")
+  let target = input("replace " . current . " with: ", current)
+  if target == '' | echom 'operation canceled' | return | endif
+  execute ":%s/" . current . "/" . target ."/g"
+endfunction
+
+" end of custom functions
 " }}}
 
 " Custom commands {{{
@@ -283,6 +292,9 @@ endfunction
 let g:coc_snippet_next = '<TAB>'
 let g:coc_snippet_prev = '<S-TAB>'
 
+""" project-wide search and replace with coc-search
+nnoremap <leader>sa :CocSearch <C-R>=expand("<cword>")<CR><CR>
+
 " Fugitive key mappings
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gw :Gwrite<CR>
@@ -309,6 +321,8 @@ inoreabbrev <expr> __
 "" this setting must go before changing highlight colors
 colorscheme dracula
 hi! link Pmenu DraculaCyan
+
+" end of plugin configuration
 " }}}
 
 " Tabs & Spaces {{{ 
@@ -353,7 +367,8 @@ nnoremap <leader>q" F=ebi"<ESC>$bea"<LEFT>
 nnoremap <leader>q' F=ebi'<ESC>$bea'<LEFT>
 
 ""Replace the word under cursor
-nnoremap <leader>rr :%s/\<<C-R><C-W>\>//g<LEFT><LEFT>
+" nnoremap <leader>rr :%s/\<<C-R><C-W>\>//g<LEFT><LEFT>
+nnoremap <leader>rr :call ReplaceCurrentWord()<CR> 
 
 "" Force redraw
 nnoremap <leader>rd :redraw!<CR>
