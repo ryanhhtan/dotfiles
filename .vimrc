@@ -199,6 +199,7 @@ let g:vimwiki_table_mappings = 0
 "" fzf
 command! -bang -nargs=? -complete=dir Files
     \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+nnoremap <silent> <space>f :Files<CR> 
 
 "" coc-nvim
 """ Extensions
