@@ -134,6 +134,9 @@ Plug 'dracula/vim', { 'as': 'dracula' }
 
 """ Intellisense engine: Conquer of Completion 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}
+Plug 'junegunn/fzf.vim' " needed for previews
+Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
 
 """ A plugin to select date with cursor 
 Plug 'mattn/calendar-vim'
@@ -193,8 +196,9 @@ let g:vimwiki_list = [{'path': '/d/OneDrive/mywiki/',
             \ 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_table_mappings = 0
 
-"" Vebugger
-"let g:vebugger_use_tags=1
+"" fzf
+command! -bang -nargs=? -complete=dir Files
+    \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
 
 "" coc-nvim
 """ Extensions
@@ -247,7 +251,6 @@ function! s:show_documentation()
 endfunction
 
 """ key mappings
-nmap <leader>f <Plug>(coc-codeaction)
 nmap <leader>rn <Plug>(coc-rename)
 """ Remap for do codeAction of current line
 nmap <leader>ac  <Plug>(coc-codeaction)
@@ -256,10 +259,12 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 """ Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocActionAsync('format')
 """ Using CocList
-"""" Show all diagnostics
-nnoremap <silent> <space>a  :<C-u>CocList diagnostics<CR>
-"""" Show files under current working directory and sub-directories
-nnoremap <silent> <space>f  :<C-u>CocList files<CR>
+"""" Show all list categories
+nnoremap <silent> <space><space> :<C-u>CocFzfList<CR>
+"""" Show all diagnostic messages
+nnoremap <silent> <space>d  :<C-u>CocFzfList diagnostics<CR>
+"""" Show current action
+nnoremap <silent> <space>a  :<C-u>CocFzfList actions<CR>
 """" Show most recent used buffers
 nnoremap <silent> <space>m  :<C-u>CocList mru<CR>
 """" Show most recent used buffers
