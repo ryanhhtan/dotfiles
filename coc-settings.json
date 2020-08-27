@@ -1,7 +1,22 @@
 {
   "snippets.userSnippetsDirectory": "/d/OneDrive/mysnips",
   "java.jdt.ls.vmargs": "-javaagent:/home/vagrant/.m2/repository/org/projectlombok/lombok/1.18.12/lombok-1.18.12.jar",
-  "java.home": "/home/vagrant/.sdkman/candidates/java/11.0.7-open",
+  "java.home": "/home/vagrant/.sdkman/candidates/java/11.0.8-open",
+  "java.configuration.runtimes": [
+  {
+    "name": "JavaSE-1.8",
+    "path": "/home/vagrant/.sdkman/candidates/java/8.0.265-open",
+    "default": true
+  },
+  {
+    "name": "JavaSE-11",
+    "path": "/home/vagrant/.sdkman/candidates/java/11.0.8-open"
+  },
+  {
+    "name": "JavaSE-14",
+    "path": "/home/vagrant/.sdkman/candidates/java/14.0.2-open"
+  }
+],
   "python.jediEnabled": false,
   "coc.preferences.colorSupport": true,
   "highlight.colors.enable": true,
