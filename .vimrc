@@ -60,15 +60,17 @@ function! ExecuteMavenTest(test)
   if profile == '' | echom 'test canceled' | return | endif
   let trimStackTrace = input('trimStackTrace: ', 'true')
   if trimStackTrace == '' | echom 'test canceled' | return | endif
-  let test = a:test == 'method' ? expand('%:t') . '\#' . expand('<cword>') : expand('%:t')
-  let command = './mvnw clean test -Dtest=' . test . ' -Dspring.profiles.active=' . profile . ' -DtrimpStackTrace=' . trimStackTrace
-  " echom command
+  let tests={'method': expand('%:t') . '\#' . expand('<cword>'), 'class': expand('%:t')}
+  let test = get(tests, a:test, '')
+  let command = './mvnw clean test ' . '-Dspring.profiles.active=' . profile . ' -DtrimpStackTrace=' . trimStackTrace
+  if test != '' | let command = command . ' -D test=' . test | endif
   call TmuxExecute(command)
 endfunction
 
 "" httpie test
 function! ExecuteHttpieTestFromBuffer()
   let env = input('env: ', 'tests/env/local')
+  if env == '' | echom 'operation canceled'  | return | endif
   let command = ':Shell source '. getcwd(). '/' . env . '; rest-client ' . expand("%")
   execute command
 endfunction
@@ -399,25 +401,27 @@ nnoremap <silent> <c-p> :TmuxNavigatePrevious<CR>
 "let g:vebugger_leader="<leader>d"
 "nnoremap <leader>da :call vebugger#jdb#attach('5005', {'srcpath': 'src/main/java'})
 " coc-java
-nnoremap <leader>dr :call RunSpringbootApplication('debug')<CR>
-nmap <leader>ds :CocCommand java.debug.vimspector.start<CR>
-nmap <leader>db <Plug>VimspectorToggleConditionalBreakpoint
+autocmd FileType java nnoremap <leader>dr :call RunSpringbootApplication('debug')<CR>
+autocmd FileType java nnoremap <leader>ds :CocCommand java.debug.vimspector.start<CR>
+autocmd FileType java nnoremap <leader>de :VimspectorReset<CR>
+nmap <leader>db <Plug>VimspectorToggleBreakpoint
 nmap <leader>di <Plug>VimspectorStepInto
+nmap <leader>du <Plug>VimspectorStepUp
 nmap <leader>do <Plug>VimspectorStepOut
 nmap <leader>dv <Plug>VimspectorStepOver
 nmap <leader>dc <Plug>VimspectorContinue
 nmap <leader>dt <Plug>VimspectorStop
-nmap <leader>de :VimspectorReset<CR>
 
 " Open file explorer
 nnoremap <silent> <c-d> :Vex<CR>  
 
 " run test with tmux pane  
 nnoremap <leader>tje :Silent tmux send-keys -t 2 'rest-client %' Enter
-nnoremap <leader>tji :call ExecuteHttpieTestFromBuffer()<CR> 
-nnoremap <leader>tf :call ExecuteMavenTest('method')<CR>
-nnoremap <leader>tc :call ExecuteMavenTest('class')<CR>
-nnoremap <leader>sr :call RunSpringbootApplication('normal')<CR>
+autocmd FileType json nnoremap <leader>tji :call ExecuteHttpieTestFromBuffer()<CR> 
+autocmd FileType java nnoremap <leader>tf :call ExecuteMavenTest('method')<CR>
+autocmd FileType java nnoremap <leader>tc :call ExecuteMavenTest('class')<CR>
+autocmd FileType java nnoremap <leader>ta :call ExecuteMavenTest('all')<CR>
+autocmd FileType java nnoremap <leader>sr :call RunSpringbootApplication('normal')<CR>
 "" End of key mappings
 " }}}
 
