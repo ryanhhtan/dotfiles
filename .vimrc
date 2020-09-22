@@ -13,6 +13,8 @@ let maplocalleader="\\"
 let &t_SI = "\<esc>[5 q"  " blinking I-beam in insert mode
 let &t_SR = "\<esc>[3 q"  " blinking underline in replace mode
 let &t_EI = "\<esc>[ q"  " default cursor (usually blinking block) otherwise
+"" Polyglot
+let g:polyglot_disabled = ['markdown']
 " use true color if possible
 if has('termguicolors')
   set termguicolors
@@ -187,8 +189,6 @@ call plug#end()
 " }}}
 
 " Plugin Settings {{{  
-"" Polyglot
-let g:polyglot_disabled = ['markdown']
 
 "" Vim Tmux Navigator
 let g:tmux_navigator_no_mappings = 1
