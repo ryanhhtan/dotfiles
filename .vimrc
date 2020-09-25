@@ -205,7 +205,7 @@ nnoremap <silent> <space>f :Files<CR>
 
 "" coc-nvim
 """ Extensions
-let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-xml', 'coc-emmet', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin', 'coc-phpls', 'coc-highlight', 'coc-lists', 'coc-deno', 'coc-java-debug']
+let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-xml', 'coc-emmet', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin', 'coc-phpls', 'coc-highlight', 'coc-lists', 'coc-java-debug']
 
 """ if hidden is not set, TextEdit might fail.
 set hidden
