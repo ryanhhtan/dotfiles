@@ -265,27 +265,28 @@ command! -nargs=0 Format :call CocActionAsync('format')
 """" Show all list categories
 nnoremap <silent> <space><space> :<C-u>CocFzfList<CR>
 """" Show all diagnostic messages
-nnoremap <silent> <space>d  :<C-u>CocFzfList diagnostics<CR>
+nnoremap <silent> <space>d :<C-u>CocFzfList diagnostics<CR>
 """" Show current action
-nnoremap <silent> <space>a  :<C-u>CocFzfList actions<CR>
+"nnoremap <silent> <space>a  :<C-u>CocFzfList actions<CR>
+nnoremap <silent> <space>a :call coc_fzf#actions#fzf_run()<CR>
 """" Show most recent used buffers
-nnoremap <silent> <space>m  :<C-u>CocList mru<CR>
+nnoremap <silent> <space>m :<C-u>CocList mru<CR>
 """" Show most recent used buffers
 nnoremap <space>g  :<C-u>CocList grep 
 """" Manage extensions
-nnoremap <silent> <space>e  :<C-u>CocList extensions<CR>
+nnoremap <silent> <space>e :<C-u>CocList extensions<CR>
 """" Show commands
-nnoremap <silent> <space>c  :<C-u>CocList commands<CR>
+nnoremap <silent> <space>c :<C-u>CocList commands<CR>
 """" Find symbol of current document
-nnoremap <silent> <space>o  :<C-u>CocList outline<CR>
+nnoremap <silent> <space>o :<C-u>CocList outline<CR>
 """" Search workspace symbols
-nnoremap <silent> <space>s  :<C-u>CocList -I symbols<CR>
+nnoremap <silent> <space>s :<C-u>CocList -I symbols<CR>
 """" Do default action for next item.
-nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+nnoremap <silent> <space>j :<C-u>CocNext<CR>
 """" Do default action for previous item.
-nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+nnoremap <silent> <space>k :<C-u>CocPrev<CR>
 """" Resume latest coc list
-nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+nnoremap <silent> <space>p :<C-u>CocListResume<CR>
 """ coc-snippets
 inoremap <silent><expr> <TAB>
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
