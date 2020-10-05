@@ -64,7 +64,7 @@ function! ExecuteMavenTest(test)
   if trimStackTrace == '' | echom 'test canceled' | return | endif
   let tests={'method': expand('%:t') . '\#' . expand('<cword>'), 'class': expand('%:t')}
   let test = get(tests, a:test, '')
-  let command = './mvnw clean test ' . '-Dspring.profiles.active=' . profile . ' -DtrimpStackTrace=' . trimStackTrace
+  let command = './mvnw clean test ' . '-Dspring.profiles.active=' . profile . ' -DtrimStackTrace=' . trimStackTrace
   if test != '' | let command = command . ' -D test=' . test | endif
   call TmuxExecute(command)
 endfunction
@@ -267,8 +267,8 @@ nnoremap <silent> <space><space> :<C-u>CocFzfList<CR>
 """" Show all diagnostic messages
 nnoremap <silent> <space>d :<C-u>CocFzfList diagnostics<CR>
 """" Show current action
-"nnoremap <silent> <space>a  :<C-u>CocFzfList actions<CR>
-nnoremap <silent> <space>a :call coc_fzf#actions#fzf_run()<CR>
+nnoremap <silent> <space>a  :<C-u>CocFzfList actions<CR>
+"nnoremap <silent> <space>a :call coc_fzf#actions#fzf_run()<CR>
 """" Show most recent used buffers
 nnoremap <silent> <space>m :<C-u>CocList mru<CR>
 """" Show most recent used buffers
