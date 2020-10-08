@@ -2,6 +2,7 @@
 set nocompatible
 set encoding=utf-8
 set fileencodings=ucs-bom,utf-8,utf-16,gbk,big5,gb18030,latin1
+set dir=/tmp//
 " set wildignore=vendor/**,node_modules/**
 set signcolumn=yes
 set hlsearch
