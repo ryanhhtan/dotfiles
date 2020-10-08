@@ -186,6 +186,8 @@ Plug 'sheerun/vim-polyglot'
 """ vimspector
 Plug 'puremourning/vimspector'
 "Plugin List ends here. Plugins become visible to Vim after this call.
+"
+Plug 'terryma/vim-multiple-cursors'
 call plug#end()
 " }}}
 
