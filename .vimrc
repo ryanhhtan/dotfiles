@@ -23,12 +23,12 @@ if has('termguicolors')
   set t_ut=
 endif
 " file explorer settings
-let g:netrw_banner = 0
+"let g:netrw_banner = 0
 " let g:netrw_liststyle = 3
 " let g:netrw_browse_split = 4
-let g:netrw_keepdir= 0
-autocmd FileType netrw setlocal bufhidden=delete
-autocmd VimEnter * let g:netrw_list_hide = netrw_gitignore#Hide()
+"let g:netrw_keepdir= 0
+"autocmd FileType netrw setlocal bufhidden=delete
+"autocmd VimEnter * let g:netrw_list_hide = netrw_gitignore#Hide()
 " }}}
   
 " Custom Functions {{{
@@ -168,7 +168,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-fugitive'
 
 """ add-on for netrw
-Plug 'tpope/vim-vinegar'
+"Plug 'tpope/vim-vinegar'
 
 """ Add numbers incresingly
 Plug 'vim-scripts/VisIncr'
@@ -208,7 +208,7 @@ nnoremap <silent> <space>f :Files<CR>
 
 "" coc-nvim
 """ Extensions
-let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-xml', 'coc-emmet', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin', 'coc-phpls', 'coc-highlight', 'coc-lists', 'coc-java-debug']
+let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-emmet', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin', 'coc-phpls', 'coc-highlight', 'coc-lists', 'coc-java-debug', 'coc-xml', 'coc-explorer']
 
 """ if hidden is not set, TextEdit might fail.
 set hidden
@@ -290,6 +290,8 @@ nnoremap <silent> <space>j :<C-u>CocNext<CR>
 nnoremap <silent> <space>k :<C-u>CocPrev<CR>
 """" Resume latest coc list
 nnoremap <silent> <space>p :<C-u>CocListResume<CR>
+"""" File Explorer
+nnoremap <silent> <space>b :<C-u>CocCommand explorer<CR>
 """ coc-snippets
 inoremap <silent><expr> <TAB>
       \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
@@ -328,6 +330,8 @@ inoreabbrev <expr> __
 "" this setting must go before changing highlight colors
 colorscheme dracula
 hi! link Pmenu DraculaCyan
+"" vime-airline fonts
+let g:airline_powerline_fonts = 1
 " end of plugins configuration
 " }}}
 
