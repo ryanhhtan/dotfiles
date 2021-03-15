@@ -175,6 +175,8 @@ Plug 'vim-scripts/VisIncr'
 
 """ personal wiki management
 Plug 'vimwiki/vimwiki'
+""" taskwiki
+Plug 'tools-life/taskwiki'
 
 """ status line
 Plug 'vim-airline/vim-airline'
@@ -197,8 +199,11 @@ call plug#end()
 let g:tmux_navigator_no_mappings = 1
 
 "" Vimwiki 
-let g:vimwiki_list = [{'path': '/d/OneDrive/mywiki/',
-            \ 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_list = [
+  \ {'name':'work','path': '/d/OneDrive/vimwiki/work/', 'syntax': 'markdown', 'ext': '.md'},
+  \ {'name':'knowledge','path': '/d/OneDrive/vimwiki/knowledgebase/', 'syntax': 'markdown', 'ext': '.md'},
+  \ {'name': 'personal', 'path': '/d/OneDrive/vimwiki/personal/', 'syntax': 'markdown', 'ext': '.md'},
+  \ ]
 let g:vimwiki_table_mappings = 0
 
 "" fzf
@@ -208,7 +213,25 @@ nnoremap <silent> <space>f :Files<CR>
 
 "" coc-nvim
 """ Extensions
-let g:coc_global_extensions = ['coc-java', 'coc-json', 'coc-python', 'coc-html', 'coc-emmet', 'coc-css', 'coc-snippets', 'coc-yaml', 'coc-tsserver', 'coc-tslint-plugin', 'coc-phpls', 'coc-highlight', 'coc-lists', 'coc-java-debug', 'coc-xml', 'coc-explorer']
+let g:coc_global_extensions = [
+  \ 'coc-css', 
+  \ 'coc-emmet', 
+  \ 'coc-explorer', 
+  \ 'coc-highlight', 
+  \ 'coc-html', 
+  \ 'coc-java', 
+  \ 'coc-java-debug', 
+  \ 'coc-json', 
+  \ 'coc-lists', 
+  \ 'coc-phpls', 
+  \ 'coc-python', 
+  \ 'coc-snippets', 
+  \ 'coc-tsserver', 
+  \ 'coc-tslint-plugin', 
+  \ 'coc-word',
+  \ 'coc-xml', 
+  \ 'coc-yaml', 
+  \ ]
 
 """ if hidden is not set, TextEdit might fail.
 set hidden
